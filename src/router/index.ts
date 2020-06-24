@@ -1,22 +1,36 @@
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
-import Home from '../views/Home.vue';
+
+import Landing from '../views/landing/Landing.vue';
 
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
   {
     path: '/',
-    name: 'Home',
-    component: Home,
+    name: 'Landing page',
+    component: Landing,
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    path: '/icons',
+    name: 'Icons',
+    component: () => import('../views/icons/Icons.vue'),
+    children: [
+      {
+        path: ':id',
+        name: 'Icon',
+        component: () => import('../views/icons/icon/Icon.vue'),
+      },
+    ],
+  },
+  {
+    path: '/not-found',
+    name: 'Not found',
+    component: () => import('../views/not-found/NotFound.vue'),
+  },
+  {
+    path: '*',
+    redirect: '/not-found',
   },
 ];
 
