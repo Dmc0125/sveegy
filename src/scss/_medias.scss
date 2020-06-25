@@ -6,37 +6,37 @@ $desktop-m-size: 1360px;
 $desktop-l-size: 1440px;
 
 @mixin tablet {
-  @media (min-width: #{$mobile-size}) {
+  @media (min-width: #{$mobile-size + 1px}) {
     @content;
   }
 }
 
 @mixin desktop-xs {
-  @media (min-width: #{$tablet-size}) {
+  @media (min-width: #{$tablet-size + 1px}) {
     @content;
   }
 }
 
 @mixin desktop-s {
-  @media (min-width: #{$desktop-xs-size}) {
+  @media (min-width: #{$desktop-xs-size + 1px}) {
     @content;
   }
 }
 
 @mixin desktop-m {
-  @media (min-width: #{$desktop-s-size}) {
+  @media (min-width: #{$desktop-s-size + 1px}) {
     @content;
   }
 }
 
 @mixin desktop-l {
-  @media (min-width: #{$desktop-m-size}) {
+  @media (min-width: #{$desktop-m-size + 1px}) {
     @content;
   }
 }
 
 @mixin desktop-xl {
-  @media (min-width: #{$desktop-l-size}) {
+  @media (min-width: #{$desktop-l-size + 1px}) {
     @content;
   }
 }
