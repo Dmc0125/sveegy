@@ -109,7 +109,7 @@ nav {
   height: var(--height);
   padding: 0 2px;
 
-  background: var(--font-clr-light);
+  background: var(--font-clr);
   border-radius: calc(var(--height) / 2);
 
   display: flex;
@@ -142,7 +142,7 @@ nav {
   width: var(--size);
   height: var(--size);
 
-  color: var(--font-clr-dark);
+  color: var(--font-clr);
 }
 
 @include tablet {

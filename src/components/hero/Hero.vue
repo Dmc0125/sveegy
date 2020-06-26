@@ -53,7 +53,7 @@ h2 {
   margin: 50px auto 0;
 
   background: var(--secondary);
-  color: var(--font-clr-light);
+  color: var(--font-clr-inverse);
   border-radius: 10px;
 
   display: flex;

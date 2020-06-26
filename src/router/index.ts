@@ -24,6 +24,11 @@ const routes: Array<RouteConfig> = [
     ],
   },
   {
+    path: '/license',
+    name: 'License',
+    component: () => import('../views/license/License.vue'),
+  },
+  {
     path: '/not-found',
     name: 'Not found',
     component: () => import('../views/not-found/NotFound.vue'),

@@ -35,4 +35,10 @@ export default Vue.extend({});
     padding: 0 200px;
   }
 }
+
+@include desktop-xl {
+  .container {
+    padding: 0 280px;
+  }
+}
 </style>

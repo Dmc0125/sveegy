@@ -51,7 +51,7 @@ h1,
 h2,
 h3,
 p {
-  color: var(--font-clr-dark);
+  color: var(--font-clr);
 }
 
 button {

@@ -1,7 +1,7 @@
 <template>
   <footer>
     <p>Designed and created by Dominik Michal</p>
-    <p class="copyright">&#9400; 2020 &bull; Dominik Michal</p>
+    <p class="copyright">&#9400; 2020 &bull; Dominik Michal &bull; All rights reserved</p>
   </footer>
 </template>
 
