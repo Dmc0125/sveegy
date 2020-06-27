@@ -1,6 +1,7 @@
 <template>
   <main id="app">
     <Header />
+    <Navigation />
     <RouterView />
     <Footer />
   </main>
@@ -10,11 +11,13 @@
 import Vue from 'vue';
 
 import Header from '@/layouts/header/Header.vue';
+import Navigation from '@/components/navigation/Navigation.vue';
 import Footer from '@/layouts/footer/Footer.vue';
 
 export default Vue.extend({
   components: {
     Header,
+    Navigation,
     Footer,
   },
 });
@@ -40,11 +43,17 @@ body {
 
 body {
   min-height: 100vh;
+  position: relative;
   overflow-x: hidden;
+}
+
+ul {
+  list-style: none;
 }
 
 a {
   text-decoration: none;
+  color: var(--font-clr);
 }
 
 h1,

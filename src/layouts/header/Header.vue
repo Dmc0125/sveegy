@@ -4,50 +4,35 @@
       class="logo"
       to="/"
     >
-      <svg
-        width="100%"
-        height="100%"
-        viewBox="0 0 80 80"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
+      <img
+        src="@/assets/icons/sveegy.svg"
+        alt="Sveegy logo"
       >
-        <!-- eslint-disable max-len -->
-        <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
-          d="M10 31.4286C10 19.5939 19.5939 10 31.4286 10H57.1429C59.5098 10 61.4286 11.9188 61.4286 14.2857C61.4286 16.6526 59.5098 18.5714 57.1429 18.5714H31.4286C24.3278 18.5714 18.5714 24.3278 18.5714 31.4286C18.5714 38.5294 24.3278 44.2857 31.4286 44.2857H44.2857C46.6527 44.2857 48.5714 46.2045 48.5714 48.5714C48.5714 50.9384 46.6527 52.8571 44.2857 52.8571H31.4286C19.5939 52.8571 10 43.2632 10 31.4286ZM48.5714 70C60.4061 70 70 60.4061 70 48.5714C70 36.7368 60.4061 27.1429 48.5714 27.1429H35.7143C33.3474 27.1429 31.4286 29.0616 31.4286 31.4286C31.4286 33.7955 33.3474 35.7143 35.7143 35.7143H48.5714C55.6722 35.7143 61.4286 41.4706 61.4286 48.5714C61.4286 55.6722 55.6722 61.4286 48.5714 61.4286H22.8571C20.4902 61.4286 18.5714 63.3474 18.5714 65.7143C18.5714 68.0812 20.4902 70 22.8571 70H48.5714Z"
-          fill="url(#paint0_linear)"
-        />
-        <!-- eslint-enable max-len -->
-        <defs>
-          <linearGradient
-            id="paint0_linear"
-            x1="70"
-            y1="10"
-            x2="4.42425"
-            y2="63.1164"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stop-color="#B234FF"/>
-            <stop
-              offset="1"
-              stop-color="#63A1FF"
-            />
-          </linearGradient>
-        </defs>
-      </svg>
     </RouterLink>
 
+    <button
+      class="toggle-nav-btn"
+      @click="toggleNav"
+    >
+      <VueSvg :icon-html="getIcon('hamburger-icon').htmlValue" />
+    </button>
+
     <nav>
-      <!-- <button
-        class="clr-switch-container"
-        @click="toggleDarkMode"
-      >
-        <div
-          class="clr-switch-btn"
-          :class="{ 'dark-mode': isDarkMode }"
-        ></div>
-      </button> -->
+      <ul class="links">
+        <li
+          v-for="{ to, name } in links"
+          :key="name"
+        >
+          <RouterLink
+            :class="{ 'active-link': $route.path === to }"
+            :to="to"
+          >
+            {{ name }}
+          </RouterLink>
+        </li>
+      </ul>
+
+      <ColorModeSwitch />
 
       <a
         class="github-link"
@@ -66,14 +51,23 @@
 import Vue from 'vue';
 import { mapGetters, mapActions } from 'vuex';
 
+import links from '@/utils/links';
+
 import VueSvg from '@/components/vue-svg/VueSvg.vue';
+import ColorModeSwitch from '@/components/color-mode-swtich/ColorModeSwitch.vue';
 
 export default Vue.extend({
   components: {
     VueSvg,
+    ColorModeSwitch,
   },
-  computed: mapGetters(['isDarkMode', 'getIcon']),
-  methods: mapActions(['toggleDarkMode']),
+  data() {
+    return {
+      links,
+    };
+  },
+  computed: mapGetters(['getIcon']),
+  methods: mapActions(['toggleNav']),
 });
 </script>
 
@@ -88,13 +82,6 @@ header {
   align-items: center;
 }
 
-nav {
-  height: 100%;
-
-  display: flex;
-  align-items: center;
-}
-
 .logo {
   --size: 2.5rem;
 
@@ -102,34 +89,43 @@ nav {
   height: var(--size);
 }
 
-.clr-switch-container {
-  --height: 20px;
-
-  width: 35px;
-  height: var(--height);
-  padding: 0 2px;
-
-  background: var(--font-clr);
-  border-radius: calc(var(--height) / 2);
-
-  display: flex;
-  align-items: center;
-}
-
-.clr-switch-btn {
-  --size: calc(var(--height) * 0.8);
+.toggle-nav-btn {
+  --size: 2.5rem;
 
   width: var(--size);
   height: var(--size);
-  margin-left: 0;
 
-  background: var(--color-switch-btn);
-  border-radius: 50%;
-  transition: margin-left 200ms ease-in-out;
+  background: var(--primary);
+}
 
-  &.dark-mode {
-    margin-left: calc(100% - var(--size));
+nav {
+  height: 100%;
+
+  display: none;
+  align-items: center;
+}
+
+.links {
+  margin-right: 1rem;
+
+  li {
+    display: inline;
+    font-size: 1rem;
+
+    a:focus,
+    a:hover {
+      outline: 0;
+      opacity: 0.5;
+    }
   }
+
+  li + li {
+    margin-left: 1rem;
+  }
+}
+
+.active-link {
+  color: var(--secondary);
 }
 
 .github-link {
@@ -151,6 +147,7 @@ nav {
     padding: 0 50px;
   }
 
+  .toggle-nav-btn,
   .logo,
   .github-svg-wrapper {
     --size: 3rem;
@@ -161,11 +158,27 @@ nav {
   header {
     padding: 0 70px;
   }
+
+  .toggle-nav-btn {
+    display: none;
+  }
+
+  nav {
+    display: flex;
+  }
 }
 
 @include desktop-s {
   header {
     padding: 0 100px;
+  }
+
+  .links {
+    margin-right: 2.5rem;
+
+    li {
+      font-size: 1.1rem;
+    }
   }
 }
 

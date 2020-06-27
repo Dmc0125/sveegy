@@ -9,4 +9,70 @@ export default [
       />
     `,
   },
+  {
+    id: 'hamburger-icon',
+    variations: ['hamburger', 'menu', 'nav'],
+    htmlValue: `
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M4 8.5c0-.276.298-.5.667-.5h14.666c.369 0 .667.224.667.5s-.299.5-.667.5H4.667C4.298 9 4 8.776 4 8.5zM4 11.5c0-.276.298-.5.667-.5h14.666c.369 0 .667.224.667.5s-.299.5-.667.5H4.667C4.298 12 4 11.776 4 11.5zM4 14.5c0-.276.298-.5.667-.5h14.666c.369 0 .667.224.667.5s-.299.5-.667.5H4.667C4.298 15 4 14.776 4 14.5z"
+        fill="currentColor"
+      />
+    `,
+  },
+  {
+    id: 'close-icon',
+    variations: ['close', 'exit', 'leave'],
+    htmlValue: `
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M4.646 4.646a.5.5 0 01.708 0L12 11.293l6.646-6.647a.5.5 0 01.708.708L12.707 12l6.647 6.646a.5.5 0 01-.708.708L12 12.707l-6.646 6.647a.5.5 0 01-.708-.708L11.293 12 4.646 5.354a.5.5 0 010-.708z"
+        fill="currentColor"
+      />
+    `,
+  },
+  {
+    id: 'home-stroke-icon',
+    variations: ['home', 'stroke', 'house'],
+    htmlValue: `
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M3.354 12.06a.5.5 0 010-.706l8-8a.5.5 0 01.707 0l8 8a.5.5 0 01-.707.707l-7.647-7.647-7.646 7.647a.5.5 0 01-.707 0z"
+        fill="currentColor"
+      />
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M3.207 11.707a.5.5 0 01.5-.5h2.5a.5.5 0 01.5.5v7h2.5v-4.5a.5.5 0 01.5-.5h4a.5.5 0 01.5.5v4.5h2.5v-7a.5.5 0 01.5-.5h2.5a.5.5 0 010 1h-2v7a.5.5 0 01-.5.5h-3.5a.5.5 0 01-.5-.5v-4.5h-3v4.5a.5.5 0 01-.5.5h-3.5a.5.5 0 01-.5-.5v-7h-2a.5.5 0 01-.5-.5z"
+        fill="currentColor"
+      />
+    `,
+  },
+  {
+    id: 'assets-icon',
+    variations: ['assets', 'icons', 'components'],
+    htmlValue: `
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M4.5 4a.5.5 0 00-.5.5v6a.5.5 0 00.5.5h6a.5.5 0 00.5-.5v-6a.5.5 0 00-.5-.5h-6zm.5 6V5h5v5H5zm-.5 3a.5.5 0 00-.5.5v6a.5.5 0 00.5.5h6a.5.5 0 00.5-.5v-6a.5.5 0 00-.5-.5h-6zm.5 6v-5h5v5H5zm9-14.5a.5.5 0 01.5-.5h6a.5.5 0 01.5.5v6a.5.5 0 01-.5.5h-6a.5.5 0 01-.5-.5v-6zm1 .5v5h5V5h-5zm-.5 8a.5.5 0 00-.5.5v6a.5.5 0 00.5.5h6a.5.5 0 00.5-.5v-6a.5.5 0 00-.5-.5h-6zm.5 6v-5h5v5h-5z"
+        fill="currentColor"
+      />
+    `,
+  },
+  {
+    id: 'license-icon',
+    variations: ['license', 'paper', 'list'],
+    htmlValue: `
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M7 4h10a1 1 0 011 1v13a1 1 0 01-1 1H7a1 1 0 01-1-1V5a1 1 0 011-1zM5 5a2 2 0 012-2h10a2 2 0 012 2v13a2 2 0 01-2 2H7a2 2 0 01-2-2V5zm3.5.5a.5.5 0 000 1h7a.5.5 0 000-1h-7zm0 3a.5.5 0 000 1h4a.5.5 0 000-1h-4zm0 2a.5.5 0 000 1h5a.5.5 0 000-1h-5zm0 3a.5.5 0 000 1h7a.5.5 0 000-1h-7zm0 3a.5.5 0 000 1h5a.5.5 0 000-1h-5z"
+      fill="currentColor"
+    />
+    `,
+  },
 ];

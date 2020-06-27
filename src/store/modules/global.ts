@@ -1,19 +1,25 @@
 import { Module } from 'vuex';
 
-interface ColorModeState {
+interface GlobalState {
   darkMode: boolean;
+  openNav: boolean;
 }
 
-const store: Module<ColorModeState, {}> = {
+const store: Module<GlobalState, {}> = {
   state: () => ({
     darkMode: false,
+    openNav: false,
   }),
   getters: {
     isDarkMode: state => state.darkMode,
+    isNavOpened: state => state.openNav,
   },
   actions: {
     toggleDarkMode: ({ state }) => {
       state.darkMode = !state.darkMode;
+    },
+    toggleNav: ({ state }) => {
+      state.openNav = !state.openNav;
     },
   },
 };
