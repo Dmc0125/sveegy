@@ -16,6 +16,7 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-irregular-whitespace': 'warn',
     'arrow-parens': 0,
+    'no-underscore-dangle': 0,
   },
   overrides: [
     {

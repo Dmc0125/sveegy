@@ -65,6 +65,10 @@ p {
 
 button {
   cursor: pointer;
+
+  &::-moz-focus-inner {
+    border: 0;
+  }
 }
 
 #app {

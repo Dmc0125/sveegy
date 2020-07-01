@@ -16,7 +16,7 @@ export default Vue.extend({});
   margin: 2rem auto 0rem;
 }
 
-@include tablet {
+@include tablet-s {
   .illustration {
     width: 350px;
     margin-top: 70px;

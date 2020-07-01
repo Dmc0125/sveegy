@@ -61,7 +61,7 @@ h2 {
   justify-content: center;
 }
 
-@include tablet {
+@include tablet-s {
   h1 {
     font-size: 4rem;
   }

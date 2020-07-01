@@ -1,5 +1,5 @@
 <template>
-  <LandingContainer>
+  <VueContainer use-flex>
     <Hero
       headline="404 error"
       sub-headline="The page you were searching for was not found"
@@ -12,19 +12,19 @@
         title="Search illustration"
       >
     </VueIllustration>
-  </LandingContainer>
+  </VueContainer>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 
-import LandingContainer from '@/layouts/landing-container/LandingContainer.vue';
+import VueContainer from '@/layouts/vue-container/VueContainer.vue';
 import Hero from '@/components/hero/Hero.vue';
 import VueIllustration from '@/components/vue-illustration/VueIllustration.vue';
 
 export default Vue.extend({
   components: {
-    LandingContainer,
+    VueContainer,
     Hero,
     VueIllustration,
   },

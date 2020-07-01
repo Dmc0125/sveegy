@@ -38,6 +38,7 @@
         class="github-link"
         href="https://github.com/Dmc0125/sveegy"
         target="_blank"
+        rel="noopener"
       >
         <div class="github-svg-wrapper">
           <VueSvg :icon-html="getIcon('github-icon').htmlValue" />
@@ -141,7 +142,7 @@ nav {
   color: var(--font-clr);
 }
 
-@include tablet {
+@include tablet-s {
   header {
     height: 90px;
     padding: 0 50px;

@@ -1,18 +1,25 @@
 $mobile-size: 414px;
-$tablet-size: 768px;
+$tablet-s-size: 500px;
+$tablet-l-size: 768px;
 $desktop-xs-size: 1024px;
 $desktop-s-size: 1280px;
 $desktop-m-size: 1360px;
 $desktop-l-size: 1440px;
 
-@mixin tablet {
+@mixin tablet-s {
   @media (min-width: #{$mobile-size + 1px}) {
     @content;
   }
 }
 
+@mixin tablet-l {
+  @media (min-width: #{$tablet-s-size + 1px}) {
+    @content;
+  }
+}
+
 @mixin desktop-xs {
-  @media (min-width: #{$tablet-size + 1px}) {
+  @media (min-width: #{$tablet-l-size + 1px}) {
     @content;
   }
 }

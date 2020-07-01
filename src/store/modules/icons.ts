@@ -15,6 +15,19 @@ const store: Module<IconsState, {}> = {
   getters: {
     getIcons: state => state.icons,
     getIcon: state => (iconId: string) => state.icons.find(({ id }) => id === iconId),
+    getSearchedIcons: state => (searchTerm: string) => {
+      if (!searchTerm.length) {
+        return state.icons;
+      }
+
+      const regexp = new RegExp(searchTerm);
+
+      const searchedIcons = state.icons.filter(({ id, variations }) => (
+        id.match(regexp) || variations.some(variation => variation.match(regexp))
+      ));
+
+      return searchedIcons;
+    },
   },
 };
 

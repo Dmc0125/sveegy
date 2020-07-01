@@ -48,6 +48,7 @@
                 class="github-link"
                 href="https://github.com/Dmc0125/sveegy"
                 target="_blank"
+                rel="noopener"
               >
                 <span>Github</span>
                 <span class="github-icon-container">
@@ -100,6 +101,7 @@ export default Vue.extend({
   left: 0;
 
   background: none;
+  z-index: 1;
 }
 
 nav {
@@ -109,6 +111,7 @@ nav {
   position: absolute;
   top: 0;
   right: 0;
+  overflow: auto;
 
   background: var(--primary);
   box-shadow: 0 0 10px rgba(0, 0, 0, .2);
@@ -151,6 +154,7 @@ li + li {
 
 .links {
   width: 100%;
+  margin-bottom: 3rem;
 
   li {
     width: 100%;
@@ -264,7 +268,7 @@ li + li {
 
 /* MEDIAS */
 
-@include tablet {
+@include tablet-s {
   .close-wrapper {
     --size: 3rem;
   }

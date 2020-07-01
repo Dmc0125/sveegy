@@ -30,7 +30,7 @@ p {
   margin-top: 10px;
 }
 
-@include tablet {
+@include tablet-s {
   p {
     font-size: 1rem;
   }

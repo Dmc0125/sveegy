@@ -1,5 +1,5 @@
 <template>
-  <LandingContainer>
+  <VueContainer use-flex>
     <section class="license">
       <h1>License</h1>
 
@@ -41,18 +41,18 @@
         title="License illustration"
       >
     </VueIllustration>
-  </LandingContainer>
+  </VueContainer>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 
-import LandingContainer from '@/layouts/landing-container/LandingContainer.vue';
+import VueContainer from '@/layouts/vue-container/VueContainer.vue';
 import VueIllustration from '@/components/vue-illustration/VueIllustration.vue';
 
 export default Vue.extend({
   components: {
-    LandingContainer,
+    VueContainer,
     VueIllustration,
   },
 });
