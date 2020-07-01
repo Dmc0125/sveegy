@@ -17,18 +17,35 @@
             class="searchbar-container"
             :search-term.sync="searchTerm"
           />
-
-          <IconBtn>
+          <IconBtn @click="toggleSettings">
             <VueSvg :icon-html="getIcon('menu-icon').htmlValue" />
           </IconBtn>
+
+          <div
+            class="settings"
+            :class="`${openSettings ? 'settings-opened' : 'settings-closed'}`"
+          >
+            <label>Icons size</label>
+            <input
+              type="text"
+              v-model="iconSize"
+            >
+
+            <button
+              class="settings-close-icon"
+              @click="toggleSettings"
+            >
+              <VueSvg :icon-html="getIcon('close-icon').htmlValue" />
+            </button>
+          </div>
         </div>
 
         <div class="icons">
           <Icon
-            v-for="{ id, variations, htmlValue } in getSearchedIcons(searchTerm)"
-            :key="id"
             :icon-html="htmlValue"
             :icon-name="variations[0]"
+            v-for="{ id, variations, htmlValue } in getSearchedIcons(searchTerm)"
+            :key="id"
           />
         </div>
       </VueContainer>
@@ -38,8 +55,8 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { ref } from '@vue/composition-api';
-import { useGetters } from '@u3u/vue-hooks';
+import { ref, watchEffect } from '@vue/composition-api';
+import { useGetters, useActions } from '@u3u/vue-hooks';
 
 import VueContainer from '@/layouts/vue-container/VueContainer.vue';
 import VueSvg from '@/components/vue-svg/VueSvg.vue';
@@ -57,15 +74,35 @@ export default Vue.extend({
   },
   setup() {
     const {
-      getIcon, getSearchedIcons,
-    } = useGetters(['getIcon', 'getIcons', 'getSearchedIcons']);
+      getIcon, getSearchedIcons, getIconSize,
+    } = useGetters(['getIcon', 'getSearchedIcons', 'getIconSize']);
+    const { setIconSize } = useActions(['setIconSize']);
 
     const searchTerm = ref('');
+
+    const iconSize = ref(getIconSize.value);
+
+    watchEffect(() => {
+      setIconSize(iconSize.value);
+    });
+
+    const openSettings = ref(false);
+
+    const toggleSettings = () => {
+      openSettings.value = !openSettings.value;
+    };
 
     return {
       getIcon,
       getSearchedIcons,
+      getIconSize,
+
       searchTerm,
+
+      iconSize,
+
+      openSettings,
+      toggleSettings,
     };
   },
 });
@@ -115,6 +152,7 @@ export default Vue.extend({
 
 .actions {
   width: 100%;
+  position: relative;
 
   display: flex;
   align-items: center;
@@ -124,6 +162,80 @@ export default Vue.extend({
 .searchbar-container {
   margin-right: 1rem;
 }
+
+.settings {
+  padding: 0 1rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  background: var(--primary);
+  border: 1px solid var(--primary-border);
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: all 500ms cubic-bezier(.26,-0.92,.74,1.92);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  input {
+    width: 30%;
+    height: 2rem;
+    padding: .5rem;
+
+    background: var(--primary-border);
+    border-radius: 10px;
+  }
+
+  input,
+  label {
+    transition: all 200ms ease-in-out 600ms;
+  }
+}
+
+.settings-close-icon {
+  --size: 2rem;
+
+  width: var(--size);
+  height: var(--size);
+
+  background: none;
+  color: var(--font-clr);
+}
+
+/* SETTINGS TRANSITION */
+
+.settings-closed {
+  --size: 2rem;
+
+  width: var(--size);
+  height: var(--size);
+
+  opacity: 0;
+  pointer-events: none;
+
+  input,
+  label {
+    transition: none;
+    opacity: 0;
+  }
+}
+
+.settings-opened {
+  width: 14rem;
+  height: 3rem;
+
+  opacity: 1;
+  pointer-events: all;
+
+  input,
+  label {
+    opacity: 1;
+  }
+}
+
+/* ------------------- */
 
 .icons {
   width: 100%;

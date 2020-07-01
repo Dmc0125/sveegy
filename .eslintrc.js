@@ -17,6 +17,7 @@ module.exports = {
     'no-irregular-whitespace': 'warn',
     'arrow-parens': 0,
     'no-underscore-dangle': 0,
+    'no-plusplus': 0,
   },
   overrides: [
     {

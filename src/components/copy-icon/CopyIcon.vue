@@ -12,7 +12,7 @@
 import Vue from 'vue';
 import { mapGetters } from 'vuex';
 
-import copySvgWrapper from '@/utils/copy-svg-wrapper';
+import prettifyHtmlValue from '@/utils/copy-svg-wrapper';
 
 import VueSvg from '@/components/vue-svg/VueSvg.vue';
 
@@ -30,10 +30,10 @@ export default Vue.extend({
       default: false,
     },
   },
-  computed: mapGetters(['getIcon']),
+  computed: mapGetters(['getIcon', 'getIconSize']),
   methods: {
     copyToClipboard() {
-      const _copyValue = copySvgWrapper('2rem', this.copyValue);
+      const _copyValue = prettifyHtmlValue(this.getIconSize, this.copyValue);
 
       navigator.clipboard.writeText(_copyValue);
     },

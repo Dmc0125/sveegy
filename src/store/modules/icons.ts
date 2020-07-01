@@ -6,11 +6,13 @@ import { Icon } from '@/types/svg-icons';
 
 interface IconsState {
   icons: Icon[];
+  iconSize: string;
 }
 
 const store: Module<IconsState, {}> = {
   state: () => ({
     icons,
+    iconSize: '2rem',
   }),
   getters: {
     getIcons: state => state.icons,
@@ -27,6 +29,13 @@ const store: Module<IconsState, {}> = {
       ));
 
       return searchedIcons;
+    },
+
+    getIconSize: state => state.iconSize,
+  },
+  actions: {
+    setIconSize: ({ state }, size) => {
+      state.iconSize = size;
     },
   },
 };
