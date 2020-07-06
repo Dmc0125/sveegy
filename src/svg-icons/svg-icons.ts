@@ -1,7 +1,7 @@
 export default [
   // MAIN
   {
-    id: 'home-stroke-icon',
+    id: 'home-icon',
     variations: ['home', 'stroke', 'house'],
     htmlValue: `
       <path
@@ -84,6 +84,18 @@ export default [
     htmlValue: `
       <path
         d="M6 8.5a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5zM8 11.5a.5.5 0 01.5-.5h7a.5.5 0 010 1h-7a.5.5 0 01-.5-.5zM10 14.5a.5.5 0 01.5-.5h3a.5.5 0 010 1h-3a.5.5 0 01-.5-.5z"
+        fill="currentColor"
+      />
+    `,
+  },
+  {
+    id: 'tick-icon',
+    variations: ['tick', 'done'],
+    htmlValue: `
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M20.01 6.303a.5.5 0 010 .707l-9.9 9.9a.5.5 0 01-.706 0l-5.657-5.657a.5.5 0 11.707-.707l5.303 5.303 9.546-9.546a.5.5 0 01.707 0z"
         fill="currentColor"
       />
     `,

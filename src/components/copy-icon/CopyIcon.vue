@@ -2,7 +2,7 @@
   <button
     class="copy-icon"
     :class="{ hide: !showAlways }"
-    @click="copyToClipboard"
+    @click.stop="copyToClipboard"
   >
     <VueSvg :icon-html="getIcon('copy-icon').htmlValue" />
   </button>

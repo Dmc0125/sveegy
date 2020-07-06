@@ -25,11 +25,7 @@
             class="settings"
             :class="`${openSettings ? 'settings-opened' : 'settings-closed'}`"
           >
-            <label>Icons size</label>
-            <input
-              type="text"
-              v-model="iconSize"
-            >
+            <IconSizeBtn />
 
             <button
               class="settings-close-icon"
@@ -50,18 +46,21 @@
         </div>
       </VueContainer>
     </section>
+
+    <RouterView />
   </main>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import { ref, watchEffect } from '@vue/composition-api';
-import { useGetters, useActions } from '@u3u/vue-hooks';
+import { ref } from '@vue/composition-api';
+import { useGetters } from '@u3u/vue-hooks';
 
 import VueContainer from '@/layouts/vue-container/VueContainer.vue';
 import VueSvg from '@/components/vue-svg/VueSvg.vue';
 import Searchbar from '@/components/searchbar/Searchbar.vue';
 import IconBtn from '@/components/icon-btn/IconBtn.vue';
+import IconSizeBtn from '@/components/icon-size-btn/IconSizeBtn.vue';
 import Icon from '@/components/icon/Icon.vue';
 
 export default Vue.extend({
@@ -70,22 +69,15 @@ export default Vue.extend({
     VueSvg,
     Searchbar,
     IconBtn,
+    IconSizeBtn,
     Icon,
   },
   setup() {
     const {
       getIcon, getSearchedIcons, getIconSize,
-    } = useGetters(['getIcon', 'getSearchedIcons', 'getIconSize']);
-    const { setIconSize } = useActions(['setIconSize']);
+    } = useGetters(['getIcon', 'getSearchedIcons']);
 
     const searchTerm = ref('');
-
-    const iconSize = ref(getIconSize.value);
-
-    watchEffect(() => {
-      setIconSize(iconSize.value);
-    });
-
     const openSettings = ref(false);
 
     const toggleSettings = () => {
@@ -98,8 +90,6 @@ export default Vue.extend({
       getIconSize,
 
       searchTerm,
-
-      iconSize,
 
       openSettings,
       toggleSettings,
@@ -173,7 +163,7 @@ export default Vue.extend({
   border: 1px solid var(--primary-border);
   border-radius: 10px;
   font-size: 1rem;
-  transition: all 500ms cubic-bezier(.26,-0.92,.74,1.92);
+  transition: all 500ms ease-in-out;
 
   display: flex;
   align-items: center;
@@ -205,6 +195,7 @@ export default Vue.extend({
 }
 
 /* SETTINGS TRANSITION */
+// TODO: Switch to vue transition
 
 .settings-closed {
   --size: 2rem;

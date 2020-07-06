@@ -24,6 +24,10 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
+/* Import global variables */
+
+@import '@/scss/_vars.scss';
+
 /* GLOBAL */
 
 * {
@@ -37,12 +41,11 @@ export default Vue.extend({
 html,
 body {
   width: 100%;
-  height: 100%;
+  height: fit-content;
   font-size: 16px;
 }
 
 body {
-  min-height: 100vh;
   position: relative;
   overflow-x: hidden;
 }

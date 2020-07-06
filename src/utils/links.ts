@@ -2,7 +2,7 @@ export default [
   {
     to: '/',
     name: 'Home',
-    icon: 'home-stroke-icon',
+    icon: 'home-icon',
   },
   {
     to: '/icons',
