@@ -4,6 +4,8 @@
     <Navigation />
     <RouterView />
     <Footer />
+
+    <Notification />
   </main>
 </template>
 
@@ -11,21 +13,22 @@
 import Vue from 'vue';
 
 import Header from '@/layouts/header/Header.vue';
-import Navigation from '@/components/navigation/Navigation.vue';
 import Footer from '@/layouts/footer/Footer.vue';
+import Navigation from '@/components/navigation/Navigation.vue';
+import Notification from '@/components/notification/Notification.vue';
 
 export default Vue.extend({
   components: {
     Header,
-    Navigation,
     Footer,
+    Navigation,
+    Notification,
   },
 });
 </script>
 
 <style lang="scss">
 /* Import global variables */
-
 @import '@/scss/_vars.scss';
 
 /* GLOBAL */

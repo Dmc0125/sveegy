@@ -7,19 +7,19 @@
       class="icon-popup"
       @click.stop
     >
-      <header>
-        <div class="top">
+      <header class="popup-header">
+        <div class="popup-header__top-section">
           <h1>{{ iconName }}</h1>
 
           <RouterLink
-            class="close-icon"
+            class="top-section__close-icon"
             to="/icons"
           >
             <VueSvg :icon-html="getIcon('close-icon').htmlValue" />
           </RouterLink>
         </div>
 
-        <ul class="variations">
+        <ul class="popup-header__variations">
           <li
             v-for="variation in iconVariations"
             :key="variation"
@@ -30,16 +30,16 @@
       </header>
 
       <main class="popup-main">
-        <div class="selected-icon">
+        <div class="popup-main__selected-icon">
           <VueSvg :icon-html="iconHtmlValue" />
         </div>
 
-        <ul class="features">
+        <ul class="popup-main__features">
           <li
             v-for="feature in features"
             :key="feature"
           >
-            <span class="tick-icon">
+            <span class="features__tick-icon">
               <VueSvg :icon-html="getIcon('tick-icon').htmlValue" />
             </span>
             {{ feature }}
@@ -47,24 +47,26 @@
         </ul>
       </main>
 
-      <footer>
+      <footer class="popup-footer">
+        <!-- ADD DOWNLOAD ICON -->
         <a
-          class="download-svg-link"
-          href="#"
-          download
+          class="popup-footer__download-btn"
+          :href="`/icons/${iconId}.svg`"
+          :download="`${iconId}.svg`"
+          @click="sendDownloadNotification"
         >Download</a>
 
-        <IconSizeBtn class="size-settings" />
+        <IconSizeBtn class="popup-footer__size-settings" />
 
-        <div class="icon-html">
+        <div class="popup-footer__icon-html">
           <CopyIcon
             :copy-value="iconHtmlValue"
             show-always
           />
 
-          <!-- Needs to be inline to remove the space in front of actual html -->
-          <!-- eslint-disable-next-line max-len -->
-          <p class="icon-html__copy-value">{{ iconCopyHtml }}</p>
+          <div class="icon-html__html-wrapper">
+            <p class="html-wrapper__copy-value">{{ iconCopyHtml }}</p>
+          </div>
         </div>
       </footer>
     </section>
@@ -74,11 +76,11 @@
 <script lang="ts">
 import Vue from 'vue';
 import { computed } from '@vue/composition-api';
-import { useRouter, useGetters } from '@u3u/vue-hooks';
+import { useRouter, useGetters, useActions } from '@u3u/vue-hooks';
 
 import prettifyHtmlValue from '@/utils/copy-svg-wrapper';
 
-import VueSvg from '@/components/vue-svg/VueSvg.vue';
+import VueSvg from '@/layouts/vue-svg/VueSvg.vue';
 import IconSizeBtn from '@/components/icon-size-btn/IconSizeBtn.vue';
 import CopyIcon from '@/components/copy-icon/CopyIcon.vue';
 
@@ -86,6 +88,7 @@ interface IconData {
   iconHtmlValue: string;
   iconVariations: string[];
   iconName: string;
+  iconId: string;
 }
 
 const useIconData = (id: string): IconData => {
@@ -102,6 +105,7 @@ const useIconData = (id: string): IconData => {
       iconHtmlValue: htmlValue,
       iconVariations: variations,
       iconName: createName(id),
+      iconId: id,
     };
   }
 
@@ -110,6 +114,7 @@ const useIconData = (id: string): IconData => {
     iconHtmlValue: htmlValue,
     iconVariations: variations,
     iconName: createName(_id),
+    iconId: _id,
   };
 };
 
@@ -122,9 +127,12 @@ export default Vue.extend({
   setup() {
     const { route, router } = useRouter();
     const { getIcon, getIconSize } = useGetters(['getIcon', 'getIconSize']);
+    const { sendNotification } = useActions(['sendNotification']);
 
     const { id } = route.value.params;
-    const { iconHtmlValue, iconVariations, iconName } = useIconData(id);
+    const {
+      iconHtmlValue, iconVariations, iconName, iconId,
+    } = useIconData(id);
 
     const features = [
       'Free for commercial use',
@@ -137,6 +145,13 @@ export default Vue.extend({
       prettifyHtmlValue(getIconSize.value, iconHtmlValue)
     ));
 
+    const sendDownloadNotification = () => {
+      sendNotification({
+        message: 'Your download should have began successfully',
+        isError: false,
+      });
+    };
+
     const redirectHome = () => {
       router.push({ path: '/icons' });
     };
@@ -147,9 +162,11 @@ export default Vue.extend({
       iconHtmlValue,
       iconVariations,
       iconName,
+      iconId,
 
       features,
 
+      sendDownloadNotification,
       iconCopyHtml,
 
       redirectHome,
@@ -179,11 +196,11 @@ export default Vue.extend({
   border-radius: 10px;
 }
 
-header {
+.popup-header {
   padding: 20px 30px 0;
 }
 
-.top {
+.popup-header__top-section {
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -195,7 +212,7 @@ header {
   }
 }
 
-.close-icon {
+.top-section__close-icon {
   --size: 1.5rem;
 
   width: var(--size);
@@ -204,7 +221,7 @@ header {
   background: var(--primary);
 }
 
-.variations {
+.popup-header__variations {
   width: 100%;
   margin-top: .5rem;
 
@@ -235,11 +252,11 @@ header {
   flex-direction: column;
 }
 
-.selected-icon {
+.popup-main__selected-icon {
   width: 200px;
 }
 
-.features {
+.popup-main__features {
   li {
     font-size: 1rem;
 
@@ -252,7 +269,7 @@ header {
   }
 }
 
-.tick-icon {
+.features__tick-icon {
   --size: 1rem;
 
   width: var(--size);
@@ -260,12 +277,10 @@ header {
   margin-right: .5rem;
 }
 
-footer {
+.popup-footer {
   width: 100%;
-  margin-top: 2rem;
   padding: 30px;
-
-  border-top: 1px solid var(--primary-border);
+  position: relative;
 
   display: grid;
   grid-template-rows: repeat(4, 1fr);
@@ -273,59 +288,67 @@ footer {
   grid-gap: 1rem;
 }
 
-.download-svg-link {
+.popup-footer__download-btn {
   width: 140px;
   height: 44px;
 
   background: var(--secondary);
   color: var(--font-clr-inverse);
   border-radius: 10px;
+  font-size: 1rem;
 
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.icon-html {
+.popup-footer__icon-html {
   width: 100%;
   grid-row: -3 / -1;
-  padding: 20px;
   position: relative;
 
   background: var(--primary-border);
   border-radius: 10px;
+  overflow-x: auto;
+}
+
+.icon-html__html-wrapper {
+  width: 100%;
+  height: 100%;
+  padding: 20px;
   overflow-x: auto;
 
   display: flex;
   align-items: center;
 }
 
-.icon-html__copy-value {
+.html-wrapper__copy-value {
   white-space: pre;
 }
 
 @include tablet-l {
-  .top h1 {
+  .popup-header__top-section h1 {
     font-size: 2rem;
   }
 
-  footer {
+  .popup-footer {
     grid-template-rows: repeat(2, 1fr);
     grid-template-rows: repeat(3, 1fr);
     grid-gap: 1.5rem;
   }
 
-  .download-svg-link {
+  .popup-footer__download-btn {
     grid-column: 1;
     justify-self: start;
+    align-self: center;
   }
 
-  .size-settings {
+  .popup-footer__size-settings {
     grid-column: 2;
     justify-self: end;
   }
 
-  .icon-html {
+  .popup-footer__icon-html {
     grid-column: span 2;
   }
 }

@@ -74,7 +74,7 @@ import { mapGetters, mapActions } from 'vuex';
 
 import links from '@/utils/links';
 
-import VueSvg from '@/components/vue-svg/VueSvg.vue';
+import VueSvg from '@/layouts/vue-svg/VueSvg.vue';
 import ColorModeSwitch from '@/components/color-mode-swtich/ColorModeSwitch.vue';
 
 export default Vue.extend({

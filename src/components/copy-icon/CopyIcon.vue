@@ -14,7 +14,7 @@ import { mapGetters } from 'vuex';
 
 import prettifyHtmlValue from '@/utils/copy-svg-wrapper';
 
-import VueSvg from '@/components/vue-svg/VueSvg.vue';
+import VueSvg from '@/layouts/vue-svg/VueSvg.vue';
 
 export default Vue.extend({
   components: {

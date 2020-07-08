@@ -19,7 +19,7 @@
 import { defineComponent } from '@vue/composition-api';
 import { useRouter } from '@u3u/vue-hooks';
 
-import VueSvg from '@/components/vue-svg/VueSvg.vue';
+import VueSvg from '@/layouts/vue-svg/VueSvg.vue';
 import CopyIcon from '@/components/copy-icon/CopyIcon.vue';
 
 export default defineComponent({

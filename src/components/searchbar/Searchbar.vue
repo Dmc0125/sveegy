@@ -1,12 +1,13 @@
 <template>
   <div class="searchbar">
     <div
-      class="svg-wrapper"
+      class="searchbar__svg-wrapper"
       :class="{ 'active': _searchTerm.length }"
     >
       <VueSvg :icon-html="getIcon('search-icon').htmlValue" />
     </div>
     <input
+      class="searchbar__input"
       type="text"
       placeholder="Browse icons"
       v-model="_searchTerm"
@@ -19,7 +20,7 @@ import Vue from 'vue';
 import { ref, watchEffect } from '@vue/composition-api';
 import { useGetters } from '@u3u/vue-hooks';
 
-import VueSvg from '@/components/vue-svg/VueSvg.vue';
+import VueSvg from '@/layouts/vue-svg/VueSvg.vue';
 
 export default Vue.extend({
   components: {
@@ -54,20 +55,20 @@ export default Vue.extend({
   height: 2rem;
   position: relative;
 
-  &:focus-within .svg-wrapper,
-  .svg-wrapper.active {
+  &:focus-within .searchbar__svg-wrapper,
+  .searchbar__svg-wrapper.active {
     transform: translateY(-50%) rotate(90deg);
     color: var(--font-clr);
   }
 }
 
-.svg-wrapper,
-input::placeholder {
+.searchbar__svg-wrapper,
+.searchbar__input::placeholder {
   color: var(--font-clr-secondary);
   opacity: 1;
 }
 
-.svg-wrapper {
+.searchbar__svg-wrapper {
   --size: 1.5rem;
 
   width: var(--size);
@@ -79,7 +80,7 @@ input::placeholder {
   transition: transform 200ms ease-in-out;
 }
 
-input {
+.searchbar__input {
   width: 100%;
   height: 100%;
   padding: 0 1rem 0 2rem;

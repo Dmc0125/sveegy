@@ -20,7 +20,7 @@ import Vue from 'vue';
 
 import VueContainer from '@/layouts/vue-container/VueContainer.vue';
 import Hero from '@/components/hero/Hero.vue';
-import VueIllustration from '@/components/vue-illustration/VueIllustration.vue';
+import VueIllustration from '@/layouts/vue-illustration/VueIllustration.vue';
 
 export default Vue.extend({
   components: {

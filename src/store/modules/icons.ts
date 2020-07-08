@@ -22,7 +22,7 @@ const store: Module<IconsState, {}> = {
         return state.icons;
       }
 
-      const regexp = new RegExp(searchTerm);
+      const regexp = new RegExp(searchTerm.toLowerCase());
 
       const searchedIcons = state.icons.filter(({ id, variations }) => (
         id.match(regexp) || variations.some(variation => variation.match(regexp))

@@ -1,7 +1,7 @@
 <template>
-  <main class="icons-wrapper">
-    <VueContainer class="hero-container">
-      <div class="hero">
+  <main class="icons-main">
+    <VueContainer class="icons-main__icons-hero">
+      <div class="icons-hero__hero">
         <h1>Many free svg icons</h1>
         <h2>
           Browse to find any svg icon you want and then use it either
@@ -10,11 +10,11 @@
       </div>
     </VueContainer>
 
-    <section class="icons-container">
+    <section class="icons-section">
       <VueContainer icons>
-        <div class="actions">
+        <div class="icons-section__top-section">
           <Searchbar
-            class="searchbar-container"
+            class="top-section__searchbar-container"
             :search-term.sync="searchTerm"
           />
           <IconBtn @click="toggleSettings">
@@ -22,13 +22,13 @@
           </IconBtn>
 
           <div
-            class="settings"
-            :class="`${openSettings ? 'settings-opened' : 'settings-closed'}`"
+            class="top-section__settings"
+            :class="`${openSettings ? 'settings--opened' : 'settings--closed'}`"
           >
             <IconSizeBtn />
 
             <button
-              class="settings-close-icon"
+              class="settings__close-icon"
               @click="toggleSettings"
             >
               <VueSvg :icon-html="getIcon('close-icon').htmlValue" />
@@ -36,7 +36,7 @@
           </div>
         </div>
 
-        <div class="icons">
+        <div class="icons-section__icons">
           <Icon
             :icon-html="htmlValue"
             :icon-name="variations[0]"
@@ -57,7 +57,7 @@ import { ref } from '@vue/composition-api';
 import { useGetters } from '@u3u/vue-hooks';
 
 import VueContainer from '@/layouts/vue-container/VueContainer.vue';
-import VueSvg from '@/components/vue-svg/VueSvg.vue';
+import VueSvg from '@/layouts/vue-svg/VueSvg.vue';
 import Searchbar from '@/components/searchbar/Searchbar.vue';
 import IconBtn from '@/components/icon-btn/IconBtn.vue';
 import IconSizeBtn from '@/components/icon-size-btn/IconSizeBtn.vue';
@@ -99,19 +99,19 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-.icons-wrapper {
+.icons-main {
   padding-top: 2rem;
 
   display: flex;
   flex-direction: column;
 }
 
-.hero-container {
+.icons-main__icons-hero {
   display: flex;
   justify-content: center;
 }
 
-.hero {
+.icons-hero__hero {
   width: 80%;
   max-width: 485px;
   flex: 0 0 auto;
@@ -131,7 +131,7 @@ export default Vue.extend({
   }
 }
 
-.icons-container {
+.icons-section {
   width: 100%;
   flex: 1 0 auto;
   margin-top: 50px;
@@ -140,7 +140,7 @@ export default Vue.extend({
   border-top: 1px solid var(--primary-border);
 }
 
-.actions {
+.icons-section__top-section {
   width: 100%;
   position: relative;
 
@@ -149,11 +149,11 @@ export default Vue.extend({
   justify-content: space-between;
 }
 
-.searchbar-container {
+.top-section__searchbar-container {
   margin-right: 1rem;
 }
 
-.settings {
+.top-section__settings {
   padding: 0 1rem;
   position: absolute;
   top: 0;
@@ -184,7 +184,7 @@ export default Vue.extend({
   }
 }
 
-.settings-close-icon {
+.settings__close-icon {
   --size: 2rem;
 
   width: var(--size);
@@ -197,7 +197,7 @@ export default Vue.extend({
 /* SETTINGS TRANSITION */
 // TODO: Switch to vue transition
 
-.settings-closed {
+.settings--closed {
   --size: 2rem;
 
   width: var(--size);
@@ -213,7 +213,7 @@ export default Vue.extend({
   }
 }
 
-.settings-opened {
+.settings--opened {
   width: 14rem;
   height: 3rem;
 
@@ -228,7 +228,7 @@ export default Vue.extend({
 
 /* ------------------- */
 
-.icons {
+.icons-section__icons {
   width: 100%;
   margin-top: 30px;
 
@@ -240,25 +240,25 @@ export default Vue.extend({
 }
 
 @include tablet-l {
-  .hero h1 {
+  .icons-hero__hero h1 {
     font-size: 2.5rem;
   }
 
-  .icons {
+  .icons-section__icons {
     grid-template-columns: repeat(auto-fill, 130px);
     grid-auto-rows: 130px;
   }
 }
 
 @media (min-width: 512px) {
-  .icons {
+  .icons-section__icons {
     grid-template-columns: repeat(auto-fill, 140px);
     grid-auto-rows: 140px;
   }
 }
 
 @media (min-width: 840px) {
-  .icons {
+  .icons-section__icons {
     grid-template-columns: repeat(auto-fill, 150px);
     grid-auto-rows: 150px;
     gap: 1.5rem;
@@ -266,11 +266,11 @@ export default Vue.extend({
 }
 
 @include desktop-m {
-  .hero-container {
+  .icons-main__icons-hero {
     display: block;
   }
 
-  .hero {
+  .icons-hero__hero {
     text-align: left;
   }
 }

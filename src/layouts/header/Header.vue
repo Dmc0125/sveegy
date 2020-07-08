@@ -1,7 +1,7 @@
 <template>
-  <header>
+  <header class="header">
     <RouterLink
-      class="logo"
+      class="header__logo"
       to="/"
     >
       <img
@@ -11,20 +11,21 @@
     </RouterLink>
 
     <button
-      class="toggle-nav-btn"
+      class="header__toggle-nav-btn"
       @click="toggleNav"
     >
       <VueSvg :icon-html="getIcon('hamburger-icon').htmlValue" />
     </button>
 
-    <nav>
-      <ul class="links">
+    <nav class="header__nav">
+      <ul class="nav__links">
         <li
+          class="links__link"
           v-for="{ to, name } in links"
           :key="name"
         >
           <RouterLink
-            :class="{ 'active-link': $route.path === to }"
+            :class="{ 'links__link--active': $route.path === to }"
             :to="to"
           >
             {{ name }}
@@ -35,14 +36,12 @@
       <ColorModeSwitch />
 
       <a
-        class="github-link"
+        class="header-nav__github-link"
         href="https://github.com/Dmc0125/sveegy"
         target="_blank"
         rel="noopener"
       >
-        <div class="github-svg-wrapper">
-          <VueSvg :icon-html="getIcon('github-icon').htmlValue" />
-        </div>
+        <VueSvg :icon-html="getIcon('github-icon').htmlValue" />
       </a>
     </nav>
   </header>
@@ -54,7 +53,7 @@ import { mapGetters, mapActions } from 'vuex';
 
 import links from '@/utils/links';
 
-import VueSvg from '@/components/vue-svg/VueSvg.vue';
+import VueSvg from '@/layouts/vue-svg/VueSvg.vue';
 import ColorModeSwitch from '@/components/color-mode-swtich/ColorModeSwitch.vue';
 
 export default Vue.extend({
@@ -73,7 +72,7 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-header {
+.header {
   width: 100%;
   height: 60px;
   padding: 0 30px;
@@ -83,14 +82,14 @@ header {
   align-items: center;
 }
 
-.logo {
+.header__logo {
   --size: 2.5rem;
 
   width: var(--size);
   height: var(--size);
 }
 
-.toggle-nav-btn {
+.header__toggle-nav-btn {
   --size: 2.5rem;
 
   width: var(--size);
@@ -99,17 +98,17 @@ header {
   background: var(--primary);
 }
 
-nav {
+.header__nav {
   height: 100%;
 
   display: none;
   align-items: center;
 }
 
-.links {
+.nav__links {
   margin-right: 1rem;
 
-  li {
+  .links__link {
     display: inline;
     font-size: 1rem;
 
@@ -118,73 +117,66 @@ nav {
       outline: 0;
       opacity: 0.5;
     }
+
+    &--active {
+      color: var(--secondary);
+    }
   }
 
-  li + li {
+  .links__link + .links__link {
     margin-left: 1rem;
   }
 }
 
-.active-link {
-  color: var(--secondary);
-}
-
-.github-link {
-  margin-left: 1rem;
-}
-
-.github-svg-wrapper {
+.header-nav__github-link {
   --size: 2.5rem;
 
   width: var(--size);
   height: var(--size);
+  margin-left: 1rem;
 
   color: var(--font-clr);
 }
 
 @include tablet-s {
-  header {
+  .header {
     height: 90px;
     padding: 0 50px;
   }
 
-  .toggle-nav-btn,
-  .logo,
-  .github-svg-wrapper {
+  .header__toggle-nav-btn,
+  .header__logo,
+  .header-nav__github-link {
     --size: 3rem;
   }
 }
 
 @include desktop-xs {
-  header {
+  .header {
     padding: 0 70px;
   }
 
-  .toggle-nav-btn {
+  .header__toggle-nav-btn {
     display: none;
   }
 
-  nav {
+  .header__nav {
     display: flex;
   }
 }
 
 @include desktop-s {
-  header {
-    padding: 0 100px;
-  }
-
-  .links {
+  .nav__links {
     margin-right: 2.5rem;
 
-    li {
+    .links__link {
       font-size: 1.1rem;
     }
   }
 }
 
 @include desktop-m {
-  header {
+  .header {
     padding: 0 140px;
   }
 }

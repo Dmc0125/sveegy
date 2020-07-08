@@ -1,11 +1,11 @@
 <template>
   <button
-    class="clr-switch-container"
+    class="clr-switch"
     @click="toggleDarkMode"
   >
     <div
-      class="clr-switch-btn"
-      :class="{ 'dark-mode': isDarkMode }"
+      class="clr-switch__btn"
+      :class="{ 'clr-switch__btn--dark-mode': isDarkMode }"
     ></div>
   </button>
 </template>
@@ -21,7 +21,7 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-.clr-switch-container {
+.clr-switch {
   --height: 20px;
 
   width: 35px;
@@ -35,7 +35,7 @@ export default Vue.extend({
   align-items: center;
 }
 
-.clr-switch-btn {
+.clr-switch__btn {
   --size: calc(var(--height) * 0.8);
 
   width: var(--size);
@@ -46,7 +46,7 @@ export default Vue.extend({
   border-radius: 50%;
   transition: margin-left 200ms ease-in-out;
 
-  &.dark-mode {
+  &--dark-mode {
     margin-left: calc(100% - var(--size));
   }
 }
