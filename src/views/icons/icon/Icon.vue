@@ -226,7 +226,6 @@ export default Vue.extend({
   margin-top: .5rem;
 
   display: flex;
-  flex-wrap: wrap;
   gap: 1rem;
   row-gap: .5rem;
 

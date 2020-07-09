@@ -21,19 +21,28 @@
             <VueSvg :icon-html="getIcon('menu-icon').htmlValue" />
           </IconBtn>
 
-          <div
-            class="top-section__settings"
-            :class="`${openSettings ? 'settings--opened' : 'settings--closed'}`"
-          >
-            <IconSizeBtn />
-
-            <button
-              class="settings__close-icon"
-              @click="toggleSettings"
+          <transition name="settings-fade-in">
+            <div
+              class="top-section__settings"
+              v-show="openSettings"
             >
-              <VueSvg :icon-html="getIcon('close-icon').htmlValue" />
-            </button>
-          </div>
+              <transition name="settings-inner-fade-in">
+                <div
+                  class="settings__wrapper"
+                  v-show="openSettings"
+                >
+                  <IconSizeBtn />
+
+                  <button
+                    class="wrapper__close-icon"
+                    @click="toggleSettings"
+                  >
+                    <VueSvg :icon-html="getIcon('close-icon').htmlValue" />
+                  </button>
+                </div>
+              </transition>
+            </div>
+          </transition>
         </div>
 
         <div class="icons-section__icons">
@@ -154,37 +163,30 @@ export default Vue.extend({
 }
 
 .top-section__settings {
+  width: 14rem;
+  height: 3rem;
   padding: 0 1rem;
   position: absolute;
   top: 0;
   right: 0;
+  transform-origin: top right;
 
   background: var(--primary);
   border: 1px solid var(--primary-border);
   border-radius: 10px;
   font-size: 1rem;
-  transition: all 500ms ease-in-out;
+}
+
+.settings__wrapper {
+  width: 100%;
+  height: 100%;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  input {
-    width: 30%;
-    height: 2rem;
-    padding: .5rem;
-
-    background: var(--primary-border);
-    border-radius: 10px;
-  }
-
-  input,
-  label {
-    transition: all 200ms ease-in-out 600ms;
-  }
 }
 
-.settings__close-icon {
+.wrapper__close-icon {
   --size: 2rem;
 
   width: var(--size);
@@ -195,35 +197,47 @@ export default Vue.extend({
 }
 
 /* SETTINGS TRANSITION */
-// TODO: Switch to vue transition
 
-.settings--closed {
-  --size: 2rem;
+.settings-fade-in-enter-active {
+  transition: all 500ms ease-in-out;
+}
 
-  width: var(--size);
-  height: var(--size);
+.settings-fade-in-leave-active {
+  transition: all 500ms ease-in-out 300ms;
+}
+
+.settings-fade-in-enter,
+.settings-fade-in-leave-to {
+  transform: scale(.1, .5);
 
   opacity: 0;
   pointer-events: none;
-
-  input,
-  label {
-    transition: none;
-    opacity: 0;
-  }
 }
 
-.settings--opened {
-  width: 14rem;
-  height: 3rem;
+.settings-fade-in-enter-to
+.settings-fade-in-leave {
+  transform: scale(1, 1);
 
   opacity: 1;
   pointer-events: all;
+}
 
-  input,
-  label {
-    opacity: 1;
-  }
+.settings-inner-fade-in-enter-active {
+  transition: all 300ms ease-in-out 500ms;
+}
+
+.settings-inner-fade-in-leave-active {
+  transition: all 500ms ease-in-out;
+}
+
+.settings-inner-fade-in-enter,
+.settings-inner-fade-in-leave-to {
+  opacity: 0;
+}
+
+.settings-inner-fade-in-enter-to,
+.settings-inner-fade-in-leave {
+  opacity: 1;
 }
 
 /* ------------------- */

@@ -4,26 +4,38 @@
     <input
       class="icon-size__input"
       type="text"
-      v-model="iconSize"
+      :value="iconSize"
+      ref="iconSizeInput"
+      @input="setGlobalIconSize"
     >
   </form>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import { ref, watchEffect } from '@vue/composition-api';
+import { ref, watchEffect, Ref } from '@vue/composition-api';
 import { useActions, useGetters } from '@u3u/vue-hooks';
+
+import debounce from '@/utils/debounce';
 
 export default Vue.extend({
   setup() {
-    const { setIconSize } = useActions(['setIconSize']);
+    const { setIconSize, sendNotification } = useActions(['setIconSize', 'sendNotification']);
     const { getIconSize } = useGetters(['getIconSize']);
 
-    const iconSize = ref(getIconSize.value);
+    const iconSizeInput: Ref<HTMLInputElement | null> = ref(null);
+    const iconSize: Ref<string> = ref(getIconSize.value);
 
-    watchEffect(() => {
+    const setGlobalIconSize = debounce(() => {
+      if (iconSizeInput.value) {
+        iconSize.value = iconSizeInput.value.value;
+      }
       setIconSize(iconSize.value);
-    });
+
+      sendNotification({
+        message: `Size of icons has been set to ${iconSize.value}`,
+      });
+    }, 1000);
 
     // Needs to watch for global iconSize change in order to update
     // when there is change in icon view
@@ -32,7 +44,9 @@ export default Vue.extend({
     });
 
     return {
+      iconSizeInput,
       iconSize,
+      setGlobalIconSize,
     };
   },
 });

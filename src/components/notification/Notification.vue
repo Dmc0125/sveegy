@@ -1,8 +1,9 @@
 <template>
-  <transition name="slide-in">
+  <transition name="slide-in" mode="out-in">
     <section
       class="notification"
       v-if="getMessage"
+      :key="getMessage"
     >
       <div
         class="notification__svg"
@@ -94,7 +95,7 @@ export default Vue.extend({
 }
 
 .notification__text {
-  grid-column: 3 / -1;
+  grid-column: 3 / -2;
 
   align-self: center;
 }
