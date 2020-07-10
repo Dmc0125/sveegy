@@ -18,7 +18,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { ref, watchEffect } from '@vue/composition-api';
-import { useGetters } from '@u3u/vue-hooks';
+import { useGetters, useRouter } from '@u3u/vue-hooks';
 
 import VueSvg from '@/layouts/vue-svg/VueSvg.vue';
 
@@ -33,9 +33,16 @@ export default Vue.extend({
     },
   },
   setup(_, { emit }) {
+    const { route } = useRouter();
     const { getIcon } = useGetters(['getIcon']);
 
+    const { search } = route.value.query;
+
     const _searchTerm = ref('');
+
+    if (search && !Array.isArray(search)) {
+      _searchTerm.value = search;
+    }
 
     watchEffect(() => {
       emit('update:search-term', _searchTerm.value);

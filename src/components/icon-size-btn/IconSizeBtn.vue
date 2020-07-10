@@ -32,8 +32,14 @@ export default Vue.extend({
       }
       setIconSize(iconSize.value);
 
+      let notificationMessage = `Size of icons has been set to ${iconSize.value}`;
+
+      if (!iconSize.value.length) {
+        notificationMessage = 'Size of icons is not set';
+      }
+
       sendNotification({
-        message: `Size of icons has been set to ${iconSize.value}`,
+        message: notificationMessage,
       });
     }, 1000);
 

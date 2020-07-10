@@ -65,7 +65,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { ref } from '@vue/composition-api';
-import { useGetters } from '@u3u/vue-hooks';
+import { useGetters, useActions, useRouter } from '@u3u/vue-hooks';
 
 import VueContainer from '@/layouts/vue-container/VueContainer.vue';
 import VueSvg from '@/layouts/vue-svg/VueSvg.vue';
@@ -87,6 +87,8 @@ export default Vue.extend({
     const {
       getIcon, getSearchedIcons, getIconSize,
     } = useGetters(['getIcon', 'getSearchedIcons']);
+    const { setIconSize } = useActions(['setIconSize']);
+    const { route } = useRouter();
 
     const searchTerm = ref('');
     const openSettings = ref(false);
@@ -94,6 +96,12 @@ export default Vue.extend({
     const toggleSettings = () => {
       openSettings.value = !openSettings.value;
     };
+
+    const { size } = route.value.query;
+
+    if (size && !Array.isArray(size)) {
+      setIconSize(size);
+    }
 
     return {
       getIcon,
