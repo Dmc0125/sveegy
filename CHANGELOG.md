@@ -2,7 +2,7 @@
 
 All notable changes to Sveegy will be documented in this file.
 
-## [0.8.2] - 
+## [0.8.2] - 2020-07-10
 
 ### Added
 
