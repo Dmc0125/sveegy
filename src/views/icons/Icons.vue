@@ -1,63 +1,65 @@
 <template>
-  <main class="icons-main">
-    <VueContainer class="icons-main__icons-hero">
-      <div class="icons-hero__hero">
-        <h1>Many free svg icons</h1>
-        <h2>
-          Browse to find any svg icon you want and then use it either
-          by copying the html or downloading the svg.
-        </h2>
-      </div>
-    </VueContainer>
-
-    <section class="icons-section">
-      <VueContainer icons>
-        <div class="icons-section__top-section">
-          <Searchbar
-            class="top-section__searchbar-container"
-            :search-term.sync="searchTerm"
-          />
-          <IconBtn @click="toggleSettings">
-            <VueSvg :icon-html="getIcon('menu-icon').htmlValue" />
-          </IconBtn>
-
-          <transition name="settings-fade-in">
-            <div
-              class="top-section__settings"
-              v-show="openSettings"
-            >
-              <transition name="settings-inner-fade-in">
-                <div
-                  class="settings__wrapper"
-                  v-show="openSettings"
-                >
-                  <IconSizeBtn />
-
-                  <button
-                    class="wrapper__close-icon"
-                    @click="toggleSettings"
-                  >
-                    <VueSvg :icon-html="getIcon('close-icon').htmlValue" />
-                  </button>
-                </div>
-              </transition>
-            </div>
-          </transition>
-        </div>
-
-        <div class="icons-section__icons">
-          <Icon
-            :icon-html="htmlValue"
-            :icon-name="variations[0]"
-            v-for="{ id, variations, htmlValue } in getSearchedIcons(searchTerm)"
-            :key="id"
-          />
+  <transition name="route-fade-in" appear>
+    <main class="icons-main">
+      <VueContainer class="icons-main__icons-hero">
+        <div class="icons-hero__hero">
+          <h1>Many free svg icons</h1>
+          <h2>
+            Browse to find any svg icon you want and then use it either
+            by copying the html or downloading the svg.
+          </h2>
         </div>
       </VueContainer>
-    </section>
 
-    <RouterView />
-  </main>
+      <section class="icons-section">
+        <VueContainer icons>
+          <div class="icons-section__top-section">
+            <Searchbar
+              class="top-section__searchbar-container"
+              :search-term.sync="searchTerm"
+            />
+            <IconBtn @click="toggleSettings">
+              <VueSvg :icon-html="getIcon('menu-icon').htmlValue" />
+            </IconBtn>
+
+            <transition name="settings-fade-in">
+              <div
+                class="top-section__settings"
+                v-show="openSettings"
+              >
+                <transition name="settings-inner-fade-in">
+                  <div
+                    class="settings__wrapper"
+                    v-show="openSettings"
+                  >
+                    <IconSizeBtn />
+
+                    <button
+                      class="wrapper__close-icon"
+                      @click="toggleSettings"
+                    >
+                      <VueSvg :icon-html="getIcon('close-icon').htmlValue" />
+                    </button>
+                  </div>
+                </transition>
+              </div>
+            </transition>
+          </div>
+
+          <div class="icons-section__icons">
+            <Icon
+              :icon-html="htmlValue"
+              :icon-name="variations[0]"
+              v-for="{ id, variations, htmlValue } in getSearchedIcons(searchTerm)"
+              :key="id"
+            />
+          </div>
+        </VueContainer>
+      </section>
+
+      <RouterView />
+    </main>
+  </transition>
 </template>
 
 <script lang="ts">

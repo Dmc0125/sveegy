@@ -3,7 +3,7 @@
     <section
       class="notification"
       v-if="getMessage"
-      :key="getMessage"
+      :key="getId"
     >
       <div
         class="notification__svg"
@@ -39,13 +39,16 @@ export default Vue.extend({
     VueSvg,
   },
   setup() {
-    const { getIcon, getMessage, getError } = useGetters(['getIcon', 'getMessage', 'getError']);
+    const {
+      getIcon, getMessage, getError, getId,
+    } = useGetters(['getIcon', 'getMessage', 'getError', 'getId']);
     const { hideNotification } = useActions(['hideNotification']);
 
     return {
       getIcon,
       getMessage,
       getError,
+      getId,
 
       hideNotification,
     };

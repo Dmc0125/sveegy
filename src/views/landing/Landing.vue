@@ -1,18 +1,20 @@
 <template>
-  <VueContainer use-flex>
-    <Hero
-      headline="Sveegy"
-      sub-headline="Choose from many free svg icons and use it with just one click"
-    />
+  <transition name="route-fade-in" appear>
+    <VueContainer use-flex>
+      <Hero
+        headline="Sveegy"
+        sub-headline="Choose from many free svg icons and use it with just one click"
+      />
 
-    <VueIllustration>
-      <img
-        src="@/assets/illustrations/browse.svg"
-        alt="Browse illustration"
-        title="Browse illustration"
-      >
-    </VueIllustration>
-  </VueContainer>
+      <VueIllustration>
+        <img
+          src="@/assets/illustrations/browse.svg"
+          alt="Browse illustration"
+          title="Browse illustration"
+        >
+      </VueIllustration>
+    </VueContainer>
+  </transition>
 </template>
 
 <script lang="ts">

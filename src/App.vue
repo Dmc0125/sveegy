@@ -88,4 +88,20 @@ input {
   display: grid;
   grid-template-rows: min-content 1fr min-content;
 }
+
+/* ROUTE TRANSITION */
+
+.route-fade-in-enter-active {
+  transition: all 1s ease-in-out;
+}
+
+.route-fade-in-enter {
+  opacity: 0;
+  transform: translateY(-2rem);
+}
+
+.route-fade-in-enter-to {
+  opacity: 1;
+  transform: translateY(0);
+}
 </style>

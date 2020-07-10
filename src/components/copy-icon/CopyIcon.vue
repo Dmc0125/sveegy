@@ -10,7 +10,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 import prettifyHtmlValue from '@/utils/copy-svg-wrapper';
 
@@ -32,11 +32,23 @@ export default Vue.extend({
   },
   computed: mapGetters(['getIcon', 'getIconSize']),
   methods: {
-    copyToClipboard() {
+    async copyToClipboard() {
       const _copyValue = prettifyHtmlValue(this.getIconSize, this.copyValue);
 
-      navigator.clipboard.writeText(_copyValue);
+      try {
+        await navigator.clipboard.writeText(_copyValue);
+
+        this.sendNotification({
+          message: 'Icon html was copied to your clipboard',
+        });
+      } catch (err) {
+        this.sendNotification({
+          message: 'Sveegy does not have access to your keyboard',
+          isError: true,
+        });
+      }
     },
+    ...mapActions(['sendNotification']),
   },
 });
 </script>
