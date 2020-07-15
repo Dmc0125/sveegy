@@ -92,6 +92,7 @@ export default Vue.extend({
   height: 100%;
   padding: 0 1rem 0 2rem;
 
+  background: var(--primary);
   border: 1px solid var(--primary-border);
   border-radius: 10px;
   color: var(--font-clr);

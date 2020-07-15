@@ -64,6 +64,7 @@ export default Vue.extend({
   right: 10px;
 
   background: var(--primary);
+  color: var(--font-clr);
   border: 1px solid var(--primary-border);
   border-radius: 10px;
   transition: all 150ms ease-in-out;

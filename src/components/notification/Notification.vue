@@ -111,6 +111,7 @@ export default Vue.extend({
   right: 10px;
 
   background: var(--primary);
+  color: var(--font-clr);
 }
 
 @include tablet-s {

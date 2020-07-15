@@ -1,5 +1,8 @@
 <template>
-  <main id="app">
+  <main
+    id="app"
+    :color-mode="getDarkMode ? 'dark' : 'light'"
+  >
     <Header />
     <Navigation />
     <RouterView />
@@ -11,6 +14,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { mapGetters, mapActions } from 'vuex';
 
 import Header from '@/layouts/header/Header.vue';
 import Footer from '@/layouts/footer/Footer.vue';
@@ -23,6 +27,11 @@ export default Vue.extend({
     Footer,
     Navigation,
     Notification,
+  },
+  computed: mapGetters(['getDarkMode']),
+  methods: mapActions(['initDarkMode']),
+  mounted() {
+    this.initDarkMode();
   },
 });
 </script>
@@ -84,6 +93,9 @@ input {
 #app {
   width: 100%;
   min-height: 100vh;
+
+  background: var(--primary);
+  // transition: var(--t-clr), var(--t-bg);
 
   display: grid;
   grid-template-rows: min-content 1fr min-content;

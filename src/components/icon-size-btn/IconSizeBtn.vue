@@ -66,6 +66,7 @@ export default Vue.extend({
 
 .icon-size__label {
   margin-right: .5rem;
+  color: var(--font-clr);
 }
 
 .icon-size__input {

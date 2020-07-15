@@ -182,7 +182,7 @@ export default Vue.extend({
   transform-origin: top right;
 
   background: var(--primary);
-  border: 1px solid var(--primary-border);
+  border: 1px solid var(--secondary);
   border-radius: 10px;
   font-size: 1rem;
 }

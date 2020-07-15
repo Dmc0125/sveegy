@@ -77,6 +77,8 @@ export default Vue.extend({
   height: 60px;
   padding: 0 30px;
 
+  transition: var(--t-clr), var(--t-bg);
+
   display: flex;
   justify-content: space-between;
   align-items: center;

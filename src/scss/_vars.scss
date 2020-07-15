@@ -1,14 +1,38 @@
 :root {
+  --font-clr-secondary: #969696;
+
+  --color-switch-btn: #f2c94c;
+
+  --t-timing-fn: ease-in-out;
+  --t-duration: 300ms;
+  --t-clr: background var(--t-duration) var(--t-timing-fn);
+  --t-bg: color var(--t-duration) var(--t-timing-fn);
+}
+
+main[color-mode="light"] {
   --primary: #fff;
   --secondary: #3d5af1;
 
-  --primary-border: #e0e0e0;
   --secondary-bg: #f3f5ff;
+
+  --primary-border: #e0e0e0;
 
   --font-clr: #000;
   --font-clr-inverse: #f2f2f2;
 
-  --font-clr-secondary: #969696;
+  --overlay-clr: rgba(0, 0, 0, .1);
+}
 
-  --color-switch-btn: #f2c94c;
+main[color-mode="dark"] {
+  --primary: #1c1c1f;
+  --secondary: #a7ff83;
+
+  --secondary-bg: #52ac2e;
+
+  --primary-border: #3e3e42;
+
+  --font-clr: #f2f2f2;
+  --font-clr-inverse: #000;
+
+  --overlay-clr: rgba(250, 250, 250, .1);
 }

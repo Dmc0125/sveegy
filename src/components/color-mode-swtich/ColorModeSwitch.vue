@@ -5,7 +5,7 @@
   >
     <div
       class="clr-switch__btn"
-      :class="{ 'clr-switch__btn--dark-mode': isDarkMode }"
+      :class="{ 'clr-switch__btn--dark-mode': getDarkMode }"
     ></div>
   </button>
 </template>
@@ -15,7 +15,7 @@ import Vue from 'vue';
 import { mapGetters, mapActions } from 'vuex';
 
 export default Vue.extend({
-  computed: mapGetters(['isDarkMode']),
+  computed: mapGetters(['getDarkMode']),
   methods: mapActions(['toggleDarkMode']),
 });
 </script>
@@ -44,7 +44,10 @@ export default Vue.extend({
 
   background: var(--color-switch-btn);
   border-radius: 50%;
-  transition: margin-left 200ms ease-in-out;
+  transition:
+    margin-left 200ms ease-in-out,
+    var(--t-clr),
+    var(--t-bg);
 
   &--dark-mode {
     margin-left: calc(100% - var(--size));

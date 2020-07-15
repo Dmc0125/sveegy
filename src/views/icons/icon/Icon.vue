@@ -183,7 +183,7 @@ export default Vue.extend({
   top: 0;
   left: 0;
 
-  background: rgba(0, 0, 0, .1);
+  background: var(--overlay-clr);
 }
 
 .icon-popup {
@@ -253,11 +253,13 @@ export default Vue.extend({
 
 .popup-main__selected-icon {
   width: 200px;
+  color: var(--font-clr);
 }
 
 .popup-main__features {
   li {
     font-size: 1rem;
+    color: var(--font-clr);
 
     display: flex;
     align-items: center;

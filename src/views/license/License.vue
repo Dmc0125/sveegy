@@ -3,7 +3,6 @@
     <VueContainer use-flex>
       <section class="license">
         <h1>License</h1>
-
         <div>
           <h2>Copyright 2020 Dominik Michal</h2>
           <p>
@@ -40,6 +39,13 @@
           src="@/assets/illustrations/license.svg"
           alt="License illustration"
           title="License illustration"
+          v-if="!getDarkMode"
+        >
+        <img
+          src="@/assets/illustrations/license-dark.svg"
+          alt="License dark mode illustration"
+          title="License dark mode illustration"
+          v-else
         >
       </VueIllustration>
     </VueContainer>
@@ -48,6 +54,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { mapGetters } from 'vuex';
 
 import VueContainer from '@/layouts/vue-container/VueContainer.vue';
 import VueIllustration from '@/layouts/vue-illustration/VueIllustration.vue';
@@ -57,6 +64,7 @@ export default Vue.extend({
     VueContainer,
     VueIllustration,
   },
+  computed: mapGetters(['getDarkMode']),
 });
 </script>
 

@@ -28,6 +28,10 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+.container {
+  background: var(--primary);
+}
+
 .container--flex {
   display: flex;
   flex-direction: column;
