@@ -1,27 +1,25 @@
 <template>
-  <transition name="route-fade-in" appear>
-    <VueContainer use-flex>
-      <Hero
-        headline="Sveegy"
-        sub-headline="Choose from many free svg icons and use it with just one click"
-      />
+  <VueContainer use-flex>
+    <Hero
+      headline="Sveegy"
+      sub-headline="Choose from many free svg icons and use it with just one click"
+    />
 
-      <VueIllustration>
-        <img
-          src="@/assets/illustrations/browse.svg"
-          alt="Browse illustration"
-          title="Browse illustration"
-          v-if="!getDarkMode"
-        >
-        <img
-          src="@/assets/illustrations/browse-dark.svg"
-          alt="Browse illustration dark mode"
-          title="Browse illustration dark mode"
-          v-else
-        >
-      </VueIllustration>
-    </VueContainer>
-  </transition>
+    <VueIllustration>
+      <img
+        src="@/assets/illustrations/browse.svg"
+        alt="Browse illustration"
+        title="Browse illustration"
+        v-if="!getDarkMode"
+      >
+      <img
+        src="@/assets/illustrations/browse-dark.svg"
+        alt="Browse illustration"
+        title="Browse illustration"
+        v-else
+      >
+    </VueIllustration>
+  </VueContainer>
 </template>
 
 <script lang="ts">

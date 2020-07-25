@@ -2,6 +2,7 @@ export default [
   // MAIN
   {
     id: 'home-icon',
+    type: 'stroke',
     variations: ['home', 'stroke', 'house'],
     htmlValue: `
       <path
@@ -19,9 +20,106 @@ export default [
     `,
   },
 
+  {
+    id: 'chevron-down-icon',
+    type: 'stroke',
+    variations: ['chevron down', 'arrow down'],
+    htmlValue: `
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M18.718 9.425a.5.5 0 10-.708-.707L12 14.728l-6.01-6.01a.5.5 0 10-.708.707l6.364 6.364a.5.5 0 00.708 0l6.364-6.364z"
+        fill="currentColor"
+      />
+    `,
+  },
+  {
+    id: 'chevron-left-icon',
+    type: 'stroke',
+    variations: ['chevron left', 'arrow left'],
+    htmlValue: `
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M15.283 18.01a.5.5 0 01-.708.707l-6.364-6.363a.5.5 0 01.708-.708l6.364 6.364z"
+        fill="currentColor"
+      />
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M14.575 5.282a.5.5 0 11.708.708l-6.364 6.364a.5.5 0 01-.708-.708l6.364-6.364z"
+        fill="currentColor"
+      />
+    `,
+  },
+  {
+    id: 'chevron-up-icon',
+    type: 'stroke',
+    variations: ['chevron up', 'arrow up'],
+    htmlValue: `
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M5.99 15.283a.5.5 0 01-.708-.708l6.364-6.364a.5.5 0 01.708.708L5.99 15.283z"
+        fill="currentColor"
+      />
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M18.718 14.575a.5.5 0 11-.708.708l-6.364-6.364a.5.5 0 01.708-.708l6.364 6.364z"
+        fill="currentColor"
+      />
+    `,
+  },
+  {
+    id: 'chevron-right-icon',
+    type: 'stroke',
+    variations: ['chevron right', 'arrow right'],
+    htmlValue: `
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M8.718 5.99a.5.5 0 01.707-.708l6.364 6.364a.5.5 0 01-.707.708L8.718 5.99z"
+        fill="currentColor"
+      />
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M9.425 18.718a.5.5 0 11-.707-.708l6.364-6.364a.5.5 0 01.707.708l-6.364 6.364z"
+        fill="currentColor"
+      />
+    `,
+  },
+  {
+    id: 'expand-icon',
+    type: 'stroke',
+    variations: ['expand', 'maximize'],
+    htmlValue: `
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M13.379 19.192a.5.5 0 110 1h-9a.5.5 0 010-1h9z"
+        fill="currentColor"
+      />
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M3.879 10.692a.5.5 0 111 0v9a.5.5 0 01-1 0v-9zM10.621 4.95a.5.5 0 010-1h9a.5.5 0 110 1h-9z"
+        fill="currentColor"
+      />
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M20.121 13.45a.5.5 0 11-1 0v-9a.5.5 0 011 0v9z"
+        fill="currentColor"
+      />
+    `,
+  },
+
   // MISC
   {
     id: 'copy-icon',
+    type: 'stroke',
     variations: ['copy'],
     htmlValue: `
       <path
@@ -40,6 +138,7 @@ export default [
   },
   {
     id: 'assets-icon',
+    type: 'stroke',
     variations: ['assets', 'icons', 'components'],
     htmlValue: `
       <path
@@ -52,6 +151,7 @@ export default [
   },
   {
     id: 'license-icon',
+    type: 'stroke',
     variations: ['license', 'paper', 'list'],
     htmlValue: `
       <path
@@ -64,6 +164,7 @@ export default [
   },
   {
     id: 'search-icon',
+    type: 'stroke',
     variations: ['search', 'magnifying glass', 'zoom', 'in'],
     htmlValue: `
       <path
@@ -80,6 +181,7 @@ export default [
   },
   {
     id: 'filter-icon',
+    type: 'stroke',
     variations: ['filter', 'sort'],
     htmlValue: `
       <path
@@ -90,6 +192,7 @@ export default [
   },
   {
     id: 'tick-icon',
+    type: 'stroke',
     variations: ['tick', 'done'],
     htmlValue: `
       <path
@@ -100,10 +203,94 @@ export default [
       />
     `,
   },
+  {
+    id: 'pencil-icon',
+    type: 'stroke',
+    variations: ['pencil'],
+    htmlValue: `
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M16.654 4.14a.5.5 0 01.7.006l3.5 3.5a.5.5 0 01-.008.715l-12.5 12A.5.5 0 018 20.5H4.5A.5.5 0 014 20v-3.5a.5.5 0 01.154-.36l12.5-12zM5 16.712V19.5h2.799L19.786 7.993 16.993 5.2 5 16.713z"
+        fill="currentColor"
+      />
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M16.646 11.854l-3.5-3.5.708-.708 3.5 3.5-.708.708z"
+        fill="currentColor"
+      />
+    `,
+  },
+  {
+    id: 'bell-icon',
+    type: 'stroke',
+    variations: ['bell', 'ring'],
+    htmlValue: `
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M9.316 16.535a.5.5 0 01.649.28v.002l.005.01.022.051a3.793 3.793 0 00.503.804c.366.445.863.818 1.505.818.642 0 1.14-.373 1.505-.818a3.793 3.793 0 00.525-.854l.005-.011.465.183.465.184a.5.5 0 10-.93-.367M9.5 17l-.465.184a.5.5 0 01.281-.65M14.5 17l.465.184v.001l-.002.003-.002.007-.01.022a3.432 3.432 0 01-.16.332 4.803 4.803 0 01-.513.769c-.457.555-1.21 1.182-2.278 1.182s-1.821-.627-2.278-1.182a4.803 4.803 0 01-.673-1.1l-.01-.023-.002-.007-.001-.003-.001-.001L9.5 17M11 6.5h-1v-.035a2.97 2.97 0 01.027-.34c.027-.211.08-.502.192-.8.111-.297.29-.627.582-.886A1.757 1.757 0 0112 4c.498 0 .897.17 1.2.439.291.26.47.59.58.885A3.583 3.583 0 0114 6.465v.034l-.5.001H13v.001-.011l-.002-.05a2.717 2.717 0 00-.154-.764 1.22 1.22 0 00-.309-.49A.76.76 0 0012 5a.76.76 0 00-.535.186 1.22 1.22 0 00-.31.49A2.579 2.579 0 0011 6.49v.012V6.5z"
+        fill="currentColor"
+      />
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M8.94 6.666C9.622 5.909 10.648 5.5 12 5.5s2.379.41 3.06 1.166c.671.746.94 1.758.94 2.834 0 1.34.675 2.609 1.4 3.575a10.72 10.72 0 001.307 1.441c.038.035.067.06.087.077l.021.019.005.004a.502.502 0 01.034.738L18.5 15l.354.354h-.001l-.001.002-.003.002-.008.008a2.516 2.516 0 01-.11.099c-.073.063-.18.15-.32.252a7.787 7.787 0 01-1.26.735c-1.127.53-2.824 1.048-5.151 1.048s-4.024-.518-5.15-1.048a7.785 7.785 0 01-1.261-.735 5.006 5.006 0 01-.43-.351l-.008-.008-.003-.003s-.002-.001.352-.355l-.354.354a.5.5 0 01.034-.738l.005-.004.021-.019c.02-.017.05-.042.087-.077A10.72 10.72 0 006.6 13.075C7.324 12.109 8 10.841 8 9.5c0-1.076.269-2.088.94-2.834zm-2.674 8.306c.234.162.569.368 1.01.576.998.47 2.55.952 4.724.952 2.173 0 3.726-.482 4.725-.952.44-.208.775-.414 1.009-.576a11.743 11.743 0 01-1.134-1.297C15.824 12.641 15 11.159 15 9.5c0-.924-.231-1.662-.684-2.166C13.87 6.841 13.147 6.5 12 6.5c-1.147 0-1.871.34-2.316.834C9.231 7.838 9 8.576 9 9.5c0 1.66-.824 3.141-1.6 4.175a11.743 11.743 0 01-1.134 1.297z"
+        fill="currentColor"
+      />
+    `,
+  },
+  {
+    id: 'profile-icon',
+    type: 'stroke',
+    variations: ['profile', 'account', 'settings'],
+    htmlValue: `
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M5.114 19h13.772a9.915 9.915 0 00-1.126-2.74C16.761 14.613 15.03 13 12 13s-4.761 1.614-5.76 3.26A9.911 9.911 0 005.114 19zm14.386.5l.495-.071v-.003l-.001-.005-.003-.019a4.392 4.392 0 00-.057-.305c-.043-.203-.11-.49-.213-.833a10.91 10.91 0 00-1.106-2.523C17.489 13.886 15.47 12 12 12s-5.489 1.886-6.615 3.74a10.91 10.91 0 00-1.376 3.662l-.003.019v.007c0 .001-.001.001.494.072l-.495-.07A.5.5 0 004.5 20h15a.5.5 0 00.495-.57l-.495.07zM12 12a4 4 0 100-8 4 4 0 000 8zm0-1a3 3 0 100-6 3 3 0 000 6z"
+        fill="currentColor"
+      />
+    `,
+  },
+  {
+    id: 'plus-icon',
+    type: 'stroke',
+    variations: ['plus', 'add'],
+    htmlValue: `
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M5 12a.5.5 0 01.5-.5h13a.5.5 0 010 1h-13A.5.5 0 015 12z"
+        fill="currentColor"
+      />
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M12 5a.5.5 0 01.5.5v13a.5.5 0 01-1 0v-13A.5.5 0 0112 5z"
+        fill="currentColor"
+      />
+    `,
+  },
+  {
+    id: 'minus-icon',
+    type: 'stroke',
+    variations: ['minus', 'subtract'],
+    htmlValue: `
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M5 11.5a.5.5 0 01.5-.5h13a.5.5 0 010 1h-13a.5.5 0 01-.5-.5z"
+        fill="currentColor"
+      />
+    `,
+  },
 
   // MENU
   {
     id: 'menu-icon',
+    type: 'fill',
     variations: ['menu', 'dots', 'settings', 'options'],
     htmlValue: `
       <path
@@ -116,6 +303,7 @@ export default [
   },
   {
     id: 'hamburger-icon',
+    type: 'stroke',
     variations: ['hamburger', 'menu', 'nav'],
     htmlValue: `
       <path
@@ -128,6 +316,7 @@ export default [
   },
   {
     id: 'close-icon',
+    type: 'stroke',
     variations: ['close', 'exit', 'leave'],
     htmlValue: `
       <path
@@ -142,6 +331,7 @@ export default [
   // SOCIAL
   {
     id: 'github-icon',
+    type: 'logo',
     variations: ['github', 'gh'],
     htmlValue: `
       <path

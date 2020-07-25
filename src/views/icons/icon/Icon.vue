@@ -1,88 +1,103 @@
 <template>
+  <transition name="slide-in" appear>
   <main
     class="overlay"
     @click="redirectHome"
   >
-    <section
-      class="icon-popup"
-      @click.stop
-    >
-      <header class="popup-header">
-        <div class="popup-header__top-section">
-          <h1>{{ iconName }}</h1>
+      <section
+        class="icon-popup"
+        :key="route.fullPath"
+        @click.stop
+      >
+        <header class="popup-header">
+          <div class="popup-header__top-section">
+            <h1>{{ iconName }}</h1>
 
-          <RouterLink
-            class="top-section__close-icon"
-            to="/icons"
+            <RouterLink
+              class="top-section__close-icon"
+              to="/icons"
+            >
+              <VueSvg :icon-html="getIcon('close-icon').htmlValue" />
+            </RouterLink>
+          </div>
+
+          <ul class="popup-header__variations">
+            <li
+              v-for="variation in iconVariations"
+              :key="variation"
+            >
+              {{ variation }}
+            </li>
+          </ul>
+        </header>
+
+        <main class="popup-main">
+          <div class="popup-main__selected-icon">
+            <VueSvg :icon-html="iconHtmlValue" />
+          </div>
+
+          <ul class="popup-main__features">
+            <li
+              v-for="feature in features"
+              :key="feature"
+            >
+              <span class="features__tick-icon">
+                <VueSvg :icon-html="getIcon('tick-icon').htmlValue" />
+              </span>
+              {{ feature }}
+            </li>
+          </ul>
+        </main>
+
+        <footer class="popup-footer">
+          <!-- ADD DOWNLOAD ICON -->
+          <a
+            class="popup-footer__download-btn"
+            :href="`/icons/${iconId}.svg`"
+            :download="`${iconId}.svg`"
+            @click="sendDownloadNotification"
+          >Download</a>
+
+          <IconBtn
+            class="popup-footer__settings-btn"
+            @click="toggleSettings"
           >
-            <VueSvg :icon-html="getIcon('close-icon').htmlValue" />
-          </RouterLink>
-        </div>
+            <VueSvg :icon-html="getIcon('menu-icon').htmlValue" />
+          </IconBtn>
 
-        <ul class="popup-header__variations">
-          <li
-            v-for="variation in iconVariations"
-            :key="variation"
-          >
-            {{ variation }}
-          </li>
-        </ul>
-      </header>
-
-      <main class="popup-main">
-        <div class="popup-main__selected-icon">
-          <VueSvg :icon-html="iconHtmlValue" />
-        </div>
-
-        <ul class="popup-main__features">
-          <li
-            v-for="feature in features"
-            :key="feature"
-          >
-            <span class="features__tick-icon">
-              <VueSvg :icon-html="getIcon('tick-icon').htmlValue" />
-            </span>
-            {{ feature }}
-          </li>
-        </ul>
-      </main>
-
-      <footer class="popup-footer">
-        <!-- ADD DOWNLOAD ICON -->
-        <a
-          class="popup-footer__download-btn"
-          :href="`/icons/${iconId}.svg`"
-          :download="`${iconId}.svg`"
-          @click="sendDownloadNotification"
-        >Download</a>
-
-        <IconSizeBtn class="popup-footer__size-settings" />
-
-        <div class="popup-footer__icon-html">
-          <CopyIcon
-            :copy-value="iconHtmlValue"
-            show-always
+          <IconSettings
+            class="popup-footer__settings"
+            :open-settings="openSettings"
+            @icon-settings:close="toggleSettings"
           />
 
-          <div class="icon-html__html-wrapper">
-            <p class="html-wrapper__copy-value">{{ iconCopyHtml }}</p>
+          <div class="popup-footer__icon-html">
+            <CopyIcon
+              :copy-value="iconHtmlValue"
+              show-always
+            />
+
+            <div class="icon-html__html-wrapper">
+              <p class="html-wrapper__copy-value">{{ iconCopyHtml }}</p>
+            </div>
           </div>
-        </div>
-      </footer>
-    </section>
+        </footer>
+      </section>
   </main>
+  </transition>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import { computed } from '@vue/composition-api';
+import { computed, ref } from '@vue/composition-api';
 import { useRouter, useGetters, useActions } from '@u3u/vue-hooks';
 
 import prettifyHtmlValue from '@/utils/copy-svg-wrapper';
 
+import IconBtn from '@/components/icon-btn/IconBtn.vue';
 import VueSvg from '@/layouts/vue-svg/VueSvg.vue';
-import IconSizeBtn from '@/components/icon-size-btn/IconSizeBtn.vue';
 import CopyIcon from '@/components/copy-icon/CopyIcon.vue';
+import IconSettings from '@/components/icon-settings/IconSettings.vue';
 
 interface IconData {
   iconHtmlValue: string;
@@ -95,7 +110,7 @@ const useIconData = (id: string): IconData => {
   const { getIcon, getIcons } = useGetters(['getIcon', 'getIcons']);
 
   const createName = (iconId: string) => (
-    iconId[0].toUpperCase() + iconId.slice(1).replace('-', ' ')
+    iconId[0].toUpperCase() + iconId.slice(1).replace(/(-)/g, ' ')
   );
 
   // eslint-disable-next-line no-restricted-globals
@@ -120,13 +135,14 @@ const useIconData = (id: string): IconData => {
 
 export default Vue.extend({
   components: {
+    IconBtn,
     VueSvg,
-    IconSizeBtn,
     CopyIcon,
+    IconSettings,
   },
   setup() {
     const { route, router } = useRouter();
-    const { getIcon, getIconSize } = useGetters(['getIcon', 'getIconSize']);
+    const { getIcon, getIconSize, getIconColor } = useGetters(['getIcon', 'getIconSize', 'getIconColor']);
     const { sendNotification } = useActions(['sendNotification']);
 
     const { id } = route.value.params;
@@ -141,8 +157,14 @@ export default Vue.extend({
       'Easy to use',
     ];
 
+    const openSettings = ref(false);
+
+    const toggleSettings = () => {
+      openSettings.value = !openSettings.value;
+    };
+
     const iconCopyHtml = computed(() => (
-      prettifyHtmlValue(getIconSize.value, iconHtmlValue)
+      prettifyHtmlValue(getIconSize.value, iconHtmlValue, getIconColor.value)
     ));
 
     const sendDownloadNotification = () => {
@@ -157,6 +179,7 @@ export default Vue.extend({
     };
 
     return {
+      route,
       getIcon,
 
       iconHtmlValue,
@@ -165,6 +188,9 @@ export default Vue.extend({
       iconId,
 
       features,
+
+      openSettings,
+      toggleSettings,
 
       sendDownloadNotification,
       iconCopyHtml,
@@ -178,19 +204,22 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .overlay {
   width: 100%;
-  min-height: 100%;
-  position: absolute;
-  top: 0;
+  min-height: 200%;
+  position: fixed;
+  top: -100%;
   left: 0;
 
   background: var(--overlay-clr);
 }
 
 .icon-popup {
-  width: 80%;
+  width: 100%;
   max-width: 600px;
   height: fit-content;
-  margin: 5rem auto 30px;
+  max-height: 47%;
+  position: absolute;
+  bottom: 0;
+  overflow-y: auto;
 
   background: var(--primary);
   border-radius: 10px;
@@ -284,14 +313,15 @@ export default Vue.extend({
   position: relative;
 
   display: grid;
-  grid-template-rows: repeat(4, 1fr);
-  justify-items: center;
+  grid-template-columns: repeat(2, auto);
+  grid-template-rows: repeat(3, 1fr);
   grid-gap: 1rem;
 }
 
 .popup-footer__download-btn {
   width: 140px;
   height: 44px;
+  grid-column: 1;
 
   background: var(--secondary);
   color: var(--font-clr-inverse);
@@ -303,9 +333,19 @@ export default Vue.extend({
   align-items: center;
 }
 
+.popup-footer__settings-btn {
+  justify-self: end;
+}
+
+.popup-footer__settings {
+  grid-column: 1 / -1;
+  grid-row: 1;
+}
+
 .popup-footer__icon-html {
   width: 100%;
   grid-row: -3 / -1;
+  grid-column: 1 / -1;
   position: relative;
 
   background: var(--primary-border);
@@ -327,30 +367,50 @@ export default Vue.extend({
   white-space: pre;
 }
 
+.slide-in-enter-active,
+.slide-in-leave-active {
+  transition:
+    transform 300ms ease-in-out,
+    opacity 300ms ease-in-out;
+}
+
+.slide-in-enter-to,
+.slide-in-leave {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slide-in-enter,
+.slide-in-leave-to {
+  opacity: 0;
+  transform: translateY(50%);
+}
+
 @include tablet-l {
+  .overlay {
+    min-height: 100%;
+    position: absolute;
+    top: 0;
+    overflow: hidden;
+  }
+
+  .icon-popup {
+    width: 80%;
+    margin: 5rem auto 0;
+    position: relative;
+  }
+
   .popup-header__top-section h1 {
     font-size: 2rem;
   }
 
   .popup-footer {
-    grid-template-rows: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 1fr);
     grid-gap: 1.5rem;
   }
 
-  .popup-footer__download-btn {
-    grid-column: 1;
-    justify-self: start;
-    align-self: center;
-  }
-
-  .popup-footer__size-settings {
-    grid-column: 2;
-    justify-self: end;
-  }
-
-  .popup-footer__icon-html {
-    grid-column: span 2;
+  .slide-in-enter-active,
+  .slide-in-leave-active {
+    transition: none;
   }
 }
 

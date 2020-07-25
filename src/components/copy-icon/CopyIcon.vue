@@ -12,7 +12,7 @@
 import Vue from 'vue';
 import { mapGetters, mapActions } from 'vuex';
 
-import prettifyHtmlValue from '@/utils/copy-svg-wrapper';
+import setCopyValue from '@/utils/copy-svg-wrapper';
 
 import VueSvg from '@/layouts/vue-svg/VueSvg.vue';
 
@@ -30,10 +30,10 @@ export default Vue.extend({
       default: false,
     },
   },
-  computed: mapGetters(['getIcon', 'getIconSize']),
+  computed: mapGetters(['getIcon', 'getIconSize', 'getIconColor']),
   methods: {
     async copyToClipboard() {
-      const _copyValue = prettifyHtmlValue(this.getIconSize, this.copyValue);
+      const _copyValue = setCopyValue(this.getIconSize, this.copyValue, this.getIconColor);
 
       try {
         await navigator.clipboard.writeText(_copyValue);

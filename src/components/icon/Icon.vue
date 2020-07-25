@@ -6,7 +6,10 @@
     <CopyIcon :copy-value="iconHtml" />
 
     <div class="svg">
-      <VueSvg :icon-html="iconHtml" />
+      <VueSvg
+        :icon-html="iconHtml"
+        change-color
+      />
     </div>
 
     <div class="icon-name">
@@ -41,7 +44,7 @@ export default defineComponent({
     const { router } = useRouter();
 
     const redirectToIcon = () => {
-      router.push({ path: `/icons/${props.iconName}-icon` });
+      router.push({ path: `/icons/${props.iconName.replace(/(\s)/g, '-')}-icon` });
     };
 
     const _iconName = props.iconName[0].toUpperCase() + props.iconName.substring(1);

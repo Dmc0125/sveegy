@@ -10,6 +10,13 @@
         src="@/assets/illustrations/search.svg"
         alt="Search illustration"
         title="Search illustration"
+        v-if="!getDarkMode"
+      >
+      <img
+        src="@/assets/illustrations/search-dark.svg"
+        alt="Search illustration"
+        title="Search illustration"
+        v-else
       >
     </VueIllustration>
   </VueContainer>
@@ -17,6 +24,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { mapGetters } from 'vuex';
 
 import VueContainer from '@/layouts/vue-container/VueContainer.vue';
 import Hero from '@/components/hero/Hero.vue';
@@ -28,5 +36,6 @@ export default Vue.extend({
     Hero,
     VueIllustration,
   },
+  computed: mapGetters(['getDarkMode']),
 });
 </script>

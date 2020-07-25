@@ -113,6 +113,7 @@ nav {
   right: 0;
   overflow: auto;
 
+  border-left: 1px solid var(--primary-border);
   background: var(--primary);
   box-shadow: 0 0 10px rgba(0, 0, 0, .2);
 
@@ -140,6 +141,7 @@ header {
   width: var(--size);
   height: var(--size);
 
+  color: var(--font-clr);
   background: var(--primary);
 }
 
@@ -240,6 +242,7 @@ li + li {
 .color-mode {
   padding: 0 30px;
 
+  color: var(--font-clr);
   display: flex;
   align-items: center;
   justify-content: flex-end;

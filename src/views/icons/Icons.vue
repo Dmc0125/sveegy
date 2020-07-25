@@ -1,65 +1,45 @@
 <template>
-  <transition name="route-fade-in" appear>
-    <main class="icons-main">
-      <VueContainer class="icons-main__icons-hero">
-        <div class="icons-hero__hero">
-          <h1>Many free svg icons</h1>
-          <h2>
-            Browse to find any svg icon you want and then use it either
-            by copying the html or downloading the svg.
-          </h2>
+  <main class="icons-main">
+    <VueContainer class="icons-main__icons-hero">
+      <div class="icons-hero__hero">
+        <h1>Many free svg icons</h1>
+        <h2>
+          Browse to find any svg icon you want and then use it either
+          by copying the html or downloading the svg.
+        </h2>
+      </div>
+    </VueContainer>
+
+    <section class="icons-section">
+      <VueContainer icons>
+        <div class="icons-section__top-section">
+          <Searchbar
+            class="top-section__searchbar-container"
+            :search-term.sync="searchTerm"
+          />
+          <IconBtn @click="toggleSettings">
+            <VueSvg :icon-html="getIcon('menu-icon').htmlValue" />
+          </IconBtn>
+
+          <IconSettings
+            :open-settings="openSettings"
+            @icon-settings:close="toggleSettings"
+          />
+        </div>
+
+        <div class="icons-section__icons">
+          <Icon
+            :icon-html="htmlValue"
+            :icon-name="variations[0]"
+            v-for="{ id, variations, htmlValue } in getSearchedIcons(searchTerm)"
+            :key="id"
+          />
         </div>
       </VueContainer>
+    </section>
 
-      <section class="icons-section">
-        <VueContainer icons>
-          <div class="icons-section__top-section">
-            <Searchbar
-              class="top-section__searchbar-container"
-              :search-term.sync="searchTerm"
-            />
-            <IconBtn @click="toggleSettings">
-              <VueSvg :icon-html="getIcon('menu-icon').htmlValue" />
-            </IconBtn>
-
-            <transition name="settings-fade-in">
-              <div
-                class="top-section__settings"
-                v-show="openSettings"
-              >
-                <transition name="settings-inner-fade-in">
-                  <div
-                    class="settings__wrapper"
-                    v-show="openSettings"
-                  >
-                    <IconSizeBtn />
-
-                    <button
-                      class="wrapper__close-icon"
-                      @click="toggleSettings"
-                    >
-                      <VueSvg :icon-html="getIcon('close-icon').htmlValue" />
-                    </button>
-                  </div>
-                </transition>
-              </div>
-            </transition>
-          </div>
-
-          <div class="icons-section__icons">
-            <Icon
-              :icon-html="htmlValue"
-              :icon-name="variations[0]"
-              v-for="{ id, variations, htmlValue } in getSearchedIcons(searchTerm)"
-              :key="id"
-            />
-          </div>
-        </VueContainer>
-      </section>
-
-      <RouterView />
-    </main>
-  </transition>
+    <RouterView />
+  </main>
 </template>
 
 <script lang="ts">
@@ -71,7 +51,7 @@ import VueContainer from '@/layouts/vue-container/VueContainer.vue';
 import VueSvg from '@/layouts/vue-svg/VueSvg.vue';
 import Searchbar from '@/components/searchbar/Searchbar.vue';
 import IconBtn from '@/components/icon-btn/IconBtn.vue';
-import IconSizeBtn from '@/components/icon-size-btn/IconSizeBtn.vue';
+import IconSettings from '@/components/icon-settings/IconSettings.vue';
 import Icon from '@/components/icon/Icon.vue';
 
 export default Vue.extend({
@@ -80,22 +60,17 @@ export default Vue.extend({
     VueSvg,
     Searchbar,
     IconBtn,
-    IconSizeBtn,
+    IconSettings,
     Icon,
   },
   setup() {
     const {
-      getIcon, getSearchedIcons, getIconSize,
+      getIcon, getSearchedIcons,
     } = useGetters(['getIcon', 'getSearchedIcons']);
     const { setIconSize } = useActions(['setIconSize']);
     const { route } = useRouter();
 
     const searchTerm = ref('');
-    const openSettings = ref(false);
-
-    const toggleSettings = () => {
-      openSettings.value = !openSettings.value;
-    };
 
     const { size } = route.value.query;
 
@@ -103,10 +78,15 @@ export default Vue.extend({
       setIconSize(size);
     }
 
+    const openSettings = ref(false);
+
+    const toggleSettings = () => {
+      openSettings.value = !openSettings.value;
+    };
+
     return {
       getIcon,
       getSearchedIcons,
-      getIconSize,
 
       searchTerm,
 
@@ -171,86 +151,6 @@ export default Vue.extend({
 .top-section__searchbar-container {
   margin-right: 1rem;
 }
-
-.top-section__settings {
-  width: 14rem;
-  height: 3rem;
-  padding: 0 1rem;
-  position: absolute;
-  top: 0;
-  right: 0;
-  transform-origin: top right;
-
-  background: var(--primary);
-  border: 1px solid var(--secondary);
-  border-radius: 10px;
-  font-size: 1rem;
-}
-
-.settings__wrapper {
-  width: 100%;
-  height: 100%;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.wrapper__close-icon {
-  --size: 2rem;
-
-  width: var(--size);
-  height: var(--size);
-
-  background: none;
-  color: var(--font-clr);
-}
-
-/* SETTINGS TRANSITION */
-
-.settings-fade-in-enter-active {
-  transition: all 500ms ease-in-out;
-}
-
-.settings-fade-in-leave-active {
-  transition: all 500ms ease-in-out 300ms;
-}
-
-.settings-fade-in-enter,
-.settings-fade-in-leave-to {
-  transform: scale(.1, .5);
-
-  opacity: 0;
-  pointer-events: none;
-}
-
-.settings-fade-in-enter-to
-.settings-fade-in-leave {
-  transform: scale(1, 1);
-
-  opacity: 1;
-  pointer-events: all;
-}
-
-.settings-inner-fade-in-enter-active {
-  transition: all 300ms ease-in-out 500ms;
-}
-
-.settings-inner-fade-in-leave-active {
-  transition: all 500ms ease-in-out;
-}
-
-.settings-inner-fade-in-enter,
-.settings-inner-fade-in-leave-to {
-  opacity: 0;
-}
-
-.settings-inner-fade-in-enter-to,
-.settings-inner-fade-in-leave {
-  opacity: 1;
-}
-
-/* ------------------- */
 
 .icons-section__icons {
   width: 100%;

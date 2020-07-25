@@ -97,6 +97,7 @@ export default Vue.extend({
   width: var(--size);
   height: var(--size);
 
+  color: var(--font-clr);
   background: var(--primary);
 }
 

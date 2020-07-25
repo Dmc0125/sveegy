@@ -7,12 +7,14 @@ import { Icon } from '@/types/svg-icons';
 interface IconsState {
   icons: Icon[];
   iconSize: string;
+  iconColor: string | null;
 }
 
 const store: Module<IconsState, {}> = {
   state: () => ({
     icons,
     iconSize: '2rem',
+    iconColor: 'currentColor',
   }),
   getters: {
     getIcons: state => state.icons,
@@ -32,10 +34,16 @@ const store: Module<IconsState, {}> = {
     },
 
     getIconSize: state => state.iconSize,
+
+    getIconColor: state => state.iconColor,
   },
   actions: {
     setIconSize: ({ state }, size) => {
       state.iconSize = size;
+    },
+
+    setIconColor: ({ state }, color) => {
+      state.iconColor = color;
     },
   },
 };

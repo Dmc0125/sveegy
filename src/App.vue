@@ -5,7 +5,10 @@
   >
     <Header />
     <Navigation />
-    <RouterView />
+    <transition name="route-fade-in" appear>
+      <RouterView />
+    </transition>
+
     <Footer />
 
     <Notification />
