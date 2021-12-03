@@ -1,3 +1,5 @@
+import { Icon } from '@/types/svg-icons';
+
 export default [
   // MAIN
   {
@@ -286,6 +288,19 @@ export default [
       />
     `,
   },
+  {
+    id: 'info-icon',
+    type: 'stroke',
+    variations: ['info', 'information'],
+    htmlValue: `
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M9.5 10.5a.5.5 0 01.5-.5h4a.5.5 0 01.5.5v9a.5.5 0 01-.5.5h-4a.5.5 0 01-.5-.5v-9zm1 .5v8h3v-8h-3zM9.5 6.5a2.5 2.5 0 115 0 2.5 2.5 0 01-5 0zM12 5a1.5 1.5 0 100 3 1.5 1.5 0 000-3z"
+        fill="currentColor"
+      />
+    `,
+  },
 
   // MENU
   {
@@ -340,4 +355,4 @@ export default [
       />
     `,
   },
-];
+] as Icon[];

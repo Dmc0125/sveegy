@@ -4,7 +4,10 @@
       class="icon-settings"
       v-if="openSettings"
     >
-      <div class="icon-settings__wrapper">
+      <form
+        class="icon-settings__wrapper"
+        @submit.prevent
+      >
         <IconSettingsSection
           title="Icon size"
         >
@@ -31,14 +34,14 @@
         >
           <VueSvg :icon-html="getIcon('close-icon').htmlValue" />
         </button>
-      </div>
+      </form>
     </div>
   </transition>
 </template>
 
 <script lang="ts">
 import {
-  watch, ref, Ref, watchEffect, defineComponent,
+  watch, ref, Ref, defineComponent,
 } from '@vue/composition-api';
 import { useGetters, useActions } from '@u3u/vue-hooks';
 
@@ -196,10 +199,6 @@ export default defineComponent({
   width: 100%;
   height: 100%;
   position: relative;
-}
-
-form + form {
-  margin-top: 1rem;
 }
 
 .wrapper__close-icon {

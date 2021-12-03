@@ -1,5 +1,5 @@
 <template>
-  <form
+  <div
     class="icon-settings-layout"
     @submit.prevent
   >
@@ -7,7 +7,7 @@
       {{ title }}
     </label>
     <slot></slot>
-  </form>
+  </div>
 </template>
 
 <script lang="ts">
@@ -24,6 +24,10 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+.icon-settings-layout + .icon-settings-layout {
+  margin-top: 1rem;
+}
+
 .icon-settings-layout__label {
   margin-bottom: .5rem;
   display: block;

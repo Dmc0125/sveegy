@@ -68,6 +68,7 @@ export default defineComponent({
   overflow: hidden;
 
   display: flex;
+  align-items: center;
   flex-direction: column;
 
   &:focus {

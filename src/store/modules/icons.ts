@@ -26,8 +26,10 @@ const store: Module<IconsState, {}> = {
 
       const regexp = new RegExp(searchTerm.toLowerCase());
 
-      const searchedIcons = state.icons.filter(({ id, variations }) => (
-        id.match(regexp) || variations.some(variation => variation.match(regexp))
+      const searchedIcons = state.icons.filter(({ id, variations, type }) => (
+        id.match(regexp)
+        || variations.some(variation => variation.match(regexp)
+        || type.match(regexp))
       ));
 
       return searchedIcons;
