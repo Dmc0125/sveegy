@@ -1,24 +1,17 @@
+<script lang="ts" setup>
+const props = defineProps<{
+  absolute?: boolean
+}>()
+</script>
+
 <template>
   <div
     class="header-wrapper"
-    :class="{ 'header-wrapper--absolute': absolute }"
+    :class="{ 'header-wrapper--absolute': props.absolute }"
   >
-    <slot></slot>
+    <slot />
   </div>
 </template>
-
-<script lang="ts">
-import Vue from 'vue';
-
-export default Vue.extend({
-  props: {
-    absolute: {
-      type: Boolean,
-      default: false,
-    },
-  },
-});
-</script>
 
 <style lang="scss" scoped>
 .header-wrapper {

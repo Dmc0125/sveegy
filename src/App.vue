@@ -1,43 +1,43 @@
+<script lang="ts" setup>
+import { computed, onMounted } from 'vue'
+
+import HeaderVue from '@/layouts/header/Header.vue'
+import Footer from '@/layouts/footer/Footer.vue'
+import Navigation from '@/components/navigation/Navigation.vue'
+import Notification from '@/components/notification/Notification.vue'
+
+import useMainStore from './store/main'
+
+const mainStore = useMainStore()
+
+const darkMode = computed(() => mainStore.darkMode)
+
+onMounted(() => {
+  mainStore.initDarkMode()
+})
+</script>
+
 <template>
   <main
     id="app"
-    :color-mode="getDarkMode ? 'dark' : 'light'"
+    :color-mode="darkMode ? 'dark' : 'light'"
   >
-    <Header />
-    <Navigation />
-    <transition name="route-fade-in" appear>
-      <RouterView />
-    </transition>
+    <header-vue />
+    <navigation />
+    <router-view v-slot="{ Component }">
+      <transition
+        name="route-fade-in"
+        appear
+      >
+        <component :is="Component" />
+      </transition>
+    </router-view>
 
     <Footer />
 
-    <Notification />
+    <notification />
   </main>
 </template>
-
-<script lang="ts">
-import Vue from 'vue';
-import { mapGetters, mapActions } from 'vuex';
-
-import Header from '@/layouts/header/Header.vue';
-import Footer from '@/layouts/footer/Footer.vue';
-import Navigation from '@/components/navigation/Navigation.vue';
-import Notification from '@/components/notification/Notification.vue';
-
-export default Vue.extend({
-  components: {
-    Header,
-    Footer,
-    Navigation,
-    Notification,
-  },
-  computed: mapGetters(['getDarkMode']),
-  methods: mapActions(['initDarkMode']),
-  mounted() {
-    this.initDarkMode();
-  },
-});
-</script>
 
 <style lang="scss">
 /* Import global variables */
@@ -110,7 +110,7 @@ input {
   transition: all 1s ease-in-out;
 }
 
-.route-fade-in-enter {
+.route-fade-in-enter-from {
   opacity: 0;
   transform: translateY(-2rem);
 }

@@ -1,20 +1,17 @@
+<script lang="ts" setup>
+const emit = defineEmits<{(e: 'click'): void
+}>()
+
+const emitClick = () => {
+  emit('click')
+}
+</script>
+
 <template>
   <button @click="emitClick">
-    <slot></slot>
+    <slot />
   </button>
 </template>
-
-<script lang="ts">
-import Vue from 'vue';
-
-export default Vue.extend({
-  methods: {
-    emitClick() {
-      this.$emit('click');
-    },
-  },
-});
-</script>
 
 <style lang="scss" scoped>
 button {

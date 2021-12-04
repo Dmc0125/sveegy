@@ -1,6 +1,36 @@
+<script lang="ts" setup>
+import { ref, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
+
+import Container from '@/layouts/vue-container/VueContainer.vue'
+import SvgVue from '@/layouts/vue-svg/VueSvg.vue'
+import Searchbar from '@/components/searchbar/Searchbar.vue'
+import IconBtn from '@/components/icon-btn/IconBtn.vue'
+import IconSettings from '@/components/icon-settings/IconSettings.vue'
+import Icon from '@/components/icon/Icon.vue'
+
+import useIconsStore from '@/store/icons'
+import useSettings from '@/hooks/open-settings'
+
+const iconsStore = useIconsStore()
+
+const searchTerm = ref('')
+
+const { isOpen: openSettings, toggleSettings } = useSettings()
+
+onMounted(() => {
+  const route = useRoute()
+  const iconSize = route.query.size as unknown as string | undefined | unknown[]
+
+  if (iconSize && !Array.isArray(iconSize)) {
+    iconsStore.setIconSize(iconSize)
+  }
+})
+</script>
+
 <template>
   <main class="icons-main">
-    <VueContainer class="icons-main__icons-hero">
+    <container class="icons-main__icons-hero">
       <div class="icons-hero__hero">
         <h1>Many free svg icons</h1>
         <h2>
@@ -8,94 +38,47 @@
           by copying the html or downloading the svg.
         </h2>
       </div>
-    </VueContainer>
+    </container>
 
     <section class="icons-section">
-      <VueContainer icons>
+      <container icons>
         <div class="icons-section__top-section">
-          <Searchbar
+          <!-- TODO: might not work -->
+          <searchbar
+            v-model:search-term="searchTerm"
             class="top-section__searchbar-container"
-            :search-term.sync="searchTerm"
           />
-          <IconBtn @click="toggleSettings">
-            <VueSvg :icon-html="getIcon('menu-icon').htmlValue" />
-          </IconBtn>
+          <icon-btn @click="toggleSettings">
+            <svg-vue :icon-html="iconsStore.getIcon('menu-icon')?.htmlValue || ''" />
+          </icon-btn>
 
-          <IconSettings
+          <icon-settings
             :open-settings="openSettings"
             @icon-settings:close="toggleSettings"
           />
         </div>
 
         <div class="icons-section__icons">
-          <Icon
+          <icon
+            v-for="{ id, variations, htmlValue } in iconsStore.getSearchedIcons(searchTerm)"
+            :key="id"
             :icon-html="htmlValue"
             :icon-name="variations[0]"
-            v-for="{ id, variations, htmlValue } in getSearchedIcons(searchTerm)"
-            :key="id"
           />
         </div>
-      </VueContainer>
+      </container>
     </section>
 
-    <RouterView />
+    <router-view v-slot="{ Component }">
+      <transition
+        name="slide-in"
+        appear
+      >
+        <component :is="Component" />
+      </transition>
+    </router-view>
   </main>
 </template>
-
-<script lang="ts">
-import Vue from 'vue';
-import { ref } from '@vue/composition-api';
-import { useGetters, useActions, useRouter } from '@u3u/vue-hooks';
-
-import VueContainer from '@/layouts/vue-container/VueContainer.vue';
-import VueSvg from '@/layouts/vue-svg/VueSvg.vue';
-import Searchbar from '@/components/searchbar/Searchbar.vue';
-import IconBtn from '@/components/icon-btn/IconBtn.vue';
-import IconSettings from '@/components/icon-settings/IconSettings.vue';
-import Icon from '@/components/icon/Icon.vue';
-
-export default Vue.extend({
-  components: {
-    VueContainer,
-    VueSvg,
-    Searchbar,
-    IconBtn,
-    IconSettings,
-    Icon,
-  },
-  setup() {
-    const {
-      getIcon, getSearchedIcons,
-    } = useGetters(['getIcon', 'getSearchedIcons']);
-    const { setIconSize } = useActions(['setIconSize']);
-    const { route } = useRouter();
-
-    const searchTerm = ref('');
-
-    const { size } = route.value.query;
-
-    if (size && !Array.isArray(size)) {
-      setIconSize(size);
-    }
-
-    const openSettings = ref(false);
-
-    const toggleSettings = () => {
-      openSettings.value = !openSettings.value;
-    };
-
-    return {
-      getIcon,
-      getSearchedIcons,
-
-      searchTerm,
-
-      openSettings,
-      toggleSettings,
-    };
-  },
-});
-</script>
 
 <style lang="scss" scoped>
 .icons-main {
@@ -163,6 +146,25 @@ export default Vue.extend({
   gap: 1rem;
 }
 
+.slide-in-enter-active,
+.slide-in-leave-active {
+  transition:
+    transform 300ms ease-in-out,
+    opacity 300ms ease-in-out;
+}
+
+.slide-in-enter-to,
+.slide-in-leave-from {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slide-in-enter-from,
+.slide-in-leave-to {
+  opacity: 0;
+  transform: translateY(50%);
+}
+
 @include tablet-l {
   .icons-hero__hero h1 {
     font-size: 2.5rem;
@@ -171,6 +173,11 @@ export default Vue.extend({
   .icons-section__icons {
     grid-template-columns: repeat(auto-fill, 130px);
     grid-auto-rows: 130px;
+  }
+
+  .slide-in-enter-active,
+  .slide-in-leave-active {
+    transition: none;
   }
 }
 

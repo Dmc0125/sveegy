@@ -1,6 +1,24 @@
+<script lang="ts" setup>
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+
+import SvgVue from '@/layouts/vue-svg/VueSvg.vue'
+import ColorModeSwitch from '@/components/color-mode-switch/ColorModeSwitch.vue'
+
+import useMainStore from '@/store/main'
+import links from '@/utils/links'
+import useIconsStore from '@/store/icons'
+
+const route = useRoute()
+const mainStore = useMainStore()
+const iconsStore = useIconsStore()
+
+const getIcon = computed(() => iconsStore.getIcon)
+</script>
+
 <template>
   <header class="header">
-    <RouterLink
+    <router-link
       class="header__logo"
       to="/"
     >
@@ -8,32 +26,32 @@
         src="@/assets/icons/sveegy.svg"
         alt="Sveegy logo"
       >
-    </RouterLink>
+    </router-link>
 
     <button
       class="header__toggle-nav-btn"
-      @click="toggleNav"
+      @click="mainStore.toggleNav"
     >
-      <VueSvg :icon-html="getIcon('hamburger-icon').htmlValue" />
+      <svg-vue :icon-html="getIcon('hamburger-icon')?.htmlValue || ''" />
     </button>
 
     <nav class="header__nav">
       <ul class="nav__links">
         <li
-          class="links__link"
           v-for="{ to, name } in links"
           :key="name"
+          class="links__link"
         >
-          <RouterLink
-            :class="{ 'links__link--active': $route.path === to }"
+          <router-link
+            :class="{ 'links__link--active': route.path === to }"
             :to="to"
           >
             {{ name }}
-          </RouterLink>
+          </router-link>
         </li>
       </ul>
 
-      <ColorModeSwitch />
+      <color-mode-switch />
 
       <a
         class="header-nav__github-link"
@@ -41,35 +59,11 @@
         target="_blank"
         rel="noopener"
       >
-        <VueSvg :icon-html="getIcon('github-icon').htmlValue" />
+        <svg-vue :icon-html="getIcon('github-icon')?.htmlValue || ''" />
       </a>
     </nav>
   </header>
 </template>
-
-<script lang="ts">
-import Vue from 'vue';
-import { mapGetters, mapActions } from 'vuex';
-
-import links from '@/utils/links';
-
-import VueSvg from '@/layouts/vue-svg/VueSvg.vue';
-import ColorModeSwitch from '@/components/color-mode-switch/ColorModeSwitch.vue';
-
-export default Vue.extend({
-  components: {
-    VueSvg,
-    ColorModeSwitch,
-  },
-  data() {
-    return {
-      links,
-    };
-  },
-  computed: mapGetters(['getIcon']),
-  methods: mapActions(['toggleNav']),
-});
-</script>
 
 <style lang="scss" scoped>
 .header {

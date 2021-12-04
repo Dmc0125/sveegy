@@ -1,31 +1,22 @@
+<script lang="ts" setup>
+
+const props = defineProps<{
+  useFlex?: boolean
+  icons?: boolean
+}>()
+</script>
+
 <template>
   <section
     class="container"
     :class="{
-      'container--flex': useFlex,
-      'container--icons': icons,
+      'container--flex': props.useFlex,
+      'container--icons': props.icons,
     }"
   >
-    <slot></slot>
+    <slot />
   </section>
 </template>
-
-<script lang="ts">
-import Vue from 'vue';
-
-export default Vue.extend({
-  props: {
-    useFlex: {
-      type: Boolean,
-      default: false,
-    },
-    icons: {
-      type: Boolean,
-      default: false,
-    },
-  },
-});
-</script>
 
 <style lang="scss" scoped>
 .container {

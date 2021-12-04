@@ -1,205 +1,173 @@
-<template>
-  <transition name="slide-in" appear>
-  <main
-    class="overlay"
-    @click="redirectHome"
-  >
-      <section
-        class="icon-popup"
-        :key="route.fullPath"
-        @click.stop
-      >
-        <header class="popup-header">
-          <div class="popup-header__top-section">
-            <h1>{{ iconName }}</h1>
+<script lang="ts" setup>
+import { computed } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 
-            <RouterLink
-              class="top-section__close-icon"
-              to="/icons"
-            >
-              <VueSvg :icon-html="getIcon('close-icon').htmlValue" />
-            </RouterLink>
-          </div>
+import prettifyHtmlValue from '@/utils/copy-svg-wrapper'
 
-          <ul class="popup-header__variations">
-            <li
-              v-for="variation in iconVariations"
-              :key="variation"
-            >
-              {{ variation }}
-            </li>
-          </ul>
-        </header>
+import IconBtn from '@/components/icon-btn/IconBtn.vue'
+import SvgVue from '@/layouts/vue-svg/VueSvg.vue'
+import CopyIcon from '@/components/copy-icon/CopyIcon.vue'
+import IconSettings from '@/components/icon-settings/IconSettings.vue'
 
-        <main class="popup-main">
-          <div class="popup-main__selected-icon">
-            <VueSvg :icon-html="iconHtmlValue" />
-          </div>
+import useIconsStore from '@/store/icons'
+import { Icon } from '@/types/svg-icons'
+import useSettings from '@/hooks/open-settings'
+import useNotificationStore from '@/store/notification'
 
-          <ul class="popup-main__features">
-            <li
-              v-for="feature in features"
-              :key="feature"
-            >
-              <span class="features__tick-icon">
-                <VueSvg :icon-html="getIcon('tick-icon').htmlValue" />
-              </span>
-              {{ feature }}
-            </li>
-          </ul>
-        </main>
+const router = useRouter()
+const iconsStore = useIconsStore()
 
-        <footer class="popup-footer">
-          <!-- ADD DOWNLOAD ICON -->
-          <a
-            class="popup-footer__download-btn"
-            :href="`/icons/${iconId}.svg`"
-            :download="`${iconId}.svg`"
-            @click="sendDownloadNotification"
-          >Download</a>
-
-          <IconBtn
-            class="popup-footer__settings-btn"
-            @click="toggleSettings"
-          >
-            <VueSvg :icon-html="getIcon('menu-icon').htmlValue" />
-          </IconBtn>
-
-          <IconSettings
-            class="popup-footer__settings"
-            :open-settings="openSettings"
-            @icon-settings:close="toggleSettings"
-          />
-
-          <div class="popup-footer__icon-html">
-            <CopyIcon
-              :copy-value="iconHtmlValue"
-              show-always
-            />
-
-            <div class="icon-html__html-wrapper">
-              <p class="html-wrapper__copy-value">{{ iconCopyHtml }}</p>
-            </div>
-          </div>
-        </footer>
-      </section>
-  </main>
-  </transition>
-</template>
-
-<script lang="ts">
-import Vue from 'vue';
-import { computed, ref } from '@vue/composition-api';
-import { useRouter, useGetters, useActions } from '@u3u/vue-hooks';
-
-import prettifyHtmlValue from '@/utils/copy-svg-wrapper';
-
-import IconBtn from '@/components/icon-btn/IconBtn.vue';
-import VueSvg from '@/layouts/vue-svg/VueSvg.vue';
-import CopyIcon from '@/components/copy-icon/CopyIcon.vue';
-import IconSettings from '@/components/icon-settings/IconSettings.vue';
-
-interface IconData {
+type IconData = {
   iconHtmlValue: string;
   iconVariations: string[];
   iconName: string;
   iconId: string;
 }
 
-const useIconData = (id: string): IconData => {
-  const { getIcon, getIcons } = useGetters(['getIcon', 'getIcons']);
+const icons = computed(() => iconsStore.icons)
+const getIcon = computed(() => iconsStore.getIcon)
 
+// TODO: Fix if icon is not found
+const useIconData = (id: string): IconData => {
   const createName = (iconId: string) => (
     iconId[0].toUpperCase() + iconId.slice(1).replace(/(-)/g, ' ')
-  );
+  )
 
   // eslint-disable-next-line no-restricted-globals
-  if (isNaN(Number(id))) {
-    const { htmlValue, variations } = getIcon.value(id);
+  if (typeof id === 'string') {
+    const { htmlValue, variations } = getIcon.value(id) as Icon
     return {
       iconHtmlValue: htmlValue,
       iconVariations: variations,
       iconName: createName(id),
       iconId: id,
-    };
+    }
   }
 
-  const { htmlValue, variations, id: _id } = getIcons.value[id];
+  const { htmlValue, variations, id: _id } = icons.value[+id]
   return {
     iconHtmlValue: htmlValue,
     iconVariations: variations,
     iconName: createName(_id),
     iconId: _id,
-  };
-};
+  }
+}
 
-export default Vue.extend({
-  components: {
-    IconBtn,
-    VueSvg,
-    CopyIcon,
-    IconSettings,
-  },
-  setup() {
-    const { route, router } = useRouter();
-    const { getIcon, getIconSize, getIconColor } = useGetters(['getIcon', 'getIconSize', 'getIconColor']);
-    const { sendNotification } = useActions(['sendNotification']);
+const features = [
+  'Free for commercial use',
+  'No need for attribution',
+  'Comes in svg format',
+  'Easy to use',
+]
 
-    const { id } = route.value.params;
-    const {
-      iconHtmlValue, iconVariations, iconName, iconId,
-    } = useIconData(id);
+const { toggleSettings, isOpen: openSettings } = useSettings()
 
-    const features = [
-      'Free for commercial use',
-      'No need for attribution',
-      'Comes in svg format',
-      'Easy to use',
-    ];
+const route = useRoute()
+const {
+  iconHtmlValue, iconVariations, iconName, iconId,
+} = useIconData(route.params.id as string)
 
-    const openSettings = ref(false);
+const iconSize = computed(() => iconsStore.iconSize)
+const iconColor = computed(() => iconsStore.iconColor)
+const prettifiedHtml = computed(() => prettifyHtmlValue(iconSize.value, iconHtmlValue, iconColor.value))
 
-    const toggleSettings = () => {
-      openSettings.value = !openSettings.value;
-    };
-
-    const iconCopyHtml = computed(() => (
-      prettifyHtmlValue(getIconSize.value, iconHtmlValue, getIconColor.value)
-    ));
-
-    const sendDownloadNotification = () => {
-      sendNotification({
-        message: 'Your download should have began successfully',
-        isError: false,
-      });
-    };
-
-    const redirectHome = () => {
-      router.push({ path: '/icons' });
-    };
-
-    return {
-      route,
-      getIcon,
-
-      iconHtmlValue,
-      iconVariations,
-      iconName,
-      iconId,
-
-      features,
-
-      openSettings,
-      toggleSettings,
-
-      sendDownloadNotification,
-      iconCopyHtml,
-
-      redirectHome,
-    };
-  },
-});
+const notificationStore = useNotificationStore()
+const sendDownloadNotification = () => {
+  notificationStore.sendNotification({
+    message: 'Your download should have began successfully',
+    isError: false,
+  })
+}
 </script>
+
+<template>
+  <main
+    class="overlay"
+    @click="router.push({ path: '/icons' })"
+  >
+    <section
+      :key="route.fullPath"
+      class="icon-popup"
+      @click.stop
+    >
+      <header class="popup-header">
+        <div class="popup-header__top-section">
+          <h1>{{ iconName }}</h1>
+
+          <router-link
+            class="top-section__close-icon"
+            to="/icons"
+          >
+            <svg-vue :icon-html="getIcon('close-icon')?.htmlValue || ''" />
+          </router-link>
+        </div>
+
+        <ul class="popup-header__variations">
+          <li
+            v-for="variation in iconVariations"
+            :key="variation"
+          >
+            {{ variation }}
+          </li>
+        </ul>
+      </header>
+
+      <main class="popup-main">
+        <div class="popup-main__selected-icon">
+          <svg-vue :icon-html="iconHtmlValue" />
+        </div>
+
+        <ul class="popup-main__features">
+          <li
+            v-for="feature in features"
+            :key="feature"
+          >
+            <span class="features__tick-icon">
+              <svg-vue :icon-html="getIcon('tick-icon')?.htmlValue || ''" />
+            </span>
+            {{ feature }}
+          </li>
+        </ul>
+      </main>
+
+      <footer class="popup-footer">
+        <!-- ADD DOWNLOAD ICON -->
+        <a
+          class="popup-footer__download-btn"
+          :href="`/icons/${iconId}.svg`"
+          :download="`${iconId}.svg`"
+          @click="sendDownloadNotification"
+        >Download</a>
+
+        <icon-btn
+          class="popup-footer__settings-btn"
+          @click="toggleSettings"
+        >
+          <svg-vue :icon-html="getIcon('menu-icon')?.htmlValue || ''" />
+        </icon-btn>
+
+        <icon-settings
+          class="popup-footer__settings"
+          :open-settings="openSettings"
+          @icon-settings:close="toggleSettings"
+        />
+
+        <div class="popup-footer__icon-html">
+          <copy-icon
+            :copy-value="iconHtmlValue"
+            show-always
+          />
+
+          <div class="icon-html__html-wrapper">
+            <p class="html-wrapper__copy-value">
+              {{ prettifiedHtml }}
+            </p>
+          </div>
+        </div>
+      </footer>
+    </section>
+  </main>
+</template>
 
 <style lang="scss" scoped>
 .overlay {
@@ -367,25 +335,6 @@ export default Vue.extend({
   white-space: pre;
 }
 
-.slide-in-enter-active,
-.slide-in-leave-active {
-  transition:
-    transform 300ms ease-in-out,
-    opacity 300ms ease-in-out;
-}
-
-.slide-in-enter-to,
-.slide-in-leave {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.slide-in-enter,
-.slide-in-leave-to {
-  opacity: 0;
-  transform: translateY(50%);
-}
-
 @include tablet-l {
   .overlay {
     min-height: 100%;
@@ -406,11 +355,6 @@ export default Vue.extend({
 
   .popup-footer {
     grid-gap: 1.5rem;
-  }
-
-  .slide-in-enter-active,
-  .slide-in-leave-active {
-    transition: none;
   }
 }
 

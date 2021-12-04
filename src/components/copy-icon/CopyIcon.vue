@@ -1,57 +1,51 @@
+<script lang="ts" setup>
+import { computed } from 'vue'
+
+import VueSvg from '@/layouts/vue-svg/VueSvg.vue'
+
+import setCopyValue from '@/utils/copy-svg-wrapper'
+import useIconsStore from '@/store/icons'
+import useNotificationStore from '@/store/notification'
+
+const props = withDefaults(defineProps<{
+  copyValue: string
+  showAlways?: boolean
+}>(), {
+  showAlways: false,
+})
+
+const iconsStore = useIconsStore()
+const notificationStore = useNotificationStore()
+
+const copyToClipboard = async () => {
+  const _copyValue = setCopyValue(iconsStore.iconSize, props.copyValue, iconsStore.iconColor)
+
+  try {
+    await navigator.clipboard.writeText(_copyValue)
+
+    notificationStore.sendNotification({
+      message: 'Icon html was copied to your clipboard',
+    })
+  } catch (err) {
+    notificationStore.sendNotification({
+      message: 'Sveegy does not have access to your keyboard',
+      isError: true,
+    })
+  }
+}
+
+const getIcon = computed(() => iconsStore.getIcon)
+</script>
+
 <template>
   <button
     class="copy-icon"
-    :class="{ hide: !showAlways }"
+    :class="{ hide: !props.showAlways }"
     @click.stop="copyToClipboard"
   >
-    <VueSvg :icon-html="getIcon('copy-icon').htmlValue" />
+    <VueSvg :icon-html="getIcon('copy-icon')?.htmlValue || ''" />
   </button>
 </template>
-
-<script lang="ts">
-import Vue from 'vue';
-import { mapGetters, mapActions } from 'vuex';
-
-import setCopyValue from '@/utils/copy-svg-wrapper';
-
-import VueSvg from '@/layouts/vue-svg/VueSvg.vue';
-
-export default Vue.extend({
-  components: {
-    VueSvg,
-  },
-  props: {
-    copyValue: {
-      type: String,
-      required: true,
-    },
-    showAlways: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  computed: mapGetters(['getIcon', 'getIconSize', 'getIconColor']),
-  methods: {
-    async copyToClipboard() {
-      const _copyValue = setCopyValue(this.getIconSize, this.copyValue, this.getIconColor);
-
-      try {
-        await navigator.clipboard.writeText(_copyValue);
-
-        this.sendNotification({
-          message: 'Icon html was copied to your clipboard',
-        });
-      } catch (err) {
-        this.sendNotification({
-          message: 'Sveegy does not have access to your keyboard',
-          isError: true,
-        });
-      }
-    },
-    ...mapActions(['sendNotification']),
-  },
-});
-</script>
 
 <style lang="scss" scoped>
 .copy-icon {

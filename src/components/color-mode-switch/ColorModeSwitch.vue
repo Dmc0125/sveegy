@@ -1,24 +1,24 @@
+<script lang="ts" setup>
+import { computed } from 'vue'
+
+import useMainStore from '@/store/main'
+
+const mainStore = useMainStore()
+
+const darkMode = computed(() => mainStore.darkMode)
+</script>
+
 <template>
   <button
     class="clr-switch"
-    @click="toggleDarkMode"
+    @click="mainStore.toggleDarkMode"
   >
     <div
       class="clr-switch__btn"
-      :class="{ 'clr-switch__btn--dark-mode': getDarkMode }"
-    ></div>
+      :class="{ 'clr-switch__btn--dark-mode': darkMode }"
+    />
   </button>
 </template>
-
-<script lang="ts">
-import Vue from 'vue';
-import { mapGetters, mapActions } from 'vuex';
-
-export default Vue.extend({
-  computed: mapGetters(['getDarkMode']),
-  methods: mapActions(['toggleDarkMode']),
-});
-</script>
 
 <style lang="scss" scoped>
 .clr-switch {

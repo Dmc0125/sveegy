@@ -2,6 +2,14 @@
 
 All notable changes to Sveegy will be documented in this file.
 
+## [0.10.0] - 2021-04-12
+
+- Migrate to vue and vue3
+
+## [0.9.2] - 2021-03-12
+
+- Bugfixes
+
 ## [0.9.1] - 2020-07-25
 
 ### Added

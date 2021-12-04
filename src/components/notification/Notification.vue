@@ -1,60 +1,55 @@
+<script lang="ts" setup>
+import { computed } from 'vue'
+
+import SvgVue from '@/layouts/vue-svg/VueSvg.vue'
+
+import useIconsStore from '@/store/icons'
+import useNotificationStore from '@/store/notification'
+
+const iconsStore = useIconsStore()
+const notificationStore = useNotificationStore()
+
+const id = computed(() => notificationStore.id)
+const error = computed(() => notificationStore.isError)
+const message = computed(() => notificationStore.message)
+const getIcon = computed(() => iconsStore.getIcon)
+
+</script>
+
 <template>
-  <transition name="slide-in" mode="out-in">
+  <transition
+    name="slide-in"
+    mode="out-in"
+  >
     <section
+      v-if="message"
+      :key="id"
       class="notification"
-      v-if="getMessage"
-      :key="getId"
     >
       <div
         class="notification__svg"
-        :class="getError ? 'notification__svg--error' : 'notification__svg--success'"
+        :class="error ? 'notification__svg--error' : 'notification__svg--success'"
       >
-        <VueSvg
-          :icon-html="getError
-            ? getIcon('close-icon').htmlValue
-            : getIcon('tick-icon').htmlValue
+        <svg-vue
+          :icon-html="error
+            ? (getIcon('close-icon')?.htmlValue || '')
+            : (getIcon('tick-icon')?.htmlValue || '')
           "
         />
       </div>
-      <p class="notification__text">{{ getMessage }}</p>
+      <p class="notification__text">
+        {{ message }}
+      </p>
 
       <button
         class="notification__close-btn"
-        @click="hideNotification"
+        @click="notificationStore.hideNotification"
       >
-        <VueSvg :icon-html="getIcon('close-icon').htmlValue" />
+        <svg-vue :icon-html="getIcon('close-icon')?.htmlValue || ''" />
       </button>
     </section>
   </transition>
 </template>
-
-<script lang="ts">
-import Vue from 'vue';
-import { useGetters, useActions } from '@u3u/vue-hooks';
-
-import VueSvg from '@/layouts/vue-svg/VueSvg.vue';
-
-export default Vue.extend({
-  components: {
-    VueSvg,
-  },
-  setup() {
-    const {
-      getIcon, getMessage, getError, getId,
-    } = useGetters(['getIcon', 'getMessage', 'getError', 'getId']);
-    const { hideNotification } = useActions(['hideNotification']);
-
-    return {
-      getIcon,
-      getMessage,
-      getError,
-      getId,
-
-      hideNotification,
-    };
-  },
-});
-</script>
 
 <style lang="scss" scoped>
 .notification {
@@ -139,13 +134,13 @@ export default Vue.extend({
   transition: transform 500ms ease-in-out;
 }
 
-.slide-in-enter,
+.slide-in-enter-from,
 .slide-in-leave-to {
   transform: translateX(500px);
 }
 
 .slide-in-enter-to,
-.slide-in-leave {
+.slide-in-leave-from {
   transform: translate(0);
 }
 </style>

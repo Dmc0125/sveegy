@@ -1,30 +1,22 @@
+<script lang="ts" setup>
+const props = defineProps<{
+  headline: string
+  subHeadline: string
+}>()
+</script>
+
 <template>
   <section class="hero">
-    <h1>{{ headline }}</h1>
-    <h2>{{ subHeadline }}</h2>
-    <RouterLink
+    <h1>{{ props.headline }}</h1>
+    <h2>{{ props.subHeadline }}</h2>
+    <router-link
       class="browse-now-btn"
       to="/icons"
-    >Browse now</RouterLink>
+    >
+      Browse now
+    </router-link>
   </section>
 </template>
-
-<script lang="ts">
-import Vue from 'vue';
-
-export default Vue.extend({
-  props: {
-    headline: {
-      type: String,
-      required: true,
-    },
-    subHeadline: {
-      type: String,
-      required: true,
-    },
-  },
-});
-</script>
 
 <style lang="scss" scoped>
 .hero {

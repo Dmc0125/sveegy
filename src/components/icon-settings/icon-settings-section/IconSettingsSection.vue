@@ -1,27 +1,20 @@
+<script lang="ts" setup>
+const props = defineProps<{
+  title: string
+}>()
+</script>
+
 <template>
   <div
     class="icon-settings-layout"
     @submit.prevent
   >
     <label class="icon-settings-layout__label">
-      {{ title }}
+      {{ props.title }}
     </label>
     <slot></slot>
   </div>
 </template>
-
-<script lang="ts">
-import Vue from 'vue';
-
-export default Vue.extend({
-  props: {
-    title: {
-      type: String,
-      required: true,
-    },
-  },
-});
-</script>
 
 <style lang="scss" scoped>
 .icon-settings-layout + .icon-settings-layout {

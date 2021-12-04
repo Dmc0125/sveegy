@@ -1,13 +1,10 @@
-import Vue from 'vue';
-import VueRouter, { RouteConfig } from 'vue-router';
+import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 
-import icons from '@/svg-icons/svg-icons';
+import icons from '@/svg-icons/svg-icons'
 
-import Landing from '../views/landing/Landing.vue';
+import Landing from '../views/landing/Landing.vue'
 
-Vue.use(VueRouter);
-
-const routes: Array<RouteConfig> = [
+const routes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'Landing page',
@@ -23,23 +20,20 @@ const routes: Array<RouteConfig> = [
         name: 'Icon',
         component: () => import('../views/icons/icon/Icon.vue'),
         beforeEnter: (to, from, next) => {
-          const { id } = to.params;
+          const { id } = to.params
 
           // eslint-disable-next-line no-restricted-globals
           if (!isNaN(Number(id)) && icons.length > Number(id)) {
-            return next();
+            return next()
           }
 
           if (icons.find(({ id: _id }) => _id === to.params.id)) {
-            return next();
+            return next()
           }
 
           return next({
             path: '/not-found',
-            query: {
-              redirect: to.fullPath,
-            },
-          });
+          })
         },
       },
     ],
@@ -55,14 +49,14 @@ const routes: Array<RouteConfig> = [
     component: () => import('../views/not-found/NotFound.vue'),
   },
   {
-    path: '*',
+    path: '/:pathMatch(.*)*',
     redirect: '/not-found',
   },
-];
+]
 
-const router = new VueRouter({
-  mode: 'history',
+const router = createRouter({
+  history: createWebHashHistory(),
   routes,
-});
+})
 
-export default router;
+export default router

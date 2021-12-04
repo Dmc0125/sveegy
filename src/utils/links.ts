@@ -14,4 +14,4 @@ export default [
     name: 'License',
     icon: 'license-icon',
   },
-];
+]

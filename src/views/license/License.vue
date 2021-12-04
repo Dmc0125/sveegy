@@ -1,5 +1,18 @@
+<script lang="ts" setup>
+import { computed } from 'vue'
+
+import Container from '@/layouts/vue-container/VueContainer.vue'
+import Illustration from '@/layouts/vue-illustration/VueIllustration.vue'
+
+import useMainStore from '@/store/main'
+
+const mainStore = useMainStore()
+
+const darkMode = computed(() => mainStore.darkMode)
+</script>
+
 <template>
-  <VueContainer use-flex>
+  <container use-flex>
     <section class="license">
       <h1>License</h1>
       <div>
@@ -33,38 +46,22 @@
       </div>
     </section>
 
-    <VueIllustration>
+    <illustration>
       <img
+        v-if="!darkMode"
         src="@/assets/illustrations/license.svg"
         alt="License illustration"
         title="License illustration"
-        v-if="!getDarkMode"
       >
       <img
+        v-else
         src="@/assets/illustrations/license-dark.svg"
         alt="License illustration"
         title="License illustration"
-        v-else
       >
-    </VueIllustration>
-  </VueContainer>
+    </illustration>
+  </container>
 </template>
-
-<script lang="ts">
-import Vue from 'vue';
-import { mapGetters } from 'vuex';
-
-import VueContainer from '@/layouts/vue-container/VueContainer.vue';
-import VueIllustration from '@/layouts/vue-illustration/VueIllustration.vue';
-
-export default Vue.extend({
-  components: {
-    VueContainer,
-    VueIllustration,
-  },
-  computed: mapGetters(['getDarkMode']),
-});
-</script>
 
 <style lang="scss" scoped>
 .license {

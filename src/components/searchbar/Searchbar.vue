@@ -1,60 +1,50 @@
+<script lang="ts" setup>
+import {
+  ref, watchEffect, onMounted, computed,
+} from 'vue'
+import { useRoute } from 'vue-router'
+
+import SvgVue from '@/layouts/vue-svg/VueSvg.vue'
+
+import useIconsStore from '@/store/icons'
+
+const emit = defineEmits<{(e: 'update:search-term', value: string): void}>()
+
+const _searchTerm = ref('')
+
+watchEffect(() => {
+  emit('update:search-term', _searchTerm.value)
+})
+
+const route = useRoute()
+onMounted(() => {
+  const search = route.query.search as undefined | string | unknown[]
+
+  if (search && !Array.isArray(search)) {
+    _searchTerm.value = search
+  }
+})
+
+const iconsStore = useIconsStore()
+const getIcon = computed(() => iconsStore.getIcon)
+</script>
+
 <template>
   <div class="searchbar">
     <div
       class="searchbar__svg-wrapper"
       :class="{ 'active': _searchTerm.length }"
     >
-      <VueSvg :icon-html="getIcon('search-icon').htmlValue" />
+      <svg-vue :icon-html="getIcon('search-icon')?.htmlValue || ''" />
     </div>
     <input
+      v-model="_searchTerm"
       class="searchbar__input"
       type="text"
       placeholder="Browse icons"
-      v-model="_searchTerm"
     >
   </div>
 </template>
-
-<script lang="ts">
-import Vue from 'vue';
-import { ref, watchEffect } from '@vue/composition-api';
-import { useGetters, useRouter } from '@u3u/vue-hooks';
-
-import VueSvg from '@/layouts/vue-svg/VueSvg.vue';
-
-export default Vue.extend({
-  components: {
-    VueSvg,
-  },
-  props: {
-    searchTerm: {
-      type: String,
-      required: true,
-    },
-  },
-  setup(_, { emit }) {
-    const { route } = useRouter();
-    const { getIcon } = useGetters(['getIcon']);
-
-    const { search } = route.value.query;
-
-    const _searchTerm = ref('');
-
-    if (search && !Array.isArray(search)) {
-      _searchTerm.value = search;
-    }
-
-    watchEffect(() => {
-      emit('update:search-term', _searchTerm.value);
-    });
-
-    return {
-      getIcon,
-      _searchTerm,
-    };
-  },
-});
-</script>
 
 <style lang="scss" scoped>
 .searchbar {

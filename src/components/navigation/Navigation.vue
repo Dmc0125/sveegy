@@ -1,17 +1,34 @@
+<script lang="ts" setup>
+import { computed } from 'vue'
+import links from '@/utils/links'
+
+import SvgVue from '@/layouts/vue-svg/VueSvg.vue'
+import ColorModeSwitch from '@/components/color-mode-switch/ColorModeSwitch.vue'
+
+import useMainStore from '@/store/main'
+import useIconsStore from '@/store/icons'
+
+const mainStore = useMainStore()
+const iconsStore = useIconsStore()
+
+const isNavOpened = computed(() => mainStore.isNavOpen)
+const getIcon = computed(() => iconsStore.getIcon)
+</script>
+
 <template>
   <transition name="slide-in">
     <section
-      class="nav-container"
       v-if="isNavOpened"
-      @click="toggleNav"
+      class="nav-container"
+      @click="mainStore.toggleNav"
     >
       <nav @click.stop>
         <header>
           <button
             class="close-wrapper"
-            @click="toggleNav"
+            @click="mainStore.toggleNav"
           >
-            <VueSvg :icon-html="getIcon('close-icon').htmlValue"/>
+            <svg-vue :icon-html="getIcon('close-icon')?.htmlValue || ''" />
           </button>
 
           <h2>Sveegy</h2>
@@ -24,19 +41,19 @@
               :key="name"
             >
               <div
-                class="active-link-bg"
                 v-if="$route.path === to"
-              ></div>
-              <RouterLink
+                class="active-link-bg"
+              />
+              <router-link
                 class="link"
                 :class="{ 'active-link': $route.path === to }"
                 :to="to"
               >
                 <span>{{ name }}</span>
                 <span class="link-icon-container">
-                  <VueSvg :icon-html="getIcon(icon).htmlValue" />
+                  <svg-vue :icon-html="getIcon(icon)?.htmlValue || ''" />
                 </span>
-              </RouterLink>
+              </router-link>
             </li>
           </ul>
         </main>
@@ -52,13 +69,13 @@
               >
                 <span>Github</span>
                 <span class="github-icon-container">
-                  <VueSvg :icon-html="getIcon('github-icon').htmlValue" />
+                  <svg-vue :icon-html="getIcon('github-icon')?.htmlValue || ''" />
                 </span>
               </a>
             </li>
             <li class="color-mode">
               <span>Dark mode</span>
-              <ColorModeSwitch />
+              <color-mode-switch />
             </li>
           </ul>
         </footer>
@@ -66,31 +83,6 @@
     </section>
   </transition>
 </template>
-
-<script lang="ts">
-import Vue from 'vue';
-
-import { mapGetters, mapActions } from 'vuex';
-
-import links from '@/utils/links';
-
-import VueSvg from '@/layouts/vue-svg/VueSvg.vue';
-import ColorModeSwitch from '@/components/color-mode-switch/ColorModeSwitch.vue';
-
-export default Vue.extend({
-  components: {
-    VueSvg,
-    ColorModeSwitch,
-  },
-  data() {
-    return {
-      links,
-    };
-  },
-  computed: mapGetters(['isNavOpened', 'getIcon']),
-  methods: mapActions(['toggleNav']),
-});
-</script>
 
 <style lang="scss" scoped>
 .nav-container {
@@ -259,13 +251,13 @@ li + li {
   transition: transform 300ms ease-in-out;
 }
 
-.slide-in-enter,
+.slide-in-enter-from,
 .slide-in-leave-to {
   transform: translateX(290px);
 }
 
 .slide-in-enter-to,
-.slide-in-leave {
+.slide-in-leave-from {
   transform: translateX(0);
 }
 

@@ -1,12 +1,32 @@
+<script lang="ts" setup>
+import { useRouter } from 'vue-router'
+
+import SvgVue from '@/layouts/vue-svg/VueSvg.vue'
+import CopyIcon from '@/components/copy-icon/CopyIcon.vue'
+
+const props = defineProps<{
+  iconHtml: string
+  iconName: string
+}>()
+
+const router = useRouter()
+
+const redirectToIcon = () => {
+  router.push({ path: `/icons/${props.iconName.replace(/(\s)/g, '-')}-icon` })
+}
+
+const _iconName = props.iconName[0].toUpperCase() + props.iconName.substring(1)
+</script>
+
 <template>
   <button
     class="icon-container"
     @click="redirectToIcon"
   >
-    <CopyIcon :copy-value="iconHtml" />
+    <copy-icon :copy-value="iconHtml" />
 
     <div class="svg">
-      <VueSvg
+      <svg-vue
         :icon-html="iconHtml"
         change-color
       />
@@ -17,45 +37,6 @@
     </div>
   </button>
 </template>
-
-<script lang="ts">
-import { defineComponent } from '@vue/composition-api';
-import { useRouter } from '@u3u/vue-hooks';
-
-import VueSvg from '@/layouts/vue-svg/VueSvg.vue';
-import CopyIcon from '@/components/copy-icon/CopyIcon.vue';
-
-export default defineComponent({
-  components: {
-    VueSvg,
-    CopyIcon,
-  },
-  props: {
-    iconHtml: {
-      type: String,
-      required: true,
-    },
-    iconName: {
-      type: String,
-      required: true,
-    },
-  },
-  setup(props) {
-    const { router } = useRouter();
-
-    const redirectToIcon = () => {
-      router.push({ path: `/icons/${props.iconName.replace(/(\s)/g, '-')}-icon` });
-    };
-
-    const _iconName = props.iconName[0].toUpperCase() + props.iconName.substring(1);
-
-    return {
-      redirectToIcon,
-      _iconName,
-    };
-  },
-});
-</script>
 
 <style lang="scss" scoped>
 .icon-container {

@@ -1,18 +1,7 @@
-import Vue from 'vue';
-import VueCompositionAPI from '@vue/composition-api';
-import hooks from '@u3u/vue-hooks';
+import { createPinia } from 'pinia'
+import { createApp } from 'vue'
 
-import App from './App.vue';
-import router from './router';
-import store from './store';
+import App from './App.vue'
+import router from './router'
 
-Vue.use(hooks);
-Vue.use(VueCompositionAPI);
-
-Vue.config.productionTip = false;
-
-new Vue({
-  router,
-  store,
-  render: (h) => h(App),
-}).$mount('#app');
+createApp(App).use(router).use(createPinia()).mount('#app')

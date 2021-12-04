@@ -1,39 +1,26 @@
+<script lang="ts" setup>
+const props = defineProps<{
+  inputValue: string
+  inputType: string
+}>()
+
+const emit = defineEmits<{(e: string, payload: string): void}>()
+
+const emitInput = (e: Event) => {
+  const { value } = e.target as HTMLInputElement
+
+  emit(`icon-settings-${props.inputType}:input`, value)
+}
+</script>
+
 <template>
   <input
+    :value="props.inputValue"
     class="settings-input"
     type="text"
-    :value="inputValue"
     @input="emitInput"
   >
 </template>
-
-<script lang="ts">
-import { defineComponent } from '@vue/composition-api';
-
-export default defineComponent({
-  props: {
-    inputValue: {
-      type: String,
-      required: true,
-    },
-    inputType: {
-      type: String,
-      required: true,
-    },
-  },
-  setup(props, { emit }) {
-    const emitInput = (e: InputEvent) => {
-      const { value } = e.target as HTMLInputElement;
-
-      emit(`icon-settings-${props.inputType}:input`, value);
-    };
-
-    return {
-      emitInput,
-    };
-  },
-});
-</script>
 
 <style lang="scss" scoped>
 .settings-input {

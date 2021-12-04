@@ -1,3 +1,26 @@
+<script lang="ts" setup>
+import { computed } from 'vue'
+
+import useIconsStore from '@/store/icons'
+
+const props = defineProps<{
+  iconHtml: string
+  changeColor?: boolean
+}>()
+
+const iconsStore = useIconsStore()
+
+const iconColor = computed(() => iconsStore.iconColor)
+const iconHtmlColor = computed(() => {
+  if (props.changeColor) {
+    return props.iconHtml.replaceAll('fill="currentColor"', `fill="${iconColor.value}"`)
+  }
+
+  return props.iconHtml
+})
+
+</script>
+
 <template>
   <svg
     width="100%"
@@ -6,40 +29,5 @@
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     v-html="iconHtmlColor"
-  >
-  </svg>
+  />
 </template>
-
-<script lang="ts">
-import { defineComponent, watchEffect, ref } from '@vue/composition-api';
-import { useGetters } from '@u3u/vue-hooks';
-
-export default defineComponent({
-  props: {
-    iconHtml: {
-      type: String,
-      required: true,
-    },
-    changeColor: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  setup(props) {
-    const { getIconColor } = useGetters(['getIconColor']);
-
-    const iconHtmlColor = ref(props.iconHtml);
-
-    watchEffect(() => {
-      if (props.changeColor) {
-        iconHtmlColor.value = props.iconHtml
-          .replace(RegExp('fill="currentColor"', 'g'), `fill="${getIconColor.value}"`);
-      }
-    });
-
-    return {
-      iconHtmlColor,
-    };
-  },
-});
-</script>
