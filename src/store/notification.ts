@@ -5,7 +5,7 @@ type NotificationState = {
   message: string | null
   isError: boolean
   id: string
-  timeout: number
+  timeout: NodeJS.Timeout | null
 }
 
 type NotificationData = {
@@ -18,11 +18,13 @@ const useNotificationStore = defineStore('notification', {
     message: '',
     isError: false,
     id: '',
-    timeout: 0,
+    timeout: null,
   }),
   actions: {
     sendNotification(notificationData: NotificationData) {
-      clearTimeout(this.timeout)
+      if (this.timeout) {
+        clearTimeout(this.timeout)
+      }
 
       const { message, isError } = notificationData
 

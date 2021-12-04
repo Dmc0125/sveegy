@@ -1,9 +1,11 @@
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function (debouncedFn: (...args: any[]) => void, delay: number) {
-  let timeout: number
+  let timeout: NodeJS.Timeout | null = null
 
   return (...params: unknown[]) => {
-    clearInterval(timeout)
+    if (timeout) {
+      clearInterval(timeout)
+    }
 
     timeout = setTimeout(() => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
