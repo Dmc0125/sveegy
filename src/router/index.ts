@@ -1,8 +1,8 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 
-import icons from '@/svg-icons/svg-icons'
+import icons from '@/svg-icons'
 
-import Landing from '../views/landing/Landing.vue'
+import Landing from '../views/Landing.vue'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -13,21 +13,16 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/icons',
     name: 'Icons',
-    component: () => import('../views/icons/Icons.vue'),
+    component: () => import('../views/Icons.vue'),
     children: [
       {
         path: ':id',
         name: 'Icon',
-        component: () => import('../views/icons/icon/Icon.vue'),
+        component: () => import('../views/IconPopup.vue'),
         beforeEnter: (to, from, next) => {
           const { id } = to.params
 
-          // eslint-disable-next-line no-restricted-globals
-          if (!isNaN(Number(id)) && icons.length > Number(id)) {
-            return next()
-          }
-
-          if (icons.find(({ id: _id }) => _id === to.params.id)) {
+          if (icons.find(({ id: _id }) => _id === id)) {
             return next()
           }
 
@@ -41,12 +36,12 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/license',
     name: 'License',
-    component: () => import('../views/license/License.vue'),
+    component: () => import('../views/License.vue'),
   },
   {
     path: '/not-found',
     name: 'Not found',
-    component: () => import('../views/not-found/NotFound.vue'),
+    component: () => import('../views/NotFound.vue'),
   },
   {
     path: '/:pathMatch(.*)*',

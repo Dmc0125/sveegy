@@ -1,35 +1,49 @@
 <script lang="ts" setup>
-const emit = defineEmits<{(e: 'click'): void
-}>()
+import SvgWrapper from '@/layouts/SvgWrapper.vue'
+
+const emit = defineEmits<{(e: 'click'): void}>()
 
 const emitClick = () => {
   emit('click')
 }
+
+const props = withDefaults(defineProps<{
+  name: string
+  size?: string
+}>(), {
+  size: '2.5rem',
+})
 </script>
 
 <template>
   <button @click="emitClick">
-    <slot />
+    <svg-wrapper
+      :key="props.name"
+      size="1.5rem"
+      :icon="props.name"
+    />
   </button>
 </template>
 
 <style lang="scss" scoped>
 button {
-  --size: 2rem;
+  width: v-bind(size);
+  height: v-bind(size);
 
-  width: var(--size);
-  height: var(--size);
-
-  background: var(--primary);
-  color: var(--font-clr-secondary);
-  border: 1px solid var(--primary-border);
+  background: var(--primary-clr);
+  color: var(--font-secondary-clr);
+  border: 1px solid var(--third-clr);
   border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &:focus,
   &:hover {
     outline: 0;
-    border-color: var(--secondary);
-    color: var(--secondary);
+    border-color: var(--call-to-action-clr);
+    color: var(--call-to-action-clr);
   }
 }
 </style>

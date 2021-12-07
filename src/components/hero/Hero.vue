@@ -37,6 +37,7 @@ h2 {
 
   font-size: 1.5rem;
   font-weight: 400;
+  color: var(--font-secondary-clr)
 }
 
 .browse-now-btn {
@@ -44,8 +45,8 @@ h2 {
   height: 44px;
   margin: 50px auto 0;
 
-  background: var(--secondary);
-  color: var(--font-clr-inverse);
+  background: var(--call-to-action-clr);
+  color: var(--font-inverse-clr);
   border-radius: 10px;
 
   display: flex;

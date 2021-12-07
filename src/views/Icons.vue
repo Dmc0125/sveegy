@@ -2,8 +2,7 @@
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 
-import Container from '@/layouts/vue-container/VueContainer.vue'
-import SvgVue from '@/layouts/vue-svg/VueSvg.vue'
+import Container from '@/layouts/Container.vue'
 import Searchbar from '@/components/searchbar/Searchbar.vue'
 import IconBtn from '@/components/icon-btn/IconBtn.vue'
 import IconSettings from '@/components/icon-settings/IconSettings.vue'
@@ -42,17 +41,24 @@ onMounted(() => {
 
     <section class="icons-section">
       <container icons>
-        <div class="icons-section__top-section">
-          <!-- TODO: might not work -->
+        <div
+          class="icons-section__top-section"
+          :class="{ 'icons-section__top-section--expanded': openSettings }"
+        >
           <searchbar
             v-model:search-term="searchTerm"
             class="top-section__searchbar-container"
           />
-          <icon-btn @click="toggleSettings">
-            <svg-vue :icon-html="iconsStore.getIcon('menu-icon')?.htmlValue || ''" />
-          </icon-btn>
+
+          <icon-btn
+            class="top-section__close-btn"
+            :transition-key="openSettings ? 'opened' : 'closed'"
+            :name="openSettings ? 'close-icon' : 'menu-icon'"
+            @click="toggleSettings"
+          />
 
           <icon-settings
+            class="top-section__icon-settings"
             :open-settings="openSettings"
             @icon-settings:close="toggleSettings"
           />
@@ -62,6 +68,7 @@ onMounted(() => {
           <icon
             v-for="{ id, variations, htmlValue } in iconsStore.getSearchedIcons(searchTerm)"
             :key="id"
+            :icon-id="id"
             :icon-html="htmlValue"
             :icon-name="variations[0]"
           />
@@ -71,7 +78,7 @@ onMounted(() => {
 
     <router-view v-slot="{ Component }">
       <transition
-        name="slide-in"
+        name="fade-in"
         appear
       >
         <component :is="Component" />
@@ -102,7 +109,7 @@ onMounted(() => {
 
   h1 {
     font-size: 2rem;
-    font-weight: 400;
+    font-weight: 300;
   }
 
   h2 {
@@ -110,6 +117,7 @@ onMounted(() => {
 
     font-size: 1rem;
     font-weight: 400;
+    color: var(--font-secondary-clr);
   }
 }
 
@@ -119,16 +127,23 @@ onMounted(() => {
   margin-top: 50px;
   padding: 30px 0;
 
-  border-top: 1px solid var(--primary-border);
+  border-top: 1px solid var(--third-clr);
 }
 
 .icons-section__top-section {
   width: 100%;
+  max-height: 2.5rem; // has to be max-height because of transition
   position: relative;
 
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: 1fr auto;
+  transition: max-height var(--t-duration) ease-in-out;
+
+  // transition to
+  &--expanded {
+    max-height: 100px;
+  }
 }
 
 .top-section__searchbar-container {
@@ -146,38 +161,22 @@ onMounted(() => {
   gap: 1rem;
 }
 
-.slide-in-enter-active,
-.slide-in-leave-active {
-  transition:
-    transform 300ms ease-in-out,
-    opacity 300ms ease-in-out;
-}
-
-.slide-in-enter-to,
-.slide-in-leave-from {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.slide-in-enter-from,
-.slide-in-leave-to {
-  opacity: 0;
-  transform: translateY(50%);
-}
-
 @include tablet-l {
   .icons-hero__hero h1 {
     font-size: 2.5rem;
   }
 
+  .icons-section__top-section {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .top-section__close-btn {
+    justify-self: end;
+  }
+
   .icons-section__icons {
     grid-template-columns: repeat(auto-fill, 130px);
     grid-auto-rows: 130px;
-  }
-
-  .slide-in-enter-active,
-  .slide-in-leave-active {
-    transition: none;
   }
 }
 
@@ -189,6 +188,19 @@ onMounted(() => {
 }
 
 @media (min-width: 840px) {
+  .icons-section__top-section {
+    grid-template-columns: 1fr auto auto;
+  }
+
+  .top-section__close-btn {
+    grid-column: 3 / -1;
+  }
+
+  .top-section__icon-settings {
+    grid-column: 2 / 3;
+    grid-row: 1;
+  }
+
   .icons-section__icons {
     grid-template-columns: repeat(auto-fill, 150px);
     grid-auto-rows: 150px;

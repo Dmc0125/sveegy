@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import { useRouter } from 'vue-router'
 
-import SvgVue from '@/layouts/vue-svg/VueSvg.vue'
+import SvgWrapper from '@/layouts/SvgWrapper.vue'
 import CopyIcon from '@/components/copy-icon/CopyIcon.vue'
 
 const props = defineProps<{
+  iconId: string
   iconHtml: string
   iconName: string
 }>()
@@ -12,7 +13,7 @@ const props = defineProps<{
 const router = useRouter()
 
 const redirectToIcon = () => {
-  router.push({ path: `/icons/${props.iconName.replace(/(\s)/g, '-')}-icon` })
+  router.push({ path: `/icons/${props.iconId}` })
 }
 
 const _iconName = props.iconName[0].toUpperCase() + props.iconName.substring(1)
@@ -26,8 +27,8 @@ const _iconName = props.iconName[0].toUpperCase() + props.iconName.substring(1)
     <copy-icon :copy-value="iconHtml" />
 
     <div class="svg">
-      <svg-vue
-        :icon-html="iconHtml"
+      <svg-wrapper
+        :icon="props.iconId"
         change-color
       />
     </div>
@@ -42,9 +43,9 @@ const _iconName = props.iconName[0].toUpperCase() + props.iconName.substring(1)
 .icon-container {
   position: relative;
 
-  background: var(--primary);
-  color: var(--font-clr);
-  border: 1px solid var(--primary-border);
+  background: var(--primary-clr);
+  color: var(--font-primary-clr);
+  border: 1px solid var(--third-clr);
   border-radius: 10px;
   overflow: hidden;
 
@@ -54,7 +55,7 @@ const _iconName = props.iconName[0].toUpperCase() + props.iconName.substring(1)
 
   &:focus {
     outline: 0;
-    border-color: var(--secondary);
+    border-color: var(--call-to-action-clr);
   }
 
   &:hover .copy-icon,
@@ -73,7 +74,7 @@ const _iconName = props.iconName[0].toUpperCase() + props.iconName.substring(1)
   width: 100%;
   flex: 1 0 2rem;
 
-  border-top: 1px solid var(--primary-border);
+  border-top: 1px solid var(--third-clr);
   font-size: 1rem;
   display: flex;
   align-items: center;

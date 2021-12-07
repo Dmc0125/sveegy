@@ -1,6 +1,23 @@
+<script lang="ts" setup>
+import { computed } from 'vue'
+
+import useMainStore from '@/store/main'
+
+const props = defineProps<{
+  name: 'license' | 'browse' | 'search'
+}>()
+
+const mainStore = useMainStore()
+const darkMode = computed(() => mainStore.darkMode)
+</script>
+
 <template>
   <section class="illustration">
-    <slot />
+    <img
+      :src="`src/assets/illustrations/${darkMode ? `${props.name}-dark` : props.name}.svg`"
+      :alt="`${props.name} illustration`"
+      :title="`${props.name} illustration`"
+    >
   </section>
 </template>
 

@@ -37,6 +37,9 @@ const useNotificationStore = defineStore('notification', {
       }, 3000)
     },
     hideNotification() {
+      if (this.timeout) {
+        clearTimeout(this.timeout)
+      }
       this.message = null
     },
   },

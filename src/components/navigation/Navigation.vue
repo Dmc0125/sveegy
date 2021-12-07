@@ -2,17 +2,14 @@
 import { computed } from 'vue'
 import links from '@/utils/links'
 
-import SvgVue from '@/layouts/vue-svg/VueSvg.vue'
+import SvgWrapper from '@/layouts/SvgWrapper.vue'
 import ColorModeSwitch from '@/components/color-mode-switch/ColorModeSwitch.vue'
 
 import useMainStore from '@/store/main'
-import useIconsStore from '@/store/icons'
 
 const mainStore = useMainStore()
-const iconsStore = useIconsStore()
 
 const isNavOpened = computed(() => mainStore.isNavOpen)
-const getIcon = computed(() => iconsStore.getIcon)
 </script>
 
 <template>
@@ -28,7 +25,7 @@ const getIcon = computed(() => iconsStore.getIcon)
             class="close-wrapper"
             @click="mainStore.toggleNav"
           >
-            <svg-vue :icon-html="getIcon('close-icon')?.htmlValue || ''" />
+            <svg-wrapper icon="close-icon" />
           </button>
 
           <h2>Sveegy</h2>
@@ -51,7 +48,7 @@ const getIcon = computed(() => iconsStore.getIcon)
               >
                 <span>{{ name }}</span>
                 <span class="link-icon-container">
-                  <svg-vue :icon-html="getIcon(icon)?.htmlValue || ''" />
+                  <svg-wrapper :icon="icon" />
                 </span>
               </router-link>
             </li>
@@ -69,7 +66,7 @@ const getIcon = computed(() => iconsStore.getIcon)
               >
                 <span>Github</span>
                 <span class="github-icon-container">
-                  <svg-vue :icon-html="getIcon('github-icon')?.htmlValue || ''" />
+                  <svg-wrapper icon="github-icon" />
                 </span>
               </a>
             </li>
@@ -105,9 +102,8 @@ nav {
   right: 0;
   overflow: auto;
 
-  border-left: 1px solid var(--primary-border);
-  background: var(--primary);
-  box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+  border-left: 1px solid var(--third-clr);
+  background: var(--primary-clr);
 
   display: grid;
   grid-template-rows: min-content 1fr min-content;
@@ -133,8 +129,8 @@ header {
   width: var(--size);
   height: var(--size);
 
-  color: var(--font-clr);
-  background: var(--primary);
+  color: var(--font-primary-clr);
+  background: var(--primary-clr);
 }
 
 main {
@@ -170,12 +166,12 @@ li + li {
   &:focus,
   &:hover {
     outline: 0;
-    color: var(--secondary);
+    color: var(--call-to-action-clr);
   }
 }
 
 .active-link {
-  color: var(--font-clr-inverse) !important;
+  color: var(--font-inverse-clr) !important;
 }
 
 .active-link-bg {
@@ -185,7 +181,7 @@ li + li {
   top: 0;
   right: 0;
 
-  background: var(--secondary);
+  background: var(--call-to-action-clr);
   border-top-left-radius: 1rem;
   border-bottom-left-radius: 1rem;
 }
@@ -234,7 +230,7 @@ li + li {
 .color-mode {
   padding: 0 30px;
 
-  color: var(--font-clr);
+  color: var(--font-primary-clr);
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -248,7 +244,7 @@ li + li {
 
 .slide-in-enter-active,
 .slide-in-leave-active {
-  transition: transform 300ms ease-in-out;
+  transition: transform var(--t-duration) ease-in-out;
 }
 
 .slide-in-enter-from,

@@ -1,19 +1,15 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 
-import SvgVue from '@/layouts/vue-svg/VueSvg.vue'
+import SvgWrapper from '@/layouts/SvgWrapper.vue'
 
-import useIconsStore from '@/store/icons'
 import useNotificationStore from '@/store/notification'
 
-const iconsStore = useIconsStore()
 const notificationStore = useNotificationStore()
 
 const id = computed(() => notificationStore.id)
 const error = computed(() => notificationStore.isError)
 const message = computed(() => notificationStore.message)
-const getIcon = computed(() => iconsStore.getIcon)
-
 </script>
 
 <template>
@@ -30,12 +26,7 @@ const getIcon = computed(() => iconsStore.getIcon)
         class="notification__svg"
         :class="error ? 'notification__svg--error' : 'notification__svg--success'"
       >
-        <svg-vue
-          :icon-html="error
-            ? (getIcon('close-icon')?.htmlValue || '')
-            : (getIcon('tick-icon')?.htmlValue || '')
-          "
-        />
+        <svg-wrapper :icon="error ? 'close-icon' : 'tick-icon'" />
       </div>
       <p class="notification__text">
         {{ message }}
@@ -45,7 +36,7 @@ const getIcon = computed(() => iconsStore.getIcon)
         class="notification__close-btn"
         @click="notificationStore.hideNotification"
       >
-        <svg-vue :icon-html="getIcon('close-icon')?.htmlValue || ''" />
+        <svg-wrapper icon="close-icon" />
       </button>
     </section>
   </transition>
@@ -53,19 +44,21 @@ const getIcon = computed(() => iconsStore.getIcon)
 
 <style lang="scss" scoped>
 .notification {
-  height: 5rem;
-  position: absolute;
-  top: 100px;
-  right: 30px;
-  transform: translateX(0);
+  height: fit-content;
+  width: 80%;
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0 1rem;
 
-  border: 1px solid var(--primary-border);
+  border: 1px solid var(--third-clr);
   border-radius: 10px;
-  background: var(--primary);
-  box-shadow: 0 3px 10px rgba(0, 0, 0, .05);
+  background: var(--primary-clr);
 
   display: grid;
-  grid-template-columns: repeat(8, 2.5rem);
+  grid-gap: 1rem;
+  grid-template-columns: auto 1fr;
   grid-template-rows: 80px;
 }
 
@@ -74,8 +67,6 @@ const getIcon = computed(() => iconsStore.getIcon)
 
   width: var(--size);
   height: var(--size);
-  grid-column: span 2;
-  padding: .4rem;
 
   border: 1px solid currentColor;
   border-radius: 50%;
@@ -93,8 +84,6 @@ const getIcon = computed(() => iconsStore.getIcon)
 }
 
 .notification__text {
-  grid-column: 3 / -2;
-
   align-self: center;
 }
 
@@ -105,42 +94,36 @@ const getIcon = computed(() => iconsStore.getIcon)
   top: 10px;
   right: 10px;
 
-  background: var(--primary);
-  color: var(--font-clr);
+  background: var(--primary-clr);
+  color: var(--font-primary-clr);
 }
 
-@include tablet-s {
+.slide-in-enter-active, .slide-in-leave-active {
+  transition: transform calc(var(--t-duration) * 2) ease-in-out;
+}
+
+.slide-in-enter-from, .slide-in-leave-to {
+  transform: translateX(100%);
+}
+
+.slide-in-enter-to, .slide-in-leave-from {
+  transform: translateX(-50%);
+}
+
+@include tablet-l {
   .notification {
-    right: 50px;
+    width: 350px;
+    top: 50px;
+    left: calc(100% - 3rem);
+    transform: translateX(-100%);
   }
-}
 
-@include desktop-xs {
-  .notification {
-    right: 70px;
+  .slide-in-enter-from, .slide-in-leave-to {
+    transform: translateX(20%) !important;
   }
-}
 
-@include desktop-m {
-  .notification {
-    right: 140px;
+  .slide-in-enter-to, .slide-in-leave-from {
+    transform: translateX(-100%);
   }
-}
-
-/* TRANSITION */
-
-.slide-in-enter-active,
-.slide-in-leave-active {
-  transition: transform 500ms ease-in-out;
-}
-
-.slide-in-enter-from,
-.slide-in-leave-to {
-  transform: translateX(500px);
-}
-
-.slide-in-enter-to,
-.slide-in-leave-from {
-  transform: translate(0);
 }
 </style>

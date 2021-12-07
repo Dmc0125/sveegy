@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 
 import { Icon } from '@/types/svg-icons'
-import icons from '../svg-icons/svg-icons'
+import icons from '../svg-icons'
 
 type IconsState = {
   icons: Icon[];

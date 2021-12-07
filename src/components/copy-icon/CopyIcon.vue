@@ -1,7 +1,5 @@
 <script lang="ts" setup>
-import { computed } from 'vue'
-
-import VueSvg from '@/layouts/vue-svg/VueSvg.vue'
+import SvgWrapper from '@/layouts/SvgWrapper.vue'
 
 import setCopyValue from '@/utils/copy-svg-wrapper'
 import useIconsStore from '@/store/icons'
@@ -33,8 +31,6 @@ const copyToClipboard = async () => {
     })
   }
 }
-
-const getIcon = computed(() => iconsStore.getIcon)
 </script>
 
 <template>
@@ -43,7 +39,7 @@ const getIcon = computed(() => iconsStore.getIcon)
     :class="{ hide: !props.showAlways }"
     @click.stop="copyToClipboard"
   >
-    <VueSvg :icon-html="getIcon('copy-icon')?.htmlValue || ''" />
+    <svg-wrapper icon="copy-icon" />
   </button>
 </template>
 
@@ -57,18 +53,18 @@ const getIcon = computed(() => iconsStore.getIcon)
   top: 10px;
   right: 10px;
 
-  background: var(--primary);
-  color: var(--font-clr);
-  border: 1px solid var(--primary-border);
+  background: var(--primary-clr);
+  color: var(--font-primary-clr);
+  border: 1px solid var(--third-clr);
   border-radius: 10px;
-  transition: all 150ms ease-in-out;
+  transition: all var(--t-duration) ease-in-out;
 
   &:hover,
   &:focus {
     outline: 0;
-    background: var(--secondary);
-    border-color: var(--secondary);
-    color: var(--font-clr-inverse);
+    background: var(--call-to-action-clr);
+    border-color: var(--call-to-action-clr);
+    color: var(--font-inverse-clr);
   }
 
   &:active {

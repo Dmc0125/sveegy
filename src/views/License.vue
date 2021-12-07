@@ -1,14 +1,6 @@
 <script lang="ts" setup>
-import { computed } from 'vue'
-
-import Container from '@/layouts/vue-container/VueContainer.vue'
-import Illustration from '@/layouts/vue-illustration/VueIllustration.vue'
-
-import useMainStore from '@/store/main'
-
-const mainStore = useMainStore()
-
-const darkMode = computed(() => mainStore.darkMode)
+import Container from '@/layouts/Container.vue'
+import Illustration from '@/layouts/Illustration.vue'
 </script>
 
 <template>
@@ -46,20 +38,7 @@ const darkMode = computed(() => mainStore.darkMode)
       </div>
     </section>
 
-    <illustration>
-      <img
-        v-if="!darkMode"
-        src="@/assets/illustrations/license.svg"
-        alt="License illustration"
-        title="License illustration"
-      >
-      <img
-        v-else
-        src="@/assets/illustrations/license-dark.svg"
-        alt="License illustration"
-        title="License illustration"
-      >
-    </illustration>
+    <illustration name="license" />
   </container>
 </template>
 

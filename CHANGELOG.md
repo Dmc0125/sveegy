@@ -2,6 +2,22 @@
 
 All notable changes to Sveegy will be documented in this file.
 
+## [0.10.3] - 2021-07-12
+
+### Changed
+
+#### Refactoring
+
+- Moved icon from `src/svg-icons/scg-icons.ts` to `src/svg-icons/index.ts`
+- Moved css variables from `_vars.scss` to main store
+- Renamed `views/Icon.vue` to `views/IconPopup.vue`
+
+#### UI
+
+- Notification is centered on mobile
+- Fade in transition on icon popup
+- Icon settings 'popup' changed to inputs
+
 ## [0.10.2] - 2021-04-12
 
 - Fixed build errors

@@ -28,7 +28,7 @@ const darkMode = computed(() => mainStore.darkMode)
   height: var(--height);
   padding: 0 2px;
 
-  background: var(--font-clr-inverse);
+  background: var(--font-inverse-clr);
   border-radius: calc(var(--height) / 2);
 
   display: flex;
@@ -45,7 +45,7 @@ const darkMode = computed(() => mainStore.darkMode)
   background: var(--color-switch-btn);
   border-radius: 50%;
   transition:
-    margin-left 200ms ease-in-out,
+    margin-left var(--t-duration) ease-in-out,
     var(--t-clr),
     var(--t-bg);
 

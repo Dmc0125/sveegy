@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { computed, onMounted } from 'vue'
 
-import HeaderVue from '@/layouts/header/Header.vue'
-import Footer from '@/layouts/footer/Footer.vue'
+import HeaderVue from '@/layouts/Header.vue'
+import Footer from '@/layouts/Footer.vue'
 import Navigation from '@/components/navigation/Navigation.vue'
 import Notification from '@/components/notification/Notification.vue'
 
@@ -15,11 +15,12 @@ const darkMode = computed(() => mainStore.darkMode)
 onMounted(() => {
   mainStore.initDarkMode()
 })
+
 </script>
 
 <template>
   <main
-    id="app"
+    class="app"
     :color-mode="darkMode ? 'dark' : 'light'"
   >
     <header-vue />
@@ -40,11 +41,7 @@ onMounted(() => {
 </template>
 
 <style lang="scss">
-/* Import global variables */
-@import '@/scss/_vars.scss';
-
 /* GLOBAL */
-
 * {
   margin: 0;
   padding: 0;
@@ -55,7 +52,7 @@ onMounted(() => {
 
 html,
 body {
-  width: 100%;
+  width: 100vw;
   height: fit-content;
   font-size: 16px;
 }
@@ -65,20 +62,45 @@ body {
   overflow-x: hidden;
 }
 
+.app {
+  --color-switch-btn: #f2c94c;
+
+  --t-timing-fn: ease-in-out;
+  --t-duration: 150ms;
+  --t-clr: background var(--t-duration) var(--t-timing-fn);
+  --t-bg: color var(--t-duration) var(--t-timing-fn);
+
+  --primary-clr: v-bind(mainStore.cssVariables.primaryClr);
+  --secondary-clr: v-bind(mainStore.cssVariables.secondaryClr);
+  --third-clr: v-bind(mainStore.cssVariables.thirdClr);
+  --call-to-action-rgb: v-bind(mainStore.cssVariables.callToActionRgb);
+  --call-to-action-clr: rgb(var(--call-to-action-rgb));
+
+  --font-primary-clr: v-bind(mainStore.cssVariables.fontPrimaryClr);
+  --font-secondary-clr: v-bind(mainStore.cssVariables.fontSecondaryClr);
+  --font-inverse-clr: v-bind(mainStore.cssVariables.fontInverseClr);
+
+  --modal-bg-clr: v-bind(mainStore.cssVariables.modalBgClr);
+
+  width: 100%;
+  min-height: 100vh;
+
+  background: var(--primary-clr);
+
+  display: grid;
+  grid-template-rows: min-content 1fr min-content;
+}
+
 ul {
   list-style: none;
 }
 
 a {
   text-decoration: none;
-  color: var(--font-clr);
 }
 
-h1,
-h2,
-h3,
-p {
-  color: var(--font-clr);
+h1, h2, h3, p, button, a {
+  color: var(--font-primary-clr);
 }
 
 button {
@@ -91,32 +113,42 @@ button {
 
 input {
   font-size: 1rem;
-}
 
-#app {
-  width: 100%;
-  min-height: 100vh;
+  &::placeholder {
+    color: var(--font-secondary-clr);
+  }
 
-  background: var(--primary);
-  // transition: var(--t-clr), var(--t-bg);
-
-  display: grid;
-  grid-template-rows: min-content 1fr min-content;
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(var(--call-to-action-rgb), 0.5);
+  }
 }
 
 /* ROUTE TRANSITION */
 
 .route-fade-in-enter-active {
-  transition: all 1s ease-in-out;
+  transition: all 800ms ease-in-out;
 }
 
 .route-fade-in-enter-from {
   opacity: 0;
-  transform: translateY(-2rem);
+  transform: translateY(-1rem);
 }
 
 .route-fade-in-enter-to {
   opacity: 1;
   transform: translateY(0);
+}
+
+.fade-in-enter-active, .fade-in-leave-active {
+  transition: opacity var(--t-duration) ease-in-out;
+}
+
+.fade-in-enter-to, .fade-in-leave-from {
+  opacity: 1;
+}
+
+.fade-in-enter-from, .fade-in-leave-to {
+  opacity: 0;
 }
 </style>

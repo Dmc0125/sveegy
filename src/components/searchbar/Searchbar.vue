@@ -1,12 +1,8 @@
 <script lang="ts" setup>
-import {
-  ref, watchEffect, onMounted, computed,
-} from 'vue'
+import { ref, watchEffect, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 
-import SvgVue from '@/layouts/vue-svg/VueSvg.vue'
-
-import useIconsStore from '@/store/icons'
+import SvgWrapper from '@/layouts/SvgWrapper.vue'
 
 const emit = defineEmits<{(e: 'update:search-term', value: string): void}>()
 
@@ -24,9 +20,6 @@ onMounted(() => {
     _searchTerm.value = search
   }
 })
-
-const iconsStore = useIconsStore()
-const getIcon = computed(() => iconsStore.getIcon)
 </script>
 
 <template>
@@ -35,7 +28,7 @@ const getIcon = computed(() => iconsStore.getIcon)
       class="searchbar__svg-wrapper"
       :class="{ 'active': _searchTerm.length }"
     >
-      <svg-vue :icon-html="getIcon('search-icon')?.htmlValue || ''" />
+      <svg-wrapper icon="search-icon" />
     </div>
     <input
       v-model="_searchTerm"
@@ -48,20 +41,20 @@ const getIcon = computed(() => iconsStore.getIcon)
 
 <style lang="scss" scoped>
 .searchbar {
-  width: 160px;
-  height: 2rem;
+  width: 100%;
+  height: 2.5rem;
   position: relative;
 
   &:focus-within .searchbar__svg-wrapper,
   .searchbar__svg-wrapper.active {
     transform: translateY(-50%) rotate(90deg);
-    color: var(--font-clr);
+    color: var(--font-primary-clr);
   }
 }
 
 .searchbar__svg-wrapper,
 .searchbar__input::placeholder {
-  color: var(--font-clr-secondary);
+  color: var(--font-secondary-clr);
   opacity: 1;
 }
 
@@ -72,28 +65,23 @@ const getIcon = computed(() => iconsStore.getIcon)
   height: var(--size);
   position: absolute;
   top: 50%;
-  left: 5px;
+  left: 10px;
   transform: translateY(-50%);
-  transition: transform 200ms ease-in-out;
+  transition: transform var(--t-duration) ease-in-out;
 }
 
 .searchbar__input {
   width: 100%;
   height: 100%;
-  padding: 0 1rem 0 2rem;
+  padding: 0 1rem 0 2.5rem;
 
-  background: var(--primary);
-  border: 1px solid var(--primary-border);
+  background: var(--primary-clr);
+  border: 1px solid var(--third-clr);
   border-radius: 10px;
-  color: var(--font-clr);
-
-  &:focus {
-    outline: 0;
-    border-color: var(--secondary);
-  }
+  color: var(--font-primary-clr);
 }
 
-@include tablet-s {
+@media (min-width: 840px) {
   .searchbar {
     width: 230px;
   }

@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-
 const props = defineProps<{
   useFlex?: boolean
   icons?: boolean
@@ -20,7 +19,7 @@ const props = defineProps<{
 
 <style lang="scss" scoped>
 .container {
-  background: var(--primary);
+  background: var(--primary-clr);
 }
 
 .container--flex {
@@ -52,7 +51,7 @@ const props = defineProps<{
 
 @include desktop-m {
   .container {
-    padding: 0 140px;
+    padding: 0 15%;
 
     &--flex {
       flex-direction: row;
@@ -61,15 +60,15 @@ const props = defineProps<{
   }
 }
 
-@include desktop-l {
-  .container {
-    padding: 0 200px;
-  }
-}
+// @include desktop-l {
+//   .container {
+//     padding: 0 200px;
+//   }
+// }
 
-@include desktop-xl {
-  .container {
-    padding: 0 280px;
-  }
-}
+// @include desktop-xl {
+//   .container {
+//     padding: 0 280px;
+//   }
+// }
 </style>

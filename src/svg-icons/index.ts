@@ -1,4 +1,5 @@
-import { Icon } from '@/types/svg-icons';
+/* eslint-disable max-len */
+import { Icon } from '@/types/svg-icons'
 
 export default [
   // MAIN
@@ -355,4 +356,4 @@ export default [
       />
     `,
   },
-] as Icon[];
+] as Icon[]

@@ -1,19 +1,14 @@
 <script lang="ts" setup>
-import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
-import SvgVue from '@/layouts/vue-svg/VueSvg.vue'
+import SvgWrapper from '@/layouts/SvgWrapper.vue'
 import ColorModeSwitch from '@/components/color-mode-switch/ColorModeSwitch.vue'
 
 import useMainStore from '@/store/main'
 import links from '@/utils/links'
-import useIconsStore from '@/store/icons'
 
 const route = useRoute()
 const mainStore = useMainStore()
-const iconsStore = useIconsStore()
-
-const getIcon = computed(() => iconsStore.getIcon)
 </script>
 
 <template>
@@ -32,7 +27,7 @@ const getIcon = computed(() => iconsStore.getIcon)
       class="header__toggle-nav-btn"
       @click="mainStore.toggleNav"
     >
-      <svg-vue :icon-html="getIcon('hamburger-icon')?.htmlValue || ''" />
+      <svg-wrapper icon="hamburger-icon" />
     </button>
 
     <nav class="header__nav">
@@ -59,7 +54,7 @@ const getIcon = computed(() => iconsStore.getIcon)
         target="_blank"
         rel="noopener"
       >
-        <svg-vue :icon-html="getIcon('github-icon')?.htmlValue || ''" />
+        <svg-wrapper icon="github-icon" />
       </a>
     </nav>
   </header>
@@ -91,8 +86,8 @@ const getIcon = computed(() => iconsStore.getIcon)
   width: var(--size);
   height: var(--size);
 
-  color: var(--font-clr);
-  background: var(--primary);
+  color: var(--font-primary-clr);
+  background: var(--primary-clr);
 }
 
 .header__nav {
@@ -116,7 +111,7 @@ const getIcon = computed(() => iconsStore.getIcon)
     }
 
     &--active {
-      color: var(--secondary);
+      color: var(--call-to-action-clr);
     }
   }
 
@@ -132,7 +127,7 @@ const getIcon = computed(() => iconsStore.getIcon)
   height: var(--size);
   margin-left: 1rem;
 
-  color: var(--font-clr);
+  color: var(--font-primary-clr);
 }
 
 @include tablet-s {
