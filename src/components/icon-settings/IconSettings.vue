@@ -97,8 +97,6 @@ const iconColor = computed(() => iconsStore.iconColor)
 
 <style lang="scss" scoped>
 .icon-settings {
-  grid-column: 1 / -1;
-
   background: var(--primary-clr);
   border-radius: 10px;
   font-size: 1rem;

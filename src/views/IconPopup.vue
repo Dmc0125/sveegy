@@ -296,7 +296,7 @@ const sendDownloadNotification = () => {
 }
 
 .popup-footer__settings {
-  grid-column: span -1;
+  grid-column: 1 / -1;
 }
 
 .popup-footer__icon-html {

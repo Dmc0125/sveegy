@@ -2,6 +2,11 @@
 
 All notable changes to Sveegy will be documented in this file.
 
+## [0.10.4] - 2021-07-12
+
+- Fixed illustration svgs not loading
+- Fixed settings position
+
 ## [0.10.3] - 2021-07-12
 
 ### Changed

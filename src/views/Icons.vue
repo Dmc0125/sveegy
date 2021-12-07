@@ -150,6 +150,10 @@ onMounted(() => {
   margin-right: 1rem;
 }
 
+.top-section__icon-settings {
+  grid-column: 1 / -1;
+}
+
 .icons-section__icons {
   width: 100%;
   margin-top: 30px;

@@ -1,6 +1,13 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 
+import browse from '@/assets/illustrations/browse.svg'
+import browseDark from '@/assets/illustrations/browse-dark.svg'
+import search from '@/assets/illustrations/search.svg'
+import searchDark from '@/assets/illustrations/search-dark.svg'
+import license from '@/assets/illustrations/license.svg'
+import licenseDark from '@/assets/illustrations/license-dark.svg'
+
 import useMainStore from '@/store/main'
 
 const props = defineProps<{
@@ -9,12 +16,23 @@ const props = defineProps<{
 
 const mainStore = useMainStore()
 const darkMode = computed(() => mainStore.darkMode)
+
+const imgSources = {
+  browse,
+  browseDark,
+  license,
+  licenseDark,
+  search,
+  searchDark,
+} as const
+
+const imgSource = computed(() => imgSources[`${props.name}${darkMode.value ? 'Dark' : ''}`])
 </script>
 
 <template>
   <section class="illustration">
     <img
-      :src="`src/assets/illustrations/${darkMode ? `${props.name}-dark` : props.name}.svg`"
+      :src="imgSource"
       :alt="`${props.name} illustration`"
       :title="`${props.name} illustration`"
     >
