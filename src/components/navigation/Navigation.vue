@@ -175,15 +175,15 @@ li + li {
 }
 
 .active-link-bg {
-  width: 80%;
-  height: 100%;
+  margin: 0 1rem;
   position: absolute;
   top: 0;
+  bottom: 0;
   right: 0;
+  left: 0;
 
   background: var(--call-to-action-clr);
-  border-top-left-radius: 1rem;
-  border-bottom-left-radius: 1rem;
+  border-radius: 5px;
 }
 
 .link-icon-container {

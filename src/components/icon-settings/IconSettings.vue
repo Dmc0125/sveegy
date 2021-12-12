@@ -98,7 +98,7 @@ const iconColor = computed(() => iconsStore.iconColor)
 <style lang="scss" scoped>
 .icon-settings {
   background: var(--primary-clr);
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   font-size: 1rem;
 
   display: grid;
@@ -127,7 +127,7 @@ const iconColor = computed(() => iconsStore.iconColor)
     padding: .7rem 1rem 0;
 
     border: var(--third-clr) 1px solid;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     background: inherit;
     color: var(--font-primary-clr)
   }
@@ -151,5 +151,11 @@ const iconColor = computed(() => iconsStore.iconColor)
 .settings-fade-in-enter-to, .settings-fade-in-leave-from {
   opacity: 1;
   pointer-events: all;
+}
+
+@media (min-width: 840px) {
+  .settings-fade-in-enter-active {
+    transition-delay: 0;
+  }
 }
 </style>

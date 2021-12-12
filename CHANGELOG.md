@@ -2,6 +2,11 @@
 
 All notable changes to Sveegy will be documented in this file.
 
+## [0.10.5] - 2021-12-12
+
+- Added more icons
+- Every icon is now on 20x20 grid with 24x24 view box
+
 ## [0.10.4] - 2021-07-12
 
 - Fixed illustration svgs not loading

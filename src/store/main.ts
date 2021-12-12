@@ -9,6 +9,7 @@ type CssVariables = {
 
   fontPrimaryClr: string
   fontSecondaryClr: string
+  fontThirdClr: string
   fontInverseClr: string
 
   modalBgClr: string
@@ -28,16 +29,18 @@ const variables: { light: CssVariables; dark: CssVariables; } = {
     callToActionRgb: '61,90,241',
     fontPrimaryClr: '#000',
     fontSecondaryClr: '#484848',
+    fontThirdClr: '#7b8591',
     fontInverseClr: '#f2f2f2',
     modalBgClr: 'rgba(0, 0, 0, .1)',
   },
   dark: {
     primaryClr: '#1c1c1f',
-    secondaryClr: '#785ada88',
+    secondaryClr: '#303033',
     thirdClr: '#3e3e42',
     callToActionRgb: '119,90,218',
     fontPrimaryClr: '#f2f2f2',
     fontSecondaryClr: '#b9b9b9',
+    fontThirdClr: '#5b626b',
     fontInverseClr: '#000',
     modalBgClr: 'rgba(250, 250, 250, .025)',
   },

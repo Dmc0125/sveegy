@@ -3,6 +3,8 @@ import { computed } from 'vue'
 
 import useMainStore from '@/store/main'
 
+import SvgWrapper from '@/layouts/SvgWrapper.vue'
+
 const mainStore = useMainStore()
 
 const darkMode = computed(() => mainStore.darkMode)
@@ -16,23 +18,33 @@ const darkMode = computed(() => mainStore.darkMode)
     <div
       class="clr-switch__btn"
       :class="{ 'clr-switch__btn--dark-mode': darkMode }"
-    />
+    >
+      <svg-wrapper
+        :key="darkMode ? 'moon-icon' : 'sun-icon'"
+        :icon="darkMode ? 'moon-icon' : 'sun-icon'"
+      />
+    </div>
   </button>
 </template>
 
 <style lang="scss" scoped>
 .clr-switch {
-  --height: 20px;
+  --height: 1.5rem;
+  --width: 2.5rem;
 
-  width: 35px;
+  width: var(--width);
   height: var(--height);
   padding: 0 2px;
-
-  background: var(--font-inverse-clr);
+  background: var(--secondary-clr);
   border-radius: calc(var(--height) / 2);
 
   display: flex;
   align-items: center;
+
+  &:focus {
+    outline: 0;
+    box-shadow: var(--focus-outline);
+  }
 }
 
 .clr-switch__btn {
@@ -40,17 +52,19 @@ const darkMode = computed(() => mainStore.darkMode)
 
   width: var(--size);
   height: var(--size);
-  margin-left: 0;
+  padding: .1rem;
+  transform: translateX(0);
 
-  background: var(--color-switch-btn);
+  background: var(--third-clr);
   border-radius: 50%;
   transition:
-    margin-left var(--t-duration) ease-in-out,
-    var(--t-clr),
-    var(--t-bg);
+    transform var(--t-duration) ease-in-out,
+    background var(--t-duration) ease-in-out;
+  color: var(--font-secondary-clr);
 
   &--dark-mode {
-    margin-left: calc(100% - var(--size));
+    background: var(--call-to-action-clr);
+    transform: translateX(calc(var(--width) - var(--size) - 4px));
   }
 }
 </style>

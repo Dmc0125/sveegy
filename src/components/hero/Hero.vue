@@ -47,11 +47,19 @@ h2 {
 
   background: var(--call-to-action-clr);
   color: var(--font-inverse-clr);
-  border-radius: 10px;
+  border-radius: var(--border-radius);
 
   display: flex;
   align-items: center;
   justify-content: center;
+
+  &:focus {
+    box-shadow: var(--focus-outline);
+  }
+
+  &:hover {
+    opacity: var(--hover-opacity);
+  }
 }
 
 @include tablet-s {

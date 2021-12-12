@@ -13,15 +13,11 @@ const mainStore = useMainStore()
 
 <template>
   <header class="header">
-    <router-link
+    <img
       class="header__logo"
-      to="/"
+      src="@/assets/icons/sveegy.svg"
+      alt="Sveegy logo"
     >
-      <img
-        src="@/assets/icons/sveegy.svg"
-        alt="Sveegy logo"
-      >
-    </router-link>
 
     <button
       class="header__toggle-nav-btn"
@@ -66,8 +62,6 @@ const mainStore = useMainStore()
   height: 60px;
   padding: 0 30px;
 
-  transition: var(--t-clr), var(--t-bg);
-
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -93,13 +87,12 @@ const mainStore = useMainStore()
 .header__nav {
   height: 100%;
 
+  column-gap: 1rem;
   display: none;
   align-items: center;
 }
 
 .nav__links {
-  margin-right: 1rem;
-
   .links__link {
     display: inline;
     font-size: 1rem;
@@ -125,9 +118,13 @@ const mainStore = useMainStore()
 
   width: var(--size);
   height: var(--size);
-  margin-left: 1rem;
 
   color: var(--font-primary-clr);
+
+  &:focus, :hover {
+    outline: 0;
+    opacity: var(--hover-opacity);
+  }
 }
 
 @include tablet-s {
@@ -158,12 +155,8 @@ const mainStore = useMainStore()
 }
 
 @include desktop-s {
-  .nav__links {
-    margin-right: 2.5rem;
-
-    .links__link {
-      font-size: 1.1rem;
-    }
+  .nav__links .links__link {
+    font-size: 1.1rem;
   }
 }
 

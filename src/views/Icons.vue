@@ -1,37 +1,33 @@
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
+import { ref, onMounted, computed } from 'vue'
 
 import Container from '@/layouts/Container.vue'
 import Searchbar from '@/components/searchbar/Searchbar.vue'
-import IconBtn from '@/components/icon-btn/IconBtn.vue'
+import IconBtn from '@/components/icon-settings/OpenSettingsBtn.vue'
 import IconSettings from '@/components/icon-settings/IconSettings.vue'
 import Icon from '@/components/icon/Icon.vue'
 
 import useIconsStore from '@/store/icons'
 import useSettings from '@/hooks/open-settings'
+import setIconSizeFromQuery from '@/hooks/set-icon-size-from-query'
+
+onMounted(() => {
+  setIconSizeFromQuery()
+})
+
+const { isOpen: openSettings, toggleSettings } = useSettings()
 
 const iconsStore = useIconsStore()
 
 const searchTerm = ref('')
-
-const { isOpen: openSettings, toggleSettings } = useSettings()
-
-onMounted(() => {
-  const route = useRoute()
-  const iconSize = route.query.size as unknown as string | undefined | unknown[]
-
-  if (iconSize && !Array.isArray(iconSize)) {
-    iconsStore.setIconSize(iconSize)
-  }
-})
+const shownIcons = computed(() => iconsStore.getSearchedIcons(searchTerm.value))
 </script>
 
 <template>
   <main class="icons-main">
     <container class="icons-main__icons-hero">
       <div class="icons-hero__hero">
-        <h1>Many free svg icons</h1>
+        <h1>Many beautiful free svg icons</h1>
         <h2>
           Browse to find any svg icon you want and then use it either
           by copying the html or downloading the svg.
@@ -66,7 +62,7 @@ onMounted(() => {
 
         <div class="icons-section__icons">
           <icon
-            v-for="{ id, variations, htmlValue } in iconsStore.getSearchedIcons(searchTerm)"
+            v-for="{ id, variations, htmlValue } in shownIcons"
             :key="id"
             :icon-id="id"
             :icon-html="htmlValue"
@@ -106,11 +102,6 @@ onMounted(() => {
   flex: 0 0 auto;
 
   text-align: center;
-
-  h1 {
-    font-size: 2rem;
-    font-weight: 300;
-  }
 
   h2 {
     margin-top: 1rem;

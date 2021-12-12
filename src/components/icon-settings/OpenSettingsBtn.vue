@@ -33,17 +33,19 @@ button {
   background: var(--primary-clr);
   color: var(--font-secondary-clr);
   border: 1px solid var(--third-clr);
-  border-radius: 10px;
+  border-radius: var(--border-radius);
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  &:focus,
-  &:hover {
+  &:focus {
     outline: 0;
-    border-color: var(--call-to-action-clr);
-    color: var(--call-to-action-clr);
+    box-shadow: var(--focus-outline);
+  }
+
+  &:hover {
+    opacity: var(--hover-opacity);
   }
 }
 </style>

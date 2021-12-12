@@ -1,10 +1,8 @@
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 
-import prettifyHtmlValue from '@/utils/copy-svg-wrapper'
-
-import IconBtn from '@/components/icon-btn/IconBtn.vue'
+import IconBtn from '@/components/icon-settings/OpenSettingsBtn.vue'
 import SvgWrapper from '@/layouts/SvgWrapper.vue'
 import CopyIcon from '@/components/copy-icon/CopyIcon.vue'
 import IconSettings from '@/components/icon-settings/IconSettings.vue'
@@ -13,6 +11,12 @@ import useIconsStore from '@/store/icons'
 import { Icon } from '@/types/svg-icons'
 import useSettings from '@/hooks/open-settings'
 import useNotificationStore from '@/store/notification'
+import prettifyHtmlValue from '@/utils/copy-svg-wrapper'
+import setIconSizeFromQuery from '@/hooks/set-icon-size-from-query'
+
+onMounted(() => {
+  setIconSizeFromQuery()
+})
 
 const router = useRouter()
 const iconsStore = useIconsStore()
@@ -170,7 +174,7 @@ const sendDownloadNotification = () => {
   overflow-y: auto;
 
   background: var(--primary-clr);
-  border-radius: 10px;
+  border-radius: var(--border-radius);
 }
 
 .popup-header {
@@ -210,10 +214,11 @@ const sendDownloadNotification = () => {
     height: 1.7rem;
     padding: .2rem .7rem;
 
-    background: var(--secondary-clr);
+    background: rgba(var(--call-to-action-rgb), .2);
+    color: var(--font-secondary-clr);
     border-radius: 1rem;
     font-size: 12px;
-    font-weight: 500;
+    font-weight: 700;
 
     display: flex;
     align-items: center;
@@ -283,12 +288,20 @@ const sendDownloadNotification = () => {
 
   background: var(--call-to-action-clr);
   color: var(--font-inverse-clr);
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   font-size: 1rem;
 
   display: flex;
   justify-content: center;
   align-items: center;
+
+  &:hover {
+    opacity: var(--hover-opacity);
+  }
+
+  &:focus {
+    box-shadow: var(--focus-outline);
+  }
 }
 
 .popup-footer__settings-btn {
@@ -307,7 +320,7 @@ const sendDownloadNotification = () => {
   position: relative;
 
   background: var(--third-clr);
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   overflow-x: auto;
 }
 

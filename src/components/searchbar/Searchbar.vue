@@ -34,7 +34,7 @@ onMounted(() => {
       v-model="_searchTerm"
       class="searchbar__input"
       type="text"
-      placeholder="Browse icons"
+      placeholder="Search icons"
     >
   </div>
 </template>
@@ -52,10 +52,8 @@ onMounted(() => {
   }
 }
 
-.searchbar__svg-wrapper,
-.searchbar__input::placeholder {
-  color: var(--font-secondary-clr);
-  opacity: 1;
+.searchbar__svg-wrapper {
+  color: var(--font-third-clr);
 }
 
 .searchbar__svg-wrapper {
@@ -77,7 +75,7 @@ onMounted(() => {
 
   background: var(--primary-clr);
   border: 1px solid var(--third-clr);
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   color: var(--font-primary-clr);
 }
 

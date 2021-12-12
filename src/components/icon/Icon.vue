@@ -46,7 +46,7 @@ const _iconName = props.iconName[0].toUpperCase() + props.iconName.substring(1)
   background: var(--primary-clr);
   color: var(--font-primary-clr);
   border: 1px solid var(--third-clr);
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   overflow: hidden;
 
   display: flex;
@@ -55,7 +55,7 @@ const _iconName = props.iconName[0].toUpperCase() + props.iconName.substring(1)
 
   &:focus {
     outline: 0;
-    border-color: var(--call-to-action-clr);
+    box-shadow: var(--focus-outline);
   }
 
   &:hover .copy-icon,

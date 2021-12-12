@@ -15,7 +15,6 @@ const darkMode = computed(() => mainStore.darkMode)
 onMounted(() => {
   mainStore.initDarkMode()
 })
-
 </script>
 
 <template>
@@ -46,6 +45,7 @@ onMounted(() => {
   margin: 0;
   padding: 0;
   border: 0;
+  outline: none;
   box-sizing: border-box;
   font-family: 'Red Hat Display', sans-serif;
 }
@@ -65,10 +65,7 @@ body {
 .app {
   --color-switch-btn: #f2c94c;
 
-  --t-timing-fn: ease-in-out;
   --t-duration: 150ms;
-  --t-clr: background var(--t-duration) var(--t-timing-fn);
-  --t-bg: color var(--t-duration) var(--t-timing-fn);
 
   --primary-clr: v-bind(mainStore.cssVariables.primaryClr);
   --secondary-clr: v-bind(mainStore.cssVariables.secondaryClr);
@@ -78,9 +75,14 @@ body {
 
   --font-primary-clr: v-bind(mainStore.cssVariables.fontPrimaryClr);
   --font-secondary-clr: v-bind(mainStore.cssVariables.fontSecondaryClr);
+  --font-third-clr: v-bind(mainStore.cssVariables.fontThirdClr);
   --font-inverse-clr: v-bind(mainStore.cssVariables.fontInverseClr);
 
   --modal-bg-clr: v-bind(mainStore.cssVariables.modalBgClr);
+
+  --focus-outline: 0 0 0 3px rgba(var(--call-to-action-rgb), 0.5);
+  --hover-opacity: .8;
+  --border-radius: 6px;
 
   width: 100%;
   min-height: 100vh;
@@ -99,6 +101,11 @@ a {
   text-decoration: none;
 }
 
+h1 {
+  font-size: 2rem;
+  font-weight: 500;
+}
+
 h1, h2, h3, p, button, a {
   color: var(--font-primary-clr);
 }
@@ -115,12 +122,11 @@ input {
   font-size: 1rem;
 
   &::placeholder {
-    color: var(--font-secondary-clr);
+    color: var(--font-third-clr);
   }
 
   &:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(var(--call-to-action-rgb), 0.5);
+    box-shadow: var(--focus-outline);
   }
 }
 

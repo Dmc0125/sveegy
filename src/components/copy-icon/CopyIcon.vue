@@ -56,7 +56,7 @@ const copyToClipboard = async () => {
   background: var(--primary-clr);
   color: var(--font-primary-clr);
   border: 1px solid var(--third-clr);
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   transition: all var(--t-duration) ease-in-out;
 
   &:hover,

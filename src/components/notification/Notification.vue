@@ -53,7 +53,7 @@ const message = computed(() => notificationStore.message)
   padding: 0 1rem;
 
   border: 1px solid var(--third-clr);
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   background: var(--primary-clr);
 
   display: grid;
@@ -67,6 +67,7 @@ const message = computed(() => notificationStore.message)
 
   width: var(--size);
   height: var(--size);
+  padding: .5rem;
 
   border: 1px solid currentColor;
   border-radius: 50%;
