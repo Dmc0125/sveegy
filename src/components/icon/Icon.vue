@@ -41,6 +41,8 @@ const _iconName = props.iconName[0].toUpperCase() + props.iconName.substring(1)
 
 <style lang="scss" scoped>
 .icon-container {
+  width: 100%;
+  height: 100%;
   position: relative;
 
   background: var(--primary-clr);
@@ -49,9 +51,9 @@ const _iconName = props.iconName[0].toUpperCase() + props.iconName.substring(1)
   border-radius: var(--border-radius);
   overflow: hidden;
 
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: 70% 1fr;
+  justify-items: center;
 
   &:focus {
     outline: 0;
@@ -66,13 +68,16 @@ const _iconName = props.iconName[0].toUpperCase() + props.iconName.substring(1)
 }
 
 .svg {
-  height: 70%;
-  flex: 0 1 auto;
+  grid-row: 1 / 2;
+  height: 100%;
+  padding: 1rem;
+  justify-self: center;
 }
 
 .icon-name {
   width: 100%;
-  flex: 1 0 2rem;
+  height: 100%;
+  grid-row: 2 / -1;
 
   border-top: 1px solid var(--third-clr);
   font-size: 1rem;

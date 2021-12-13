@@ -194,12 +194,16 @@ const sendDownloadNotification = () => {
 }
 
 .top-section__close-icon {
-  --size: 1.5rem;
-
+  --size: 2rem;
   width: var(--size);
   height: var(--size);
 
   background: var(--primary-clr);
+  border-radius: var(--border-radius);
+
+  &:focus {
+    box-shadow: var(--focus-outline);
+  }
 }
 
 .popup-header__variations {
@@ -207,6 +211,7 @@ const sendDownloadNotification = () => {
   margin-top: .5rem;
 
   display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
   row-gap: .5rem;
 

@@ -2,6 +2,13 @@
 
 All notable changes to Sveegy will be documented in this file.
 
+## [0.10.6] - 2021-13-12
+
+### UI
+
+- Displayed icons are now smaller
+- Changed font secondary color
+
 ## [0.10.5] - 2021-12-12
 
 - Added more icons
