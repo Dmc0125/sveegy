@@ -18,6 +18,7 @@ onMounted(() => {
 const { isOpen: openSettings, toggleSettings } = useSettings()
 
 const iconsStore = useIconsStore()
+const icons = Math.floor(iconsStore.icons.length / 10) * 10
 
 const searchTerm = ref('')
 const shownIcons = computed(() => iconsStore.getSearchedIcons(searchTerm.value))
@@ -27,7 +28,7 @@ const shownIcons = computed(() => iconsStore.getSearchedIcons(searchTerm.value))
   <main class="icons-main">
     <container class="icons-main__icons-hero">
       <div class="icons-hero__hero">
-        <h1>Many beautiful free svg icons</h1>
+        <h1>More than {{ icons }} beautiful free svg icons</h1>
         <h2>
           Browse to find any svg icon you want and then use it either
           by copying the html or downloading the svg.
@@ -86,9 +87,6 @@ const shownIcons = computed(() => iconsStore.getSearchedIcons(searchTerm.value))
 <style lang="scss" scoped>
 .icons-main {
   padding-top: 2rem;
-
-  display: flex;
-  flex-direction: column;
 }
 
 .icons-main__icons-hero {
@@ -99,7 +97,6 @@ const shownIcons = computed(() => iconsStore.getSearchedIcons(searchTerm.value))
 .icons-hero__hero {
   width: 80%;
   max-width: 485px;
-  flex: 0 0 auto;
 
   text-align: center;
 
@@ -114,7 +111,6 @@ const shownIcons = computed(() => iconsStore.getSearchedIcons(searchTerm.value))
 
 .icons-section {
   width: 100%;
-  flex: 1 0 auto;
   margin-top: 50px;
   padding: 30px 0;
 
@@ -151,8 +147,8 @@ const shownIcons = computed(() => iconsStore.getSearchedIcons(searchTerm.value))
 
   display: grid;
   justify-content: space-between;
-  grid-template-columns: repeat(auto-fill, 140px);
-  grid-auto-rows: 140px;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  grid-auto-rows: 150px;
   gap: 1rem;
 }
 
@@ -167,18 +163,6 @@ const shownIcons = computed(() => iconsStore.getSearchedIcons(searchTerm.value))
 
   .top-section__close-btn {
     justify-self: end;
-  }
-
-  .icons-section__icons {
-    grid-template-columns: repeat(auto-fill, 130px);
-    grid-auto-rows: 130px;
-  }
-}
-
-@media (min-width: 512px) {
-  .icons-section__icons {
-    grid-template-columns: repeat(auto-fill, 140px);
-    grid-auto-rows: 140px;
   }
 }
 
@@ -197,8 +181,6 @@ const shownIcons = computed(() => iconsStore.getSearchedIcons(searchTerm.value))
   }
 
   .icons-section__icons {
-    grid-template-columns: repeat(auto-fill, 150px);
-    grid-auto-rows: 150px;
     gap: 1.5rem;
   }
 }

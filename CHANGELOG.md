@@ -2,6 +2,17 @@
 
 All notable changes to Sveegy will be documented in this file.
 
+## [0.10.7] - 2021-14-12
+
+- Added more icons:
+  - `double-chevron-down`, `double-chevron-left`, `double-chevron-up`, `double-chevron-right`
+  - `bookmark`, `chat-square`, `messages`, `send`, `camera`, `trash-can`
+- Removed copyright from footer
+
+### UI
+
+- Icons grid is now more compact
+
 ## [0.10.6] - 2021-13-12
 
 ### UI

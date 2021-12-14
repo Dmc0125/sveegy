@@ -3,13 +3,11 @@ import { computed } from 'vue'
 
 import useIconsStore from '@/store/icons'
 
-const props = withDefaults(defineProps<{
+const props = defineProps<{
   icon: string
   size?: string
   changeColor?: boolean
-}>(), {
-  size: '100%',
-})
+}>()
 
 const iconsStore = useIconsStore()
 
@@ -27,17 +25,10 @@ const iconHtml = computed(() => {
 
 <template>
   <svg
-    class="svg-wrapper"
     viewBox="0 0 24 24"
     fill="none"
+    :style="props.size ? `width: ${props.size}; height: ${props.size}` : ''"
     xmlns="http://www.w3.org/2000/svg"
     v-html="iconHtml"
   />
 </template>
-
-<style scoped>
-.svg-wrapper {
-  width: v-bind(size);
-  height: v-bind(size);
-}
-</style>

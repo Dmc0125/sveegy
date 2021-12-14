@@ -1,7 +1,6 @@
 <template>
   <footer>
     <p>Designed and created by Dominik Michal</p>
-    <p class="copyright">&#9400; 2020 &bull; Dominik Michal &bull; All rights reserved</p>
   </footer>
 </template>
 
@@ -12,16 +11,10 @@ footer {
 
   display: flex;
   justify-content: center;
-  align-items: center;
-  flex-direction: column;
 }
 
 p {
   font-size: 14px;
-}
-
-.copyright {
-  margin-top: 10px;
 }
 
 @include tablet-s {
@@ -36,10 +29,6 @@ p {
 
     flex-direction: row;
     justify-content: space-between;
-  }
-
-  .copyright {
-    margin: 0;
   }
 }
 

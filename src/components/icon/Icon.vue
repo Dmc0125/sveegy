@@ -26,12 +26,11 @@ const _iconName = props.iconName[0].toUpperCase() + props.iconName.substring(1)
   >
     <copy-icon :copy-value="iconHtml" />
 
-    <div class="svg">
-      <svg-wrapper
-        :icon="props.iconId"
-        change-color
-      />
-    </div>
+    <svg-wrapper
+      class="svg"
+      :icon="props.iconId"
+      change-color
+    />
 
     <div class="icon-name">
       <p>{{ _iconName }}</p>
@@ -52,8 +51,9 @@ const _iconName = props.iconName[0].toUpperCase() + props.iconName.substring(1)
   overflow: hidden;
 
   display: grid;
-  grid-template-rows: 70% 1fr;
+  grid-template-rows: 1fr 3rem;
   justify-items: center;
+  align-items: center;
 
   &:focus {
     outline: 0;
@@ -69,8 +69,8 @@ const _iconName = props.iconName[0].toUpperCase() + props.iconName.substring(1)
 
 .svg {
   grid-row: 1 / 2;
-  height: 100%;
-  padding: 1rem;
+  width: 4rem;
+  height: 4rem;
   justify-self: center;
 }
 
@@ -78,11 +78,12 @@ const _iconName = props.iconName[0].toUpperCase() + props.iconName.substring(1)
   width: 100%;
   height: 100%;
   grid-row: 2 / -1;
-
-  border-top: 1px solid var(--third-clr);
-  font-size: 1rem;
+  padding: 0 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  font-size: .9rem;
+  border-top: 1px var(--third-clr) solid;
 }
 </style>

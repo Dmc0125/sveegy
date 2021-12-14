@@ -115,13 +115,18 @@ const sendDownloadNotification = () => {
             class="popup-footer__top-section"
             :class="{ 'popup-footer__top-section--expanded': openSettings }"
           >
-            <!-- ADD DOWNLOAD ICON -->
             <a
               class="popup-footer__download-btn"
               :href="`/icons/${iconId}.svg`"
               :download="`${iconId}.svg`"
               @click="sendDownloadNotification"
-            >Download</a>
+            >
+              <span>Download</span>
+              <svg-wrapper
+                class="download-btn__icon"
+                icon="download-icon"
+              />
+            </a>
 
             <icon-btn
               class="popup-footer__settings-btn"
@@ -188,7 +193,7 @@ const sendDownloadNotification = () => {
   align-items: center;
 
   h1 {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     font-weight: 400;
   }
 }
@@ -297,8 +302,8 @@ const sendDownloadNotification = () => {
   font-size: 1rem;
 
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 
   &:hover {
     opacity: var(--hover-opacity);
@@ -307,6 +312,12 @@ const sendDownloadNotification = () => {
   &:focus {
     box-shadow: var(--focus-outline);
   }
+}
+
+.download-btn__icon {
+  height: 1.5rem;
+  width: fit-content;
+  margin-left: .8rem;
 }
 
 .popup-footer__settings-btn {
