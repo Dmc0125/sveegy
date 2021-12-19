@@ -2,6 +2,10 @@
 
 All notable changes to Sveegy will be documented in this file.
 
+## [0.11.0] - 2021-19-12
+
+- Migrate to nuxt3
+
 ## [0.10.7] - 2021-14-12
 
 - Added more icons:

@@ -1,9 +1,11 @@
 module.exports = {
   env: {
     browser: true,
+    node: true,
   },
   extends: [
     'plugin:vue/vue3-recommended',
+    'plugin:nuxt/recommended',
     'airbnb/base',
     '@vue/typescript/recommended',
   ],
@@ -13,12 +15,12 @@ module.exports = {
   rules: {
     semi: ['error', 'never'],
     'no-undef': 'warn',
-    'import/extensions': 0,
     'import/no-unresolved': 0,
+    'import/extensions': 0,
     'import/prefer-default-export': 0,
-    '@typescript-eslint/explicit-module-boundary-types': 0,
-    'no-underscore-dangle': 0,
+    'import/no-extraneous-dependencies': 0,
     'vue/multi-word-component-names': 0,
     'max-len': ['error', { code: 150 }],
+    '@typescript-eslint/ban-ts-comment': 0,
   },
 }
