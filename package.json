@@ -1,6 +1,6 @@
 {
   "name": "sveegy",
-  "version": "0.10.7",
+  "version": "0.10.8",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -8,9 +8,9 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "@vueuse/core": "^7.4.0",
     "css-color-keywords": "^1.0.0",
     "html-prettify": "^1.0.3",
-    "pinia": "^2.0.5",
     "sass": "^1.44.0",
     "uuid": "^8.2.0",
     "vue": "^3.2.23",

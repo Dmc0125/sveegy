@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import Container from '@/layouts/Container.vue'
-import Illustration from '@/layouts/Illustration.vue'
+import LayoutDefault from '@/layouts/LayoutDefault.vue'
+import Illustration from '@/components/Illustration.vue'
 </script>
 
 <template>
-  <container use-flex>
+  <layout-default>
     <section class="license">
       <h1>License</h1>
       <div>
@@ -39,7 +39,7 @@ import Illustration from '@/layouts/Illustration.vue'
     </section>
 
     <illustration name="license" />
-  </container>
+  </layout-default>
 </template>
 
 <style lang="scss" scoped>

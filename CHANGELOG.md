@@ -2,6 +2,14 @@
 
 All notable changes to Sveegy will be documented in this file.
 
+## [0.10.8] - 2021-22-12
+
+- Code refactoring
+
+### Removed
+
+- Pinia
+
 ## [0.10.7] - 2021-14-12
 
 - Added more icons:

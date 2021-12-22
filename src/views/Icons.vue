@@ -1,102 +1,103 @@
 <script lang="ts" setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, computed, Ref } from 'vue'
+import { useEventListener } from '@vueuse/core'
 
-import Container from '@/layouts/Container.vue'
-import Searchbar from '@/components/searchbar/Searchbar.vue'
-import IconBtn from '@/components/icon-settings/OpenSettingsBtn.vue'
-import IconSettings from '@/components/icon-settings/IconSettings.vue'
-import Icon from '@/components/icon/Icon.vue'
+import SvgWrapper from '@/components/SvgWrapper.vue'
+import IconSettings from '@/components/IconSettings.vue'
+import Icon from '@/components/Icon.vue'
 
-import useIconsStore from '@/store/icons'
-import useSettings from '@/hooks/open-settings'
-import setIconSizeFromQuery from '@/hooks/set-icon-size-from-query'
+import useRouteQuery from '@/hooks/useRouteQuery'
+import icons from '@/assets/icons.json'
 
-onMounted(() => {
-  setIconSizeFromQuery()
+const searchTerm = useRouteQuery('search', '')
+const searchbar = ref(null) as unknown as Ref<HTMLInputElement>
+useEventListener(window, 'keydown', (e: KeyboardEvent) => {
+  if (e.key === 'k' && e.altKey) {
+    searchbar.value.focus()
+  }
 })
 
-const { isOpen: openSettings, toggleSettings } = useSettings()
+const iconsCount = Math.floor(icons.length / 10) * 10
+const shownIcons = computed(() => {
+  if (!searchTerm.value.length) return icons
 
-const iconsStore = useIconsStore()
-const icons = Math.floor(iconsStore.icons.length / 10) * 10
-
-const searchTerm = ref('')
-const shownIcons = computed(() => iconsStore.getSearchedIcons(searchTerm.value))
+  const searchTermRegex = new RegExp(searchTerm.value, 'gi')
+  return icons
+    .filter(({ id, variations }) => (
+      id.replaceAll('-', ' ').match(searchTermRegex)
+      || variations.some((variation) => variation.match(searchTermRegex))
+    ))
+})
 </script>
 
 <template>
-  <main class="icons-main">
-    <container class="icons-main__icons-hero">
-      <div class="icons-hero__hero">
-        <h1>More than {{ icons }} beautiful free svg icons</h1>
-        <h2>
-          Browse to find any svg icon you want and then use it either
-          by copying the html or downloading the svg.
-        </h2>
-      </div>
-    </container>
-
-    <section class="icons-section">
-      <container icons>
-        <div
-          class="icons-section__top-section"
-          :class="{ 'icons-section__top-section--expanded': openSettings }"
-        >
-          <searchbar
-            v-model:search-term="searchTerm"
-            class="top-section__searchbar-container"
-          />
-
-          <icon-btn
-            class="top-section__close-btn"
-            :transition-key="openSettings ? 'opened' : 'closed'"
-            :name="openSettings ? 'close-icon' : 'menu-icon'"
-            @click="toggleSettings"
-          />
-
-          <icon-settings
-            class="top-section__icon-settings"
-            :open-settings="openSettings"
-            @icon-settings:close="toggleSettings"
-          />
-        </div>
-
-        <div class="icons-section__icons">
-          <icon
-            v-for="{ id, variations, htmlValue } in shownIcons"
-            :key="id"
-            :icon-id="id"
-            :icon-html="htmlValue"
-            :icon-name="variations[0]"
-          />
-        </div>
-      </container>
+  <main class="icons-wrapper">
+    <section class="icons-hero__hero">
+      <h1>More than {{ iconsCount }} beautiful free svg icons</h1>
+      <h2>
+        Browse to find any svg icon you want and then use it either
+        by copying the html or downloading the svg.
+      </h2>
     </section>
 
-    <router-view v-slot="{ Component }">
-      <transition
-        name="fade-in"
-        appear
-      >
-        <component :is="Component" />
-      </transition>
-    </router-view>
+    <div class="divider" />
+
+    <section class="icons-section">
+      <icon-settings fullscreen>
+        <div class="icons-section__searchbar">
+          <div
+            class="searchbar__svg-wrapper"
+            :class="{ 'active': searchTerm.length }"
+          >
+            <svg-wrapper icon="search-icon" />
+          </div>
+          <input
+            ref="searchbar"
+            v-model="searchTerm"
+            class="searchbar__input"
+            type="text"
+            placeholder="Search icons (alt + k)"
+          >
+        </div>
+      </icon-settings>
+
+      <div class="icons-section__icons">
+        <icon
+          v-for="{ id, paths } in shownIcons"
+          :key="id"
+          :icon-id="id"
+          :paths="paths"
+        />
+      </div>
+    </section>
   </main>
+
+  <router-view v-slot="{ Component }">
+    <transition
+      name="fade-in"
+      appear
+    >
+      <component :is="Component" />
+    </transition>
+  </router-view>
 </template>
 
 <style lang="scss" scoped>
-.icons-main {
-  padding-top: 2rem;
-}
-
-.icons-main__icons-hero {
-  display: flex;
-  justify-content: center;
+.icons-wrapper {
+  width: 100%;
+  margin-bottom: 2rem;
+  display: grid;
+  grid-template-columns: 4% 1fr 4%;
+  grid-template-rows: auto auto 1fr;
+  row-gap: 2rem;
 }
 
 .icons-hero__hero {
   width: 80%;
   max-width: 485px;
+  padding-top: 2rem;
+  grid-column: 2 / 3;
+  justify-self: center;
 
   text-align: center;
 
@@ -109,88 +110,89 @@ const shownIcons = computed(() => iconsStore.getSearchedIcons(searchTerm.value))
   }
 }
 
-.icons-section {
+.divider {
   width: 100%;
-  margin-top: 50px;
-  padding: 30px 0;
-
-  border-top: 1px solid var(--third-clr);
+  height: 1px;
+  background: var(--third-clr);
+  grid-column: 1 / -1;
 }
 
-.icons-section__top-section {
+.icons-section {
   width: 100%;
-  max-height: 2.5rem; // has to be max-height because of transition
+  grid-column: 2 / 3;
+}
+
+.icons-section__searchbar {
+  width: 100%;
+  height: 2.5rem;
   position: relative;
 
-  display: grid;
-  grid-gap: 1rem;
-  grid-template-columns: 1fr auto;
-  transition: max-height var(--t-duration) ease-in-out;
-
-  // transition to
-  &--expanded {
-    max-height: 100px;
+  &:focus-within .searchbar__svg-wrapper,
+  .searchbar__svg-wrapper.active {
+    transform: translateY(-50%) rotate(90deg);
+    color: var(--font-primary-clr);
   }
 }
 
-.top-section__searchbar-container {
-  margin-right: 1rem;
+.searchbar__svg-wrapper {
+  color: var(--font-third-clr);
 }
 
-.top-section__icon-settings {
-  grid-column: 1 / -1;
+.searchbar__svg-wrapper {
+  --size: 1.5rem;
+
+  width: var(--size);
+  height: var(--size);
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  transition: transform var(--t-duration) ease-in-out;
+}
+
+.searchbar__input {
+  width: 100%;
+  height: 100%;
+  padding: 0 1rem 0 2.5rem;
+
+  background: var(--primary-clr);
+  border: 1px solid var(--third-clr);
+  border-radius: var(--border-radius);
+  color: var(--font-primary-clr);
 }
 
 .icons-section__icons {
   width: 100%;
-  margin-top: 30px;
-
+  margin-top: 2rem;
   display: grid;
-  justify-content: space-between;
   grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   grid-auto-rows: 150px;
   gap: 1rem;
 }
 
 @include tablet-l {
-  .icons-hero__hero h1 {
-    font-size: 2.5rem;
+  .icons-wrapper {
+    grid-template-columns: 1fr 70% 1fr;
   }
 
-  .icons-section__top-section {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  .icons-hero__hero {
+    padding-top: 3rem;
 
-  .top-section__close-btn {
-    justify-self: end;
+    h1 {
+      font-size: 2.5rem;
+    }
   }
 }
 
-@media (min-width: 840px) {
-  .icons-section__top-section {
-    grid-template-columns: 1fr auto auto;
-  }
-
-  .top-section__close-btn {
-    grid-column: 3 / -1;
-  }
-
-  .top-section__icon-settings {
-    grid-column: 2 / 3;
-    grid-row: 1;
-  }
-
-  .icons-section__icons {
-    gap: 1.5rem;
+@include desktop-s {
+  .icons-section__searchbar {
+    width: 230px;
   }
 }
 
 @include desktop-m {
-  .icons-main__icons-hero {
-    display: block;
-  }
-
   .icons-hero__hero {
+    justify-self: left;
     text-align: left;
   }
 }

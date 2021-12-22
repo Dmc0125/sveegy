@@ -1,7 +1,6 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 
-import icons from '@/svg-icons'
-
+import icons from '@/assets/icons.json'
 import Landing from '../views/Landing.vue'
 
 const routes: RouteRecordRaw[] = [
@@ -19,16 +18,26 @@ const routes: RouteRecordRaw[] = [
         path: ':id',
         name: 'Icon',
         component: () => import('../views/IconPopup.vue'),
-        beforeEnter: (to, from, next) => {
-          const { id } = to.params
+        // eslint-disable-next-line consistent-return
+        beforeEnter: (to, from) => {
+          const { id: routeId } = to.params
 
-          if (icons.find(({ id: _id }) => _id === id)) {
-            return next()
+          if (typeof routeId !== 'string' || !routeId.endsWith('-icon')) {
+            return { path: '/not-found' }
           }
 
-          return next({
-            path: '/not-found',
-          })
+          const iconId = routeId.slice(0, -5)
+          if (!icons.find(({ id: _id }) => _id === iconId)) {
+            return { path: '/not-found' }
+          }
+        },
+        props: (route) => {
+          const icon = icons.find(({ id }) => id === route.params.id.slice(0, -5))
+          return {
+            id: icon?.id,
+            variations: icon?.variations,
+            paths: icon?.paths,
+          }
         },
       },
     ],
@@ -43,10 +52,10 @@ const routes: RouteRecordRaw[] = [
     name: 'Not found',
     component: () => import('../views/NotFound.vue'),
   },
-  {
-    path: '/:pathMatch(.*)*',
-    redirect: '/not-found',
-  },
+  // {
+  //   path: '/:pathMatch(.*)*',
+  //   redirect: '/not-found',
+  // },
 ]
 
 const router = createRouter({

@@ -1,60 +1,48 @@
 <script lang="ts" setup>
-import { computed, onMounted } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+import {
+  computed, Ref, ref, onMounted,
+} from 'vue'
+import { useRouter } from 'vue-router'
+import { useEventListener } from '@vueuse/core'
 
-import IconBtn from '@/components/icon-settings/OpenSettingsBtn.vue'
-import SvgWrapper from '@/layouts/SvgWrapper.vue'
-import CopyIcon from '@/components/copy-icon/CopyIcon.vue'
-import IconSettings from '@/components/icon-settings/IconSettings.vue'
+import SvgWrapper from '@/components/SvgWrapper.vue'
+import CopyIcon from '@/components/CopyIcon.vue'
+import IconSettings from '@/components/IconSettings.vue'
 
-import useIconsStore from '@/store/icons'
-import { Icon } from '@/types/svg-icons'
-import useSettings from '@/hooks/open-settings'
-import useNotificationStore from '@/store/notification'
-import prettifyHtmlValue from '@/utils/copy-svg-wrapper'
-import setIconSizeFromQuery from '@/hooks/set-icon-size-from-query'
+import useIcons from '@/hooks/useIcons'
+import createDownloadUrl from '@/utils/createDownloadUrl'
+import createIconName from '@/utils/createIconName'
+import { createPrettifiedHtml, createMinifiedHtml } from '@/utils/createIconHtml'
+import useNotification from '@/hooks/useNotification'
 
-onMounted(() => {
-  setIconSizeFromQuery()
-})
+const props = defineProps<{
+  id: string,
+  paths: string[]
+  variations: string[],
+}>()
 
 const router = useRouter()
-const iconsStore = useIconsStore()
 
-const { toggleSettings, isOpen: openSettings } = useSettings()
+const { size, color } = useIcons()
+const prettifiedHtml = computed(() => createPrettifiedHtml(props.paths, size.value, color.value))
+const downloadUrl = computed(() => createDownloadUrl(createMinifiedHtml(props.paths, size.value, color.value)))
 
-const getIcon = computed(() => iconsStore.getIcon)
-
-const useIconData = (id: string) => {
-  const createName = (iconId: string) => (
-    iconId[0].toUpperCase() + iconId.slice(1).replace(/(-)/g, ' ')
-  )
-
-  const { htmlValue, variations } = getIcon.value(id) as Icon
-  return {
-    iconHtmlValue: htmlValue,
-    iconVariations: variations,
-    iconName: createName(id),
-    iconId: id,
-  }
-}
-
-const route = useRoute()
-const {
-  iconHtmlValue, iconVariations, iconName, iconId,
-} = useIconData(route.params.id as string)
-
-const iconSize = computed(() => iconsStore.iconSize)
-const iconColor = computed(() => iconsStore.iconColor)
-const prettifiedHtml = computed(() => prettifyHtmlValue(iconSize.value, iconHtmlValue, iconColor.value))
-
-const notificationStore = useNotificationStore()
+const { showNotification } = useNotification()
 const sendDownloadNotification = () => {
-  notificationStore.sendNotification({
-    message: 'Your download should have began successfully',
-    isError: false,
-  })
+  showNotification('Your download should have began successfully', false)
 }
+
+useEventListener(window, 'keydown', (e: KeyboardEvent) => {
+  if (e.key === 'Escape') {
+    router.push({ path: '/icons' })
+  }
+})
+
+const htmlContainer = ref(null) as unknown as Ref<HTMLElement>
+onMounted(() => {
+  const copyBtn = htmlContainer.value.querySelector('.copy-icon') as HTMLButtonElement
+  copyBtn.focus()
+})
 </script>
 
 <template>
@@ -72,7 +60,7 @@ const sendDownloadNotification = () => {
       >
         <header class="popup-header">
           <div class="popup-header__top-section">
-            <h1>{{ iconName }}</h1>
+            <h1>{{ createIconName(props.id) }}</h1>
 
             <router-link
               class="top-section__close-icon"
@@ -84,7 +72,7 @@ const sendDownloadNotification = () => {
 
           <ul class="popup-header__variations">
             <li
-              v-for="variation in iconVariations"
+              v-for="variation in props.variations"
               :key="variation"
             >
               {{ variation }}
@@ -94,7 +82,7 @@ const sendDownloadNotification = () => {
 
         <main class="popup-main">
           <div class="popup-main__selected-icon">
-            <svg-wrapper :icon="iconId" />
+            <svg-wrapper :icon="props.id" />
           </div>
 
           <ul class="popup-main__features">
@@ -111,14 +99,11 @@ const sendDownloadNotification = () => {
         </main>
 
         <footer class="popup-footer">
-          <div
-            class="popup-footer__top-section"
-            :class="{ 'popup-footer__top-section--expanded': openSettings }"
-          >
+          <icon-settings>
             <a
               class="popup-footer__download-btn"
-              :href="`/icons/${iconId}.svg`"
-              :download="`${iconId}.svg`"
+              :href="downloadUrl"
+              :download="`${props.id}-icon.svg`"
               @click="sendDownloadNotification"
             >
               <span>Download</span>
@@ -127,22 +112,14 @@ const sendDownloadNotification = () => {
                 icon="download-icon"
               />
             </a>
+          </icon-settings>
 
-            <icon-btn
-              class="popup-footer__settings-btn"
-              :name="openSettings ? 'close-icon' : 'menu-icon'"
-              @click="toggleSettings"
-            />
-
-            <icon-settings
-              class="popup-footer__settings"
-              :open-settings="openSettings"
-              @icon-settings:close="toggleSettings"
-            />
-          </div>
-          <div class="popup-footer__icon-html">
+          <div
+            ref="htmlContainer"
+            class="popup-footer__icon-html"
+          >
             <copy-icon
-              :copy-value="iconHtmlValue"
+              :copy-value="prettifiedHtml"
               show-always
             />
 
@@ -160,7 +137,7 @@ const sendDownloadNotification = () => {
 
 <style lang="scss" scoped>
 .overlay {
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   position: fixed;
   top: 0;
@@ -278,19 +255,6 @@ const sendDownloadNotification = () => {
   grid-gap: 1rem;
 }
 
-.popup-footer__top-section {
-  max-height: 2.5rem;
-  transition: max-height var(--t-duration) ease-in-out;
-
-  display: grid;
-  grid-gap: 1rem;
-  grid-template-columns: 1fr auto;
-
-  &--expanded {
-    max-height: 100px;
-  }
-}
-
 .popup-footer__download-btn {
   width: 140px;
   height: 2.5rem;
@@ -316,16 +280,8 @@ const sendDownloadNotification = () => {
 
 .download-btn__icon {
   height: 1.5rem;
-  width: fit-content;
+  width: 1.5rem;
   margin-left: .8rem;
-}
-
-.popup-footer__settings-btn {
-  justify-self: end;
-}
-
-.popup-footer__settings {
-  grid-column: 1 / -1;
 }
 
 .popup-footer__icon-html {

@@ -20,5 +20,6 @@ module.exports = {
     'no-underscore-dangle': 0,
     'vue/multi-word-component-names': 0,
     'max-len': ['error', { code: 150 }],
+    '@typescript-eslint/ban-ts-comment': 0,
   },
 }

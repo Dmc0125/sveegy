@@ -1,26 +1,18 @@
 <script lang="ts" setup>
-import { computed, onMounted } from 'vue'
+import HeaderVue from '@/components/Header.vue'
+import Footer from '@/components/Footer.vue'
+import Navigation from '@/components/Navigation.vue'
+import Notification from '@/components/Notification.vue'
 
-import HeaderVue from '@/layouts/Header.vue'
-import Footer from '@/layouts/Footer.vue'
-import Navigation from '@/components/navigation/Navigation.vue'
-import Notification from '@/components/notification/Notification.vue'
+import useColorMode from '@/hooks/useColorMode'
 
-import useMainStore from './store/main'
-
-const mainStore = useMainStore()
-
-const darkMode = computed(() => mainStore.darkMode)
-
-onMounted(() => {
-  mainStore.initDarkMode()
-})
+const { colorMode } = useColorMode()
 </script>
 
 <template>
   <main
     class="app"
-    :color-mode="darkMode ? 'dark' : 'light'"
+    :color-mode="colorMode"
   >
     <header-vue />
     <navigation />
@@ -52,7 +44,7 @@ onMounted(() => {
 
 html,
 body {
-  width: 100vw;
+  width: 100%;
   height: fit-content;
   font-size: 16px;
 }
@@ -63,23 +55,19 @@ body {
 }
 
 .app {
-  --color-switch-btn: #f2c94c;
-
-  --t-duration: 150ms;
-
-  --primary-clr: v-bind(mainStore.cssVariables.primaryClr);
-  --secondary-clr: v-bind(mainStore.cssVariables.secondaryClr);
-  --third-clr: v-bind(mainStore.cssVariables.thirdClr);
-  --call-to-action-rgb: v-bind(mainStore.cssVariables.callToActionRgb);
+  --primary-clr: #fff;
+  --secondary-clr: #f3f5ff;
+  --third-clr: #e0e0e0;
+  --call-to-action-rgb: 61, 90, 241;
   --call-to-action-clr: rgb(var(--call-to-action-rgb));
 
-  --font-primary-clr: v-bind(mainStore.cssVariables.fontPrimaryClr);
-  --font-secondary-clr: v-bind(mainStore.cssVariables.fontSecondaryClr);
-  --font-third-clr: v-bind(mainStore.cssVariables.fontThirdClr);
-  --font-inverse-clr: v-bind(mainStore.cssVariables.fontInverseClr);
+  --font-primary-clr: #000;
+  --font-secondary-clr: rgb(107, 114, 128);
+  --font-third-clr: #7b8591;
+  --font-inverse-clr: #f2f2f2;
 
-  --modal-bg-clr: v-bind(mainStore.cssVariables.modalBgClr);
-
+  --modal-bg-clr: rgba(0, 0, 0, .1);
+  --t-duration: 150ms;
   --focus-outline: 0 0 0 3px rgba(var(--call-to-action-rgb), 0.5);
   --hover-opacity: .8;
   --border-radius: 6px;
@@ -91,6 +79,21 @@ body {
 
   display: grid;
   grid-template-rows: min-content 1fr min-content;
+}
+
+.app[color-mode="dark"] {
+  --primary-clr: #151317;
+  --secondary-clr: #303033;
+  --third-clr: #3e3e42;
+  --call-to-action-rgb: 119,90,218;
+  --call-to-action-clr: rgb(var(--call-to-action-rgb));
+
+  --font-primary-clr: #f2f2f2;
+  --font-secondary-clr: #b9b9b9;
+  --font-third-clr: #5b626b;
+  --font-inverse-clr: #000;
+
+  --modal-bg-clr: rgba(250, 250, 250, .025);
 }
 
 ul {
@@ -128,6 +131,18 @@ input {
   &:focus {
     box-shadow: var(--focus-outline);
   }
+}
+
+.narrator-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 /* ROUTE TRANSITION */
