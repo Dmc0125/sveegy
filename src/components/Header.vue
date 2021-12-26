@@ -4,6 +4,7 @@ import { useRoute } from 'vue-router'
 import SvgWrapper from '@/components/SvgWrapper.vue'
 import ColorModeSwitch from '@/components/ColorModeSwitch.vue'
 
+import githubIcon from '@/assets/icons/github.svg?raw'
 import links from '@/utils/links'
 import useNavigation from '@/hooks/useNavigation'
 
@@ -15,7 +16,7 @@ const { toggleNavigation } = useNavigation()
   <header class="header">
     <img
       class="header__logo"
-      src="@/assets/sveegy.svg"
+      src="@/assets/icons/sveegy.svg"
       alt="Sveegy logo"
     >
 
@@ -49,9 +50,8 @@ const { toggleNavigation } = useNavigation()
         href="https://github.com/Dmc0125/sveegy"
         target="_blank"
         rel="noopener"
-      >
-        <svg-wrapper icon="github-icon" />
-      </a>
+        v-html="githubIcon"
+      />
     </nav>
   </header>
 </template>

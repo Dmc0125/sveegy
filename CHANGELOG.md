@@ -2,6 +2,17 @@
 
 All notable changes to Sveegy will be documented in this file.
 
+## [0.11.0] - 2021-26-12
+
+### Added
+
+- 52 new icon
+- Google-site-verification meta
+
+### Removed
+
+- Github icon
+
 ## [0.10.8] - 2021-22-12
 
 - Code refactoring

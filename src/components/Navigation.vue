@@ -4,6 +4,7 @@ import { watch } from 'vue'
 import SvgWrapper from '@/components/SvgWrapper.vue'
 import ColorModeSwitch from '@/components/ColorModeSwitch.vue'
 
+import githubIcon from '@/assets/icons/github.svg?raw'
 import links from '@/utils/links'
 import useNavigation from '@/hooks/useNavigation'
 
@@ -69,12 +70,8 @@ watch(() => navigationOpened.value, () => {
             href="https://github.com/Dmc0125/sveegy"
             target="_blank"
             rel="noopener"
-          >
-            <svg-wrapper
-              icon="github-icon"
-            />
-            <span class="narrator-only">Sveegy on github</span>
-          </a>
+            v-html="githubIcon"
+          />
           <color-mode-switch />
         </footer>
       </nav>
