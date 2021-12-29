@@ -2,6 +2,16 @@
 
 All notable changes to Sveegy will be documented in this file.
 
+## [0.12.0] - 2021-29-12
+
+- switch between
+  - classes and width and height
+  - jsx
+
+### UI
+
+- new popup layout
+
 ## [0.11.0] - 2021-26-12
 
 ### Added

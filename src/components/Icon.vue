@@ -4,7 +4,6 @@ import { computed } from 'vue'
 import SvgWrapper from '@/components/SvgWrapper.vue'
 import CopyIcon from '@/components/CopyIcon.vue'
 
-import { createPrettifiedHtml } from '@/utils/createIconHtml'
 import useIcons from '@/hooks/useIcons'
 
 const props = defineProps<{
@@ -14,8 +13,8 @@ const props = defineProps<{
 
 const iconName = `${props.iconId[0].toUpperCase()}${props.iconId.slice(1)}`.replaceAll('-', ' ')
 
-const { color, size } = useIcons()
-const iconHtml = computed(() => createPrettifiedHtml(props.paths, size.value, color.value))
+const { createPrettifiedHtml } = useIcons()
+const iconHtml = computed(() => createPrettifiedHtml(props.paths))
 </script>
 
 <template>

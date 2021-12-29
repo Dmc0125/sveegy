@@ -8,11 +8,11 @@ import { useEventListener } from '@vueuse/core'
 import SvgWrapper from '@/components/SvgWrapper.vue'
 import CopyIcon from '@/components/CopyIcon.vue'
 import IconSettings from '@/components/IconSettings.vue'
+import SwitchButton from '@/components/SwitchButton.vue'
 
 import useIcons from '@/hooks/useIcons'
 import createDownloadUrl from '@/utils/createDownloadUrl'
 import createIconName from '@/utils/createIconName'
-import { createPrettifiedHtml, createMinifiedHtml } from '@/utils/createIconHtml'
 import useNotification from '@/hooks/useNotification'
 
 const props = defineProps<{
@@ -23,9 +23,11 @@ const props = defineProps<{
 
 const router = useRouter()
 
-const { size, color } = useIcons()
-const prettifiedHtml = computed(() => createPrettifiedHtml(props.paths, size.value, color.value))
-const downloadUrl = computed(() => createDownloadUrl(createMinifiedHtml(props.paths, size.value, color.value)))
+const {
+  createPrettifiedHtml, createDownloadHtml, usingClasses, toggleUsingClasses, usingJsx, toggleUsingJsx,
+} = useIcons()
+const prettifiedHtml = computed(() => createPrettifiedHtml(props.paths))
+const downloadUrl = computed(() => createDownloadUrl(createDownloadHtml(props.paths)))
 
 const { showNotification } = useNotification()
 const sendDownloadNotification = () => {
@@ -70,7 +72,10 @@ onMounted(() => {
             </router-link>
           </div>
 
-          <ul class="popup-header__variations">
+          <ul
+            v-if="props.variations.length"
+            class="popup-header__variations"
+          >
             <li
               v-for="variation in props.variations"
               :key="variation"
@@ -80,56 +85,61 @@ onMounted(() => {
           </ul>
         </header>
 
-        <main class="popup-main">
-          <div class="popup-main__selected-icon">
-            <svg-wrapper :icon="props.id" />
-          </div>
-
-          <ul class="popup-main__features">
-            <li
-              v-for="feature in ['Free for commercial use', 'No need for attribution', 'Comes in svg format', 'Easy to use']"
-              :key="feature"
-            >
-              <span class="features__tick-icon">
-                <svg-wrapper icon="tick-icon" />
-              </span>
-              {{ feature }}
-            </li>
-          </ul>
+        <main class="selected-icon">
+          <svg-wrapper
+            size="200px"
+            :icon="props.id"
+          />
         </main>
 
-        <footer class="popup-footer">
-          <icon-settings>
-            <a
-              class="popup-footer__download-btn"
-              :href="downloadUrl"
-              :download="`${props.id}-icon.svg`"
-              @click="sendDownloadNotification"
-            >
-              <span>Download</span>
-              <svg-wrapper
-                class="download-btn__icon"
-                icon="download-icon"
-              />
-            </a>
-          </icon-settings>
-
-          <div
-            ref="htmlContainer"
-            class="popup-footer__icon-html"
+        <icon-settings class="icon-popup__icon-settings">
+          <a
+            class="popup-settings__download-btn"
+            :href="downloadUrl"
+            :download="`${props.id}-icon.svg`"
+            @click="sendDownloadNotification"
           >
-            <copy-icon
-              :copy-value="prettifiedHtml"
-              show-always
+            <span>Download</span>
+            <svg-wrapper
+              class="download-btn__icon"
+              icon="download-alt-icon"
             />
+          </a>
+        </icon-settings>
 
-            <div class="icon-html__html-wrapper">
-              <p class="html-wrapper__copy-value">
-                {{ prettifiedHtml }}
-              </p>
-            </div>
+        <section class="icon-popup__switches">
+          <div class="switch-wrapper">
+            <switch-button
+              :is-active="usingClasses"
+              @click="toggleUsingClasses"
+            />
+            <span>Classes</span>
           </div>
-        </footer>
+          <div class="switch-wrapper switch-wrapper--jsx">
+            <switch-button
+              :is-active="usingJsx"
+              icon="code"
+              @click="toggleUsingJsx"
+            />
+            <span>JSX</span>
+          </div>
+        </section>
+
+        <div
+          ref="htmlContainer"
+          class="icon-popup__icon-html"
+        >
+          <copy-icon
+            :copy-value="prettifiedHtml"
+            show-always
+          />
+
+          <div class="icon-html__html-wrapper">
+            <p class="html-wrapper__copy-value">
+              {{ prettifiedHtml }}
+            </p>
+          </div>
+        </div>
       </section>
     </transition>
   </main>
@@ -148,19 +158,19 @@ onMounted(() => {
 
 .icon-popup {
   width: 100%;
-  max-width: 600px;
+  max-width: min(100vw, 800px);
   height: fit-content;
   max-height: 90%;
+  padding: 1.5rem 1.5rem;
   position: absolute;
   bottom: 0;
   overflow-y: auto;
+  display: grid;
+  grid-template-columns: 100%;
+  gap: 1.5rem;
 
   background: var(--primary-clr);
   border-radius: var(--border-radius);
-}
-
-.popup-header {
-  padding: 20px 30px 0;
 }
 
 .popup-header__top-section {
@@ -212,17 +222,18 @@ onMounted(() => {
   }
 }
 
-.popup-main {
+.selected-icon {
   width: 100%;
+  height: fit-content;
 
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-
-.popup-main__selected-icon {
-  width: 200px;
+  border-radius: var(--border-radius);
   color: var(--font-primary-clr);
+  background: var(--primary-gradient-clr);
+
+  svg {
+    display: block;
+    margin: auto;
+  }
 }
 
 .popup-main__features {
@@ -249,16 +260,13 @@ onMounted(() => {
 
 .popup-footer {
   width: 100%;
-  padding: 30px;
-  position: relative;
-
-  grid-gap: 1rem;
+  display: grid;
+  row-gap: 1rem;
 }
 
-.popup-footer__download-btn {
+.popup-settings__download-btn {
   width: 140px;
   height: 2.5rem;
-  grid-column: 1;
 
   background: var(--call-to-action-clr);
   color: var(--font-inverse-clr);
@@ -268,6 +276,10 @@ onMounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
+
+  span {
+    color: var(--font-inverse-clr);
+  }
 
   &:hover {
     opacity: var(--hover-opacity);
@@ -284,11 +296,24 @@ onMounted(() => {
   margin-left: .8rem;
 }
 
-.popup-footer__icon-html {
+.icon-popup__switches {
   width: 100%;
-  margin-top: 1rem;
-  grid-row: -2 / -1;
-  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+}
+
+.switch-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+
+  span {
+    margin-left: 1rem;
+  }
+}
+
+.icon-popup__icon-html {
+  width: 100%;
   position: relative;
 
   background: var(--third-clr);
@@ -343,8 +368,21 @@ onMounted(() => {
     font-size: 2rem;
   }
 
+  .selected-icon {
+    width: 300px;
+    justify-self: center;
+  }
+
   .popup-footer {
     grid-gap: 1.5rem;
+  }
+
+  .icon-popup__switches {
+    column-gap: 2rem;
+  }
+
+  .switch-wrapper {
+    width: fit-content;
   }
 
   .slide-in-enter-active, .slide-in-leave-active {
@@ -352,11 +390,31 @@ onMounted(() => {
   }
 }
 
-@media (min-width: 600px) {
-  .popup-main {
-    padding: 1rem 30px 0;
-    flex-direction: row;
-    justify-content: space-around;
+@include desktop-xs {
+  .icon-popup {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto auto 1fr auto;
+  }
+
+  .popup-header {
+    grid-column: 1 / -1;
+  }
+
+  .selected-icon {
+    width: 100%;
+    grid-row: 2 / 4;
+  }
+
+  .icon-popup__icon-settings {
+    align-self: flex-start;
+  }
+
+  .icon-popup__switches {
+    align-self: flex-start;
+  }
+
+  .icon-popup__icon-html {
+    grid-column: 1 / -1;
   }
 }
 </style>

@@ -5,9 +5,11 @@ import { useEventListener } from '@vueuse/core'
 import SvgWrapper from '@/components/SvgWrapper.vue'
 import IconSettings from '@/components/IconSettings.vue'
 import Icon from '@/components/Icon.vue'
+import SwitchButton from '@/components/SwitchButton.vue'
 
 import useRouteQuery from '@/hooks/useRouteQuery'
 import icons from '@/assets/icons.json'
+import useIcons from '@/hooks/useIcons'
 
 const searchTerm = useRouteQuery('search', '')
 const searchbar = ref(null) as unknown as Ref<HTMLInputElement>
@@ -28,6 +30,10 @@ const shownIcons = computed(() => {
       || variations.some((variation) => variation.match(searchTermRegex))
     ))
 })
+
+const {
+  usingClasses, toggleUsingClasses, usingJsx, toggleUsingJsx,
+} = useIcons()
 </script>
 
 <template>
@@ -43,23 +49,44 @@ const shownIcons = computed(() => {
     <div class="divider" />
 
     <section class="icons-section">
-      <icon-settings fullscreen>
-        <div class="icons-section__searchbar">
-          <div
-            class="searchbar__svg-wrapper"
-            :class="{ 'active': searchTerm.length }"
-          >
-            <svg-wrapper icon="search-icon" />
+      <div class="icons-section__settings">
+        <icon-settings fullscreen>
+          <div class="icons-section__searchbar">
+            <div
+              class="searchbar__svg-wrapper"
+              :class="{ 'active': searchTerm.length }"
+            >
+              <svg-wrapper icon="search-icon" />
+            </div>
+            <input
+              ref="searchbar"
+              v-model="searchTerm"
+              class="searchbar__input"
+              type="text"
+              placeholder="Search icons (alt + k)"
+            >
           </div>
-          <input
-            ref="searchbar"
-            v-model="searchTerm"
-            class="searchbar__input"
-            type="text"
-            placeholder="Search icons (alt + k)"
-          >
+        </icon-settings>
+
+        <div class="settings__switches">
+          <div class="switches__wrapper">
+            <switch-button
+              :is-active="usingClasses"
+              @click="toggleUsingClasses"
+            />
+            <span>Classes</span>
+          </div>
+
+          <div class="switches__wrapper">
+            <switch-button
+              :is-active="usingJsx"
+              icon="code"
+              @click="toggleUsingJsx"
+            />
+            <span>JSX</span>
+          </div>
         </div>
-      </icon-settings>
+      </div>
 
       <div class="icons-section__icons">
         <icon
@@ -70,16 +97,16 @@ const shownIcons = computed(() => {
         />
       </div>
     </section>
-  </main>
 
-  <router-view v-slot="{ Component }">
-    <transition
-      name="fade-in"
-      appear
-    >
-      <component :is="Component" />
-    </transition>
-  </router-view>
+    <router-view v-slot="{ Component }">
+      <transition
+        name="fade-in"
+        appear
+      >
+        <component :is="Component" />
+      </transition>
+    </router-view>
+  </main>
 </template>
 
 <style lang="scss" scoped>
@@ -161,6 +188,22 @@ const shownIcons = computed(() => {
   color: var(--font-primary-clr);
 }
 
+.settings__switches {
+  width: 100%;
+  margin-top: 1rem;
+  display: flex;
+}
+
+.switches__wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+
+  span {
+    margin-left: 1rem;
+  }
+}
+
 .icons-section__icons {
   width: 100%;
   margin-top: 2rem;
@@ -170,7 +213,21 @@ const shownIcons = computed(() => {
   gap: 1rem;
 }
 
+@include tablet-s {
+  .settings__switches {
+    gap: 3rem;
+  }
+
+  .switches__wrapper {
+    width: fit-content;
+  }
+}
+
 @include tablet-l {
+  .icons-section__searchbar {
+    width: 230px;
+  }
+
   .icons-wrapper {
     grid-template-columns: 1fr 70% 1fr;
   }
@@ -181,12 +238,6 @@ const shownIcons = computed(() => {
     h1 {
       font-size: 2.5rem;
     }
-  }
-}
-
-@include desktop-s {
-  .icons-section__searchbar {
-    width: 230px;
   }
 }
 

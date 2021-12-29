@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 
 import SvgWrapper from '@/components/SvgWrapper.vue'
+import SwitchButton from './SwitchButton.vue'
 
 import useIcons from '@/hooks/useIcons'
 
@@ -11,7 +12,7 @@ const props = defineProps<{
 
 const settingsOpened = ref(false)
 const {
-  size, color, setSize, setColor,
+  size, color, setSize, setColor, usingClasses, classes, setClasses,
 } = useIcons()
 </script>
 
@@ -32,10 +33,13 @@ const {
       <span class="narrator-only">Toggle icon settings</span>
     </button>
 
-    <transition name="settings-fade-in">
+    <transition
+      name="settings-fade-in"
+      mode="out-in"
+    >
       <form
-        v-if="settingsOpened"
-        class="icon-settings__inputs"
+        v-if="settingsOpened && !usingClasses"
+        class="icon-settings__no-classes"
       >
         <div class="input-wrapper">
           <label for="Icon size">Icon size</label>
@@ -57,6 +61,20 @@ const {
           >
         </div>
       </form>
+      <form
+        v-else-if="settingsOpened && usingClasses"
+        class="icon-settings__classes"
+      >
+        <div class="input-wrapper">
+          <label for="Icon color">Icon classes</label>
+          <input
+            placeholder="w-8 h-8 text-gray-300"
+            type="text"
+            :value="classes"
+            @input="setClasses"
+          >
+        </div>
+      </form>
     </transition>
   </div>
 </template>
@@ -73,7 +91,7 @@ const {
 
   // transition to
   &--expanded {
-    max-height: 100px;
+    max-height: 140px;
   }
 }
 
@@ -99,11 +117,16 @@ const {
   }
 }
 
-.icon-settings__inputs {
+.icon-settings__no-classes {
   width: 100%;
   grid-column: 1 / -1;
   display: flex;
   column-gap: 1rem;
+}
+
+.icon-settings__classes {
+  width: 100%;
+  grid-column: 1 / -1;
 }
 
 .input-wrapper {
@@ -131,6 +154,12 @@ const {
     background: inherit;
     color: var(--font-primary-clr)
   }
+}
+
+.icon-settings__class-switch {
+  display: flex;
+  align-items: center;
+  column-gap: 1rem;
 }
 
 .settings-fade-in-enter-active, .settings-fade-in-leave-active {
@@ -163,7 +192,12 @@ const {
       grid-column: -2 / -1;
     }
 
-    .icon-settings__inputs {
+    .icon-settings__no-classes {
+      grid-row: 1 / 2;
+      grid-column: 2 / 3;
+    }
+
+    .icon-settings__classes {
       grid-row: 1 / 2;
       grid-column: 2 / 3;
     }

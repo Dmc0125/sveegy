@@ -61,6 +61,8 @@ body {
   --call-to-action-rgb: 61, 90, 241;
   --call-to-action-clr: rgb(var(--call-to-action-rgb));
 
+  --primary-gradient-clr: linear-gradient(to top right, rgb(162, 198, 255), rgb(208, 134, 255));
+
   --font-primary-clr: #000;
   --font-secondary-clr: rgb(107, 114, 128);
   --font-third-clr: #7b8591;
@@ -82,10 +84,10 @@ body {
 }
 
 .app[color-mode="dark"] {
-  --primary-clr: #151317;
+  --primary-clr: #0e0b11;
   --secondary-clr: #303033;
   --third-clr: #3e3e42;
-  --call-to-action-rgb: 119,90,218;
+  --call-to-action-rgb: 119, 90, 218;
   --call-to-action-clr: rgb(var(--call-to-action-rgb));
 
   --font-primary-clr: #f2f2f2;
@@ -109,7 +111,7 @@ h1 {
   font-weight: 500;
 }
 
-h1, h2, h3, p, button, a {
+h1, h2, h3, p, button, a, span {
   color: var(--font-primary-clr);
 }
 
