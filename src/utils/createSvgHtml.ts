@@ -1,6 +1,6 @@
 import prettify from 'html-prettify'
 
-const createPaths = (paths: string[], jsx: boolean) => (
+export const createPaths = (paths: string[], jsx: boolean) => (
   paths
     .reduce((content, path) => `
       ${content}

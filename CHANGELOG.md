@@ -2,6 +2,17 @@
 
 All notable changes to Sveegy will be documented in this file.
 
+## [0.13.1] - 2022-01-09
+
+- `api/icons`
+  - query params
+    - s -> string?
+    - id -> string?
+
+### Fixes
+
+- Mobile navigation fits the screen now
+
 ## [0.13.0] - 2022-01-09
 
 - Using Svelte-kit

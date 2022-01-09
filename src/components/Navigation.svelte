@@ -16,7 +16,7 @@ const closeNavigation = () => {
 
 {#if $isNavOpened}
   <div
-    class="absolute inset-0 dimmed-bg bg-opacity-10 sm:hidden"
+    class="fixed inset-0 dimmed-bg bg-opacity-10 sm:hidden"
     transition:fade
     on:click="{closeNavigation}"
   >
