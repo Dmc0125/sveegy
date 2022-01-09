@@ -1,16 +1,16 @@
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function (debouncedFn: (...args: any[]) => void, delay = 500) {
-  let timeout: NodeJS.Timeout | null = null
+// eslint-disable-next-line no-unused-vars
+const debounce = (fn: (...args: any[]) => void, delay = 500) => {
+  let timeout: NodeJS.Timeout = null
 
-  return (...params: unknown[]) => {
+  return (...params: any[]) => {
     if (timeout) {
-      clearInterval(timeout)
+      clearTimeout(timeout)
     }
 
     timeout = setTimeout(() => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      debouncedFn.call(this, ...params)
+      fn.call(this, ...params)
     }, delay)
   }
 }
+
+export default debounce

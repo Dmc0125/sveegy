@@ -1,17 +1,17 @@
 export default [
   {
-    to: '/',
+    path: '/',
     name: 'Home',
-    icon: 'home-icon',
+    icon: 'home',
   },
   {
-    to: '/icons',
-    name: 'Browse icons',
-    icon: 'assets-icon',
+    path: '/icons',
+    name: 'Icons',
+    icon: 'assets',
   },
   {
-    to: '/license',
+    path: '/license',
     name: 'License',
-    icon: 'license-icon',
+    icon: 'license',
   },
 ]

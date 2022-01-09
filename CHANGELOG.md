@@ -2,6 +2,10 @@
 
 All notable changes to Sveegy will be documented in this file.
 
+## [0.13.0] - 2022-01-09
+
+- Using Svelte-kit
+
 ## [0.12.0] - 2021-29-12
 
 - switch between
