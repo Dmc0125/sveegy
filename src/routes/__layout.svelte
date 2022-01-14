@@ -7,8 +7,10 @@ import { colorMode } from '$lib/store'
 </script>
 
 <div class="w-full min-h-screen {$colorMode}">
-  <main class="w-full min-h-screen default-bg grid [grid-template-rows:min-content_1fr] gap-y-6">
-    <HeaderCustom></HeaderCustom>
+  <main class="w-full min-h-screen default-bg grid [grid-template-rows:min-content_1fr]">
+    <div class="w-full h-fit">
+      <HeaderCustom></HeaderCustom>
+    </div>
     <slot></slot>
     <Navigation></Navigation>
   </main>

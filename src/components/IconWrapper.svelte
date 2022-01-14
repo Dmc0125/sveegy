@@ -1,11 +1,12 @@
 <script lang="ts">
-import { getIcon } from '$lib/utils/icons'
+import { getIcon, IconType } from '$lib/utils/icons'
 
 let iconName: string
-
 export { iconName as icon }
 
-$: icon = getIcon(iconName)
+export let type: IconType = 'outline'
+
+$: icon = getIcon(iconName, type)
 
 let className = ''
 export { className as class }
@@ -13,10 +14,19 @@ export { className as class }
 
 <svg viewBox="0 0 24 24" fill="none" class="{className.length ? className : 'w-full h-full'}">
   {#each icon.paths as path}
-    <path
-      d="{path}"
-      fill-rule="evenodd"
-      fill="currentColor"
-    />
+    {#if type === 'outline'}
+      <path
+        d="{path}"
+        fill-rule="evenodd"
+        fill="currentColor"
+      />
+    {:else}
+      <path
+        d="{path}"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    {/if}
   {/each}
 </svg>

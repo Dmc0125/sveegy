@@ -2,6 +2,13 @@
 
 All notable changes to Sveegy will be documented in this file.
 
+## [0.14.0] - 2022-01-14
+
+- Added stroke icons
+- bugfixes
+
+- code refactoring
+
 ## [0.13.1] - 2022-01-09
 
 - `api/icons`

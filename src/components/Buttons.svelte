@@ -1,9 +1,10 @@
 <script lang="ts">
 import IconWrapper from '$lib/components/IconWrapper.svelte'
 
-import { usingClasses, svgClass, svgSize, svgColor, notification } from '$lib/store'
-import { createSvgHtml, createSvgJsx } from '$lib/utils/createSvgHtml'
+import { notification } from '$lib/store'
+import { searchParams } from '$lib/store/searchParams';
 import { getIcon } from '$lib/utils/icons'
+import { createSvgText, svgTextWrappers } from '$lib/store/svgTextValues';
 
 let className: string = ''
 export { className as class }
@@ -19,14 +20,14 @@ const setMode = (_lang: Mode) => {
   lang = _lang
 }
 
-export let copyIcon: string
-const { paths } = getIcon(copyIcon)
+let copyIconName: string
+export { copyIconName as copyIcon }
+const copyIcon = getIcon(copyIconName, $searchParams['icon-type'])
 
 const copySvg = async (_lang: Mode) => {
-  const copyValue = _lang === 'jsx'
-    ? createSvgJsx(paths, { classes: $usingClasses, className: $svgClass, size: $svgSize, color: $svgColor })
-    : createSvgHtml(paths, { classes: $usingClasses, className: $svgClass, size: $svgSize, color: $svgColor })
-  
+  console.log(copyIcon)
+  const copyValue = createSvgText($svgTextWrappers, copyIcon, $searchParams['icon-type'], lang)
+
   try {
     await window.navigator.clipboard.writeText(copyValue)
     notification.showNotification(`Icon ${lang.toUpperCase()} was coped to your clipboard`, false)

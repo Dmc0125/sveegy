@@ -4,9 +4,11 @@ module.exports = {
 	extends: [
 		'eslint:recommended',
 		'airbnb',
+		'plugin:cypress/recommended',
 	],
 	plugins: [
 		'svelte3',
+		'cypress',
 	],
 	ignorePatterns: [
 		'*.cjs',
@@ -41,5 +43,6 @@ module.exports = {
     'max-len': ['error', { code: 150 }],
     '@typescript-eslint/ban-ts-comment': 0,
 		'import/no-extraneous-dependencies': 0,
+		'no-param-reassign': 0,
 	},
 };

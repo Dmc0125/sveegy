@@ -1,21 +1,18 @@
 <script lang="ts">
-import IconWrapper from './IconWrapper.svelte'
-
-import icons from '$lib/assets/icons.json'
-import capitalize from '$lib/utils/capitalize';
 import { fade, fly } from 'svelte/transition'
-import { createSvgHtml, createSvgJsx } from '$lib/utils/createSvgHtml'
-import createDownloadUrl from '$lib/utils/createDownloadUrl'
-import { usingClasses, svgClass, svgColor, svgSize } from '$lib/store'
-import Buttons from './Buttons.svelte';
-import IconSettings from './IconSettings.svelte';
-import { browser } from '$app/env';
+import { browser } from '$app/env'
 
-let iconName: string
-export { iconName as icon }
+import IconWrapper from './IconWrapper.svelte'
+import IconSettings from './IconSettings.svelte'
+import IconHtml from './IconHtml.svelte'
+
+import capitalize from '$lib/utils/capitalize'
+import createDownloadUrl from '$lib/utils/createDownloadUrl'
+import { searchParams } from '$lib/store/searchParams'
+import { getIcon } from '$lib/utils/icons'
 
 const closePopup = () => {
-  iconName = ''
+  $searchParams.icon = ''
 }
 
 const closeOnKeydown = (e: KeyboardEvent) => {
@@ -24,28 +21,13 @@ const closeOnKeydown = (e: KeyboardEvent) => {
   }
 }
 
-$: icon = icons.find(({ id }) => (id === iconName.toLowerCase()))
-
-$: svgHtml = icon && createSvgHtml(icon.paths, {
-  classes: $usingClasses,
-  className: $svgClass,
-  size: $svgSize,
-  color: $svgColor,
-})
-$: svgJsx = icon && createSvgJsx(icon.paths, {
-  classes: $usingClasses,
-  className: $svgClass,
-  size: $svgSize,
-  color: $svgColor,
-})
-$: downloadUrl = browser && createDownloadUrl(svgHtml)
-
-let mode: 'jsx' | 'html'
+$: icon = getIcon($searchParams.icon, $searchParams['icon-type'])
+$: downloadUrl = icon && browser ? createDownloadUrl(icon.paths, $searchParams['icon-type']) : ''
 </script>
 
 <svelte:window on:keydown="{closeOnKeydown}" />
 
-{#if iconName.length}
+{#if $searchParams.icon.length}
   <div
     class="w-screen h-screen fixed dimmed-bg z-10"
     on:click="{closePopup}"
@@ -61,7 +43,7 @@ let mode: 'jsx' | 'html'
       on:click|stopPropagation
     >
       <header class="flex items-center justify-between col-span-full">
-        <h1 class="text-3xl font-semibold">{icon ? capitalize(icon.id) : capitalize(`${iconName} icon`)}</h1>
+        <h1 class="text-3xl font-semibold">{icon ? capitalize(icon.id) : capitalize(`${$searchParams.icon} icon`)}</h1>
 
         <button
           class="w-10 h-10 rounded-md ring-effect default-hover-bg"
@@ -78,27 +60,18 @@ let mode: 'jsx' | 'html'
           md:[grid-column:1/2]
         ">
           <div class="h-full w-full bg-opacity-[60%_!important] default-bg rounded-lg">
-            <IconWrapper icon="{icon.id}" />
+            <IconWrapper icon="{icon.id}" type="{$searchParams['icon-type']}" />
           </div>
         </div>
 
-        <div class="w-full h-fit secondary-bg rounded-md relative col-span-full">
-          <Buttons copyIcon={iconName} bind:lang={mode} icon="trade" class="w-52 h-8" isSwitch="{true}">
-            <IconWrapper slot="icon" icon="copy" class="w-6 h-6 mx-auto" />
-          </Buttons>
-          <div class="w-full h-fit pt-8 overflow-x-auto">
-            <pre class="w-fit h-fit px-4 pb-4">
-              {mode === 'html' ? svgHtml : svgJsx}
-            </pre>
-          </div>
-        </div>
+        <IconHtml class="w-full h-fit col-span-full" />
 
         <div class="w-full h-fit md:[grid-column:2/3] md:[grid-row:2/3]">
           <IconSettings>
             <a
               class="justify-self-start btn cta-bg px-4 flex items-center text-slate-300"
               href="{downloadUrl}"
-              download="{`${iconName}-icon`}"
+              download="{`${$searchParams.icon}-icon`}"
             >
               Download
               <span class="w-7 h-7 ml-2">
@@ -108,7 +81,7 @@ let mode: 'jsx' | 'html'
           </IconSettings>
         </div>
       {:else}
-        <h2 class="text-center font-semibold text-xl my-4 col-span-full">Icon {iconName} was not find...</h2>
+        <h2 class="text-center font-semibold text-xl my-4 col-span-full">Icon {$searchParams.icon} was not find...</h2>
         <div class="w-1/2 md:w-[400px] h-full mx-auto col-span-full">
           <svg width="100%" height="72%" viewBox="0 0 624 451" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0)">

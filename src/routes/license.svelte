@@ -38,8 +38,8 @@ import Landing from '$lib/layouts/Landing.svelte'
           rel="external"
           target="_blank"
         >
-          Undraw
-        </a>.
+          Undraw.
+        </a>
         They provide free beautiful svg illustrations.
       </p>
     </div>

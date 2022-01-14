@@ -13,7 +13,6 @@ const changeColorMode = () => {
   }
 }
 
-
 $: {
   if (browser) {
     const savedColorMode = localStorage.getItem('colorMode')

@@ -2,7 +2,7 @@
 import InputCustom from './Input.svelte'
 import IconWrapper from './IconWrapper.svelte'
 
-import { svgClass, svgColor, svgSize, usingClasses } from '$lib/store'
+import { svgClass, svgColor, svgSize, usingClasses } from '$lib/store/iconsSettings'
 import { fade } from 'svelte/transition'
 
 let iconsSettingsOpened = false
