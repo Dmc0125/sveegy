@@ -10,7 +10,6 @@ import { icons, IconType, filterIcons } from '$lib/utils/icons'
 import { searchParams, initSearchParams } from '$lib/store/searchParams'
 import capitalize from '$lib/utils/capitalize'
 
-
 const iconsCount = Math.floor(icons.outline.length / 10) * 10
 
 initSearchParams('icon-type', { defaultValue: 'outline', types: ['outline', 'stroke'] })
