@@ -1,6 +1,6 @@
 {
   "name": "sveegy",
-  "version": "0.14.2",
+  "version": "0.14.3",
   "scripts": {
     "dev": "svelte-kit dev",
     "build": "svelte-kit build",
@@ -36,6 +36,7 @@
   },
   "type": "module",
   "dependencies": {
-    "html-prettify": "^1.0.3"
+    "html-prettify": "^1.0.3",
+    "joi": "^17.5.0"
   }
 }

@@ -2,6 +2,10 @@
 
 All notable changes to Sveegy will be documented in this file.
 
+## [0.14.3] - 2022-01-17
+
+- Fixed `/api/icons` route
+
 ## [0.14.2] - 2022-01-17
 
 - Bugfixes
