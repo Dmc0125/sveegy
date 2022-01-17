@@ -1,8 +1,10 @@
 <script lang="ts">
 export let name: 'browse' | 'license' | 'search'
+let className = 'w-[250px] sm:w-[350px] lg:w-[min(30vw,500px)] [--main:@apply_bg-blue-500]'
+export { className as class }
 </script>
 
-<div class="w-[250px] sm:w-[350px] lg:w-[min(30vw,500px)] [--main:@apply_bg-blue-500]">
+<div class="{className}">
   {#if name === 'browse'}
     <svg width="100%" height="98%" viewBox="0 0 600 588" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g clip-path="url(#clip0)">

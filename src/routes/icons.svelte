@@ -81,14 +81,13 @@ let iconInfoOpened = false
         {/each}
       </div>
 
-      <button
+      <div
         class="w-full mt-2 flex items-center justify-between text-left"
-        on:click="{() => iconInfoOpened = !iconInfoOpened}"
       >
         <p
           class="
             font-medium text-sm dark:text-slate-400 text-slate-400 overflow-hidden transition-all
-            {iconInfoOpened ? 'max-h-20' : 'max-h-5'}
+            {iconInfoOpened ? 'max-h-20' : 'max-h-5'} sm:max-h-fit
           ">
           All icons are using 24x24 view box. Stroke size of
           {
@@ -98,17 +97,21 @@ let iconInfoOpened = false
           }
         </p>
 
-        <IconWrapper
+        <button
           class="
-            w-5 h-5 flex-shrink-0 self-start dark:text-slate-400 text-slate-400 transition-all
+            w-6 h-6 flex-shrink-0 self-start dark:text-slate-400 text-slate-400 transition-all sm:hidden
             {iconInfoOpened ? 'transform rotate-180' : ''}
           "
-          icon="chevron-down"
-        />
-      </button>
+          on:click="{() => iconInfoOpened = !iconInfoOpened}"
+        >
+          <IconWrapper
+            icon="chevron-down"
+          />
+        </button>
+      </div>
     </header>
 
-    <IconSettings fullscreen>
+    <IconSettings>
       <InputCustom focusOnKey class="w-full h-10" icon="search" label="Search icons (alt + k)" bind:inputValue={searchTerm} />
     </IconSettings>
 

@@ -2,6 +2,11 @@
 
 All notable changes to Sveegy will be documented in this file.
 
+## [0.14.2] - 2022-01-17
+
+- Bugfixes
+- New icons
+
 ## [0.14.1] - 2022-01-14
 
 - fix build errors - `/api/icons` currently not working

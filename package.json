@@ -1,6 +1,6 @@
 {
   "name": "sveegy",
-  "version": "0.14.0",
+  "version": "0.14.2",
   "scripts": {
     "dev": "svelte-kit dev",
     "build": "svelte-kit build",
