@@ -25,8 +25,7 @@ export { copyIconName as copyIcon }
 const copyIcon = getIcon(copyIconName, $searchParams['icon-type'])
 
 const copySvg = async (_lang: Mode) => {
-  console.log(copyIcon)
-  const copyValue = createSvgText($svgTextWrappers, copyIcon, $searchParams['icon-type'], lang)
+  const copyValue = createSvgText($svgTextWrappers, copyIcon, $searchParams['icon-type'], _lang)
 
   try {
     await window.navigator.clipboard.writeText(copyValue)
