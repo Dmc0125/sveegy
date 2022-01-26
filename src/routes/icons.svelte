@@ -120,7 +120,7 @@ let iconInfoOpened = false
     >
       {#each searchedIcons as { id }}
         <button
-          class="w-full h-full relative overflow-hidden secondary-bg rounded-md font-secondary-clr grid grid-rows-[auto_min-content] items-center ring-effect wrapper"
+          class="w-full h-full relative overflow-hidden rounded-md font-secondary-clr grid grid-rows-[auto_min-content] items-center ring-effect wrapper"
           on:click="{() => openIcon(id)}"
         >
           <Buttons copyIcon={id} hide="{true}" />

@@ -2,6 +2,11 @@
 
 All notable changes to Sveegy will be documented in this file.
 
+## [0.14.5] - 2022-01-26
+
+- Updated some old icons
+- Added new icons
+
 ## [0.14.4] - 2022-01-22
 
 - Fixed copy icon html/jsx bug
