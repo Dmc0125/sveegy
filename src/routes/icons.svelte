@@ -2,25 +2,22 @@
 import IconWrapper from '$lib/components/IconWrapper.svelte'
 import InputCustom from '$lib/components/Input.svelte'
 import IconPopup from '$lib/components/IconPopup.svelte'
-import Buttons from '$lib/components/Buttons.svelte'
 import IconSettings from '$lib/components/IconSettings.svelte'
 import Notification from '$lib/components/Notification.svelte'
 
-import { icons, IconType, filterIcons } from '$lib/utils/icons'
+import { icons, IconType, filterIcons, iconInformation } from '$lib/utils/icons'
 import { searchParams, initSearchParams } from '$lib/store/searchParams'
 import capitalize from '$lib/utils/capitalize'
+import Icon from '$lib/components/Icon.svelte'
 
 const iconsCount = Math.floor(icons.outline.length / 10) * 10
 
-initSearchParams('icon-type', { defaultValue: 'outline', types: ['outline', 'stroke'] })
+initSearchParams('icon-type', { defaultValue: 'outline', types: Object.keys(icons) })
 const switchIconType = (type: string) => {
   $searchParams['icon-type'] = type as IconType
 }
 
 initSearchParams('icon')
-const openIcon = (name: string) => {
-  $searchParams.icon = name
-}
 
 let searchTerm = ''
 $: searchedIcons = filterIcons(searchTerm, $searchParams['icon-type'])
@@ -68,7 +65,7 @@ let iconInfoOpened = false
   <section class="pt-4 px-[5%] md:px-[15%] flex flex-col gap-y-4">
     <header class="w-full h-fit">
       <div class="w-full md:w-1/2 max-w-md mx-auto md:mx-0 flex items-center justify-between gap-x-4">
-        {#each ['outline', 'stroke'] as type}
+        {#each ['outline', 'stroke', 'fill'] as type}
           <button
             class="
               w-full h-fit py-2 font-secondary-clr font-medium default-hover-bg rounded-md ring-effect
@@ -89,12 +86,13 @@ let iconInfoOpened = false
             font-medium text-sm dark:text-slate-400 text-slate-400 overflow-hidden transition-all
             {iconInfoOpened ? 'max-h-20' : 'max-h-5'} sm:max-h-fit
           ">
-          All icons are using 24x24 view box. Stroke size of
+          {iconInformation[$searchParams['icon-type']]}
+          <!-- All icons are using 24x24 view box. Stroke size of
           {
             $searchParams['icon-type'] === 'outline'
               ? 'outlined icons is adjusted to size, width and height, of the icon.'
               : 'stroke icons can be adjusted width stroke-width attribute.'
-          }
+          } -->
         </p>
 
         <button
@@ -118,17 +116,8 @@ let iconInfoOpened = false
     <section
       class="grid [grid-template-columns:repeat(auto-fill,minmax(145px,1fr))] [grid-auto-rows:150px] gap-4"
     >
-      {#each searchedIcons as { id }}
-        <button
-          class="w-full h-full relative overflow-hidden rounded-md font-secondary-clr grid grid-rows-[auto_min-content] items-center ring-effect wrapper"
-          on:click="{() => openIcon(id)}"
-        >
-          <Buttons copyIcon={id} hide="{true}" />
-          <IconWrapper class="w-20 h-20 font-default-clr justify-self-center" icon="{id}" type="{$searchParams['icon-type']}" />
-          <div class="w-full h-14 flex items-center justify-center px-2">
-            <h2 class="font-medium">{capitalize(id)}</h2>
-          </div>
-        </button>
+      {#each searchedIcons as searchedIcon}
+        <Icon icon={searchedIcon} />
       {/each}
     </section>
   </section>

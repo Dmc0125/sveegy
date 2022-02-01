@@ -2,6 +2,11 @@
 
 All notable changes to Sveegy will be documented in this file.
 
+## [0.15.0] - 2022-02-01
+
+- Added filled icons
+- Fixed the bug with directly copying html/jsx from `/icons`
+
 ## [0.14.5] - 2022-01-26
 
 - Updated some old icons

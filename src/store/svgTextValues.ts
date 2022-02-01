@@ -1,7 +1,7 @@
 import { derived, type Readable } from 'svelte/store'
 import prettify from 'html-prettify'
 
-import { createSvgHtml, createPaths, createSvgJsx } from '$lib/utils/createSvgHtml'
+import { createPaths, createSvg } from '$lib/utils/createSvgHtml'
 import type { Icon, IconType } from '$lib/utils/icons'
 import {
   usingClasses, svgClass, svgColor, svgSize,
@@ -16,13 +16,10 @@ type SvgTextWrappers = {
 export const svgTextWrappers = derived(
   [usingClasses, svgClass, svgColor, svgSize, searchParams],
   ([$usingClasses, $svgClass, $svgColor, $svgSize], set) => {
-    const options = {
-      classes: $usingClasses, className: $svgClass, color: $svgColor, size: $svgSize,
-    }
-
+    const options = $usingClasses ? { className: $svgClass } : { size: $svgSize, color: $svgColor }
     set({
-      html: prettify(createSvgHtml(options)),
-      jsx: prettify(createSvgJsx(options)),
+      html: prettify(createSvg($usingClasses, options, false)),
+      jsx: prettify(createSvg($usingClasses, options, true)),
     })
   },
 ) as Readable<SvgTextWrappers>

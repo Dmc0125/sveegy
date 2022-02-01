@@ -1,5 +1,5 @@
 <script lang="ts">
-import { getIcon, IconType } from '$lib/utils/icons'
+import { getIcon, type IconType } from '$lib/utils/icons'
 
 let iconName: string
 export { iconName as icon }
@@ -14,7 +14,7 @@ export { className as class }
 
 <svg viewBox="0 0 24 24" fill="none" class="{className.length ? className : 'w-full h-full'}">
   {#each icon.paths as path}
-    {#if type === 'outline'}
+    {#if type === 'outline' || type === 'fill'}
       <path
         d="{path}"
         fill-rule="evenodd"
