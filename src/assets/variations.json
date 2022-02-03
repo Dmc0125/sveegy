@@ -33,6 +33,7 @@
   "chevron-up-circle": ["arrow up", "circle"],
   "clock": ["time", "alarm"],
   "close": ["exit"],
+  "close-circle": ["exit"],
   "code": ["html"],
   "contract-arrows": ["minimize", "close", "exit", "arrows"],
   "contract-chevrons": ["minimize", "close", "exit", "chevrons"],

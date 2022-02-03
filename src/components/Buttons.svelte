@@ -1,17 +1,13 @@
 <script lang="ts">
 import IconWrapper from '$lib/components/IconWrapper.svelte'
 
-import { notification } from '$lib/store'
-import { searchParams } from '$lib/store/searchParams';
+import { searchParams } from '$lib/store/searchParams'
 import { getIcon } from '$lib/utils/icons'
-import { createSvgText, svgTextWrappers } from '$lib/store/svgTextValues';
+import { createSvgText, svgTextWrappers } from '$lib/store/svgTextValues'
+import copySvg from '$lib/utils/copySvg'
 
 let className: string = ''
 export { className as class }
-export let icon = 'copy'
-export let hide = false
-
-export let isSwitch = false
 
 type Mode = 'jsx' | 'html'
 
@@ -21,40 +17,24 @@ const setMode = (_lang: Mode) => {
 }
 
 let copyIconName: string
-export { copyIconName as copyIcon }
+export { copyIconName as icon }
 const copyIcon = getIcon(copyIconName, $searchParams['icon-type'])
 
-const copySvg = async (_lang: Mode) => {
-  const copyValue = createSvgText($svgTextWrappers, copyIcon, $searchParams['icon-type'], _lang)
-
-  try {
-    await window.navigator.clipboard.writeText(copyValue)
-    notification.showNotification(`Icon ${lang.toUpperCase()} was coped to your clipboard`, false)
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-const handleClick = (_lang: Mode) => {
-  if (isSwitch) {
-    setMode(_lang)
-    return
-  }
-
-  copySvg(_lang)
+const _copySvg = async () => {
+  const copyValue = createSvgText($svgTextWrappers, copyIcon, $searchParams['icon-type'], lang)
+  await copySvg(copyValue, copyIconName)
 }
 </script>
 
 <div
   class="
     {className.length ? className : 'w-full h-8 rounded-md'}
-    {hide ? 'pointer-events-none opacity-0 top-0' : 'left-1/2 transform -translate-x-1/2'}
-    {$$slots.icon ? 'grid-cols-[auto_auto_1fr_1fr_auto]' : 'grid-cols-[auto_auto_1fr_1fr]'}
-    secondary-bg rounded-md rounded-tl-none transition-all grid items-center absolute
+    secondary-bg rounded-md rounded-tl-none transition-all grid items-center absolute left-1/2 transform -translate-x-1/2
+    grid-cols-[auto_auto_1fr_1fr_auto]
   "
 >
   <div class="w-10 h-6">
-    <IconWrapper {icon} />
+    <IconWrapper icon="trade" />
   </div>
 
   <div class="w-[1px] h-1/2 bg-slate-400" />
@@ -62,30 +42,28 @@ const handleClick = (_lang: Mode) => {
   <button
     class="
       text-sm font-medium secondary-hover-bg h-[90%] mx-[5%] rounded-md
-      {isSwitch && lang === 'jsx' ? 'default-bg' : 'secondary-focus-bg'}
+      {lang === 'jsx' ? 'default-bg' : 'secondary-focus-bg'}
     "
-    on:click|stopPropagation={() => handleClick('jsx')}
+    on:click|stopPropagation={() => setMode('jsx')}
   >
     JSX
   </button>
   <button
     class="
       text-sm font-medium secondary-hover-bg rounded-md h-[90%] mx-[5%]
-      {isSwitch && lang === 'html' ? 'default-bg' : 'secondary-focus-bg'}
+      {lang === 'html' ? 'default-bg' : 'secondary-focus-bg'}
     "
-    on:click|stopPropagation={() => handleClick('html')}
+    on:click|stopPropagation={() => setMode('html')}
   >
     HTML
   </button>
 
-  {#if $$slots.icon}
-    <button
-      class="w-10 h-[90%] secondary-hover-bg secondary-focus-bg rounded-md"
-      on:click="{() => copySvg(lang)}"
-    >
-      <slot name="icon"></slot>
-    </button> 
-  {/if}
+  <button
+    class="w-10 h-[90%] secondary-hover-bg secondary-focus-bg rounded-md"
+    on:click="{_copySvg}"
+  >
+    <IconWrapper icon="copy" class="w-6 h-6 mx-auto" />
+  </button> 
 </div>
 
 <style>

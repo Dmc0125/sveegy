@@ -7,7 +7,7 @@ import Notification from '$lib/components/Notification.svelte'
 
 import { icons, IconType, filterIcons, iconInformation } from '$lib/utils/icons'
 import { searchParams, initSearchParams } from '$lib/store/searchParams'
-import capitalize from '$lib/utils/capitalize'
+import formatToDisplayName from '$lib/utils/formatToDisplayName'
 import Icon from '$lib/components/Icon.svelte'
 
 const iconsCount = Math.floor(icons.outline.length / 10) * 10
@@ -36,7 +36,11 @@ let iconInfoOpened = false
     <div class="w-full px-[5%] md:px-[15%] py-8 default-bg text-center md:text-left">
       <div class="max-w-[500px] mx-auto md:mx-0">
         <h1 class="text-3xl font-bold font-default-clr">More than {iconsCount} beautiful free svg icons</h1>
-        <h2 class="font-secondary-clr font-medium mt-4">Browse to find any svg icon you want and then use it either by copying the html or downloading the svg.</h2>
+        <h2
+          class="font-secondary-clr font-medium mt-4"
+        >
+          Browse to find any svg icon you want and then use it either by copying the html or jsx or downloading the svg.
+        </h2>
 
         <div class="flex items-center justify-center md:justify-start gap-x-8 mt-4">
           <div class="flex items-center justify-center">
@@ -49,7 +53,7 @@ let iconInfoOpened = false
             </svg>
             <span class="font-bold text-sm ml-2 font-secondary-clr">HTML</span>
           </div>
-
+      
           <div class="flex items-center justify-center">
             <svg class="w-12 h-12 text-sky-400" fill="none" viewBox="0 0 24 24">
               <path d="M19.94 11.998c0 1.042-1.317 2.029-3.337 2.64.466 2.039.259 3.66-.654 4.18a1.43 1.43 0 0 1-.725.179v-.715a.756.756 0 0 0 .369-.083c.44-.25.631-1.202.482-2.426a9.775 9.775 0 0 0-.165-.942c-.634.154-1.327.273-2.055.35-.437.592-.89 1.13-1.347 1.602 1.056.97 2.046 1.502 2.72 1.502V19c-.89 0-2.056-.628-3.234-1.718-1.179 1.084-2.344 1.705-3.234 1.705v-.714c.67 0 1.664-.53 2.719-1.494a15.184 15.184 0 0 1-1.337-1.599 15.256 15.256 0 0 1-2.059-.352c-.074.32-.129.631-.168.93-.152 1.223.036 2.175.473 2.428a.726.726 0 0 0 .372.083v.715c-.272 0-.518-.058-.732-.18-.91-.519-1.113-2.137-.644-4.168-2.013-.616-3.324-1.6-3.324-2.638 0-1.041 1.317-2.028 3.337-2.64-.466-2.038-.259-3.66.654-4.179.21-.121.456-.179.728-.179.89 0 2.056.628 3.234 1.718 1.178-1.084 2.344-1.705 3.234-1.705.271 0 .518.058.731.18.91.518 1.114 2.137.644 4.168 2.007.612 3.318 1.6 3.318 2.637Zm-4.214 2.138a14.36 14.36 0 0 0-.437-1.266 17.332 17.332 0 0 1-.89 1.519c.46-.067.903-.15 1.327-.253Zm-1.483-3.413a17.06 17.06 0 0 0-.78-1.224 17.01 17.01 0 0 0-2.92-.003 16.636 16.636 0 0 0-1.457 2.493 17.029 17.029 0 0 0 1.45 2.503 16.995 16.995 0 0 0 2.92.003 16.628 16.628 0 0 0 1.457-2.493c-.204-.43-.427-.86-.67-1.279Zm1.046.417c.175-.43.323-.86.446-1.276-.424-.102-.87-.189-1.333-.256a17.655 17.655 0 0 1 .887 1.532Zm-3.282-3.42c-.301.308-.602.651-.9 1.026.291-.013.589-.022.89-.022.304 0 .605.006.9.022a12.537 12.537 0 0 0-.89-1.025ZM9.598 9.609c-.46.067-.903.15-1.327.253.12.413.269.84.437 1.266.133-.257.272-.513.424-.77.152-.256.308-.506.466-.75Zm2.392 6.668c.301-.307.602-.65.9-1.025-.291.013-.589.022-.89.022-.304 0-.605-.006-.9-.022.292.375.593.718.89 1.025ZM9.595 14.39a17.683 17.683 0 0 1-.887-1.529c-.175.43-.324.86-.447 1.276.425.1.871.186 1.334.253Zm-2.93-4.012c-1.145.484-1.886 1.118-1.886 1.621 0 .504.74 1.141 1.887 1.622.278.118.582.224.896.324.185-.629.428-1.282.729-1.952a15.072 15.072 0 0 1-.719-1.942c-.32.1-.625.208-.906.327Zm1.742-4.58c-.44.25-.631 1.203-.482 2.427.035.3.094.618.165.942a15.833 15.833 0 0 1 2.055-.35c.437-.592.89-1.13 1.347-1.602-1.055-.97-2.046-1.503-2.72-1.503a.779.779 0 0 0-.365.087Zm7.678 2.443c.152-1.224-.036-2.176-.473-2.43a.727.727 0 0 0-.372-.083c-.67 0-1.664.53-2.719 1.494.453.47.906 1.006 1.337 1.599.731.077 1.424.195 2.059.352a8.9 8.9 0 0 0 .168-.932Zm1.246 2.137a10.05 10.05 0 0 0-.896-.324 15.292 15.292 0 0 1-.729 1.952c.298.666.538 1.317.719 1.942.32-.1.624-.209.91-.327 1.145-.484 1.886-1.118 1.886-1.622-.003-.503-.744-1.14-1.89-1.621Z" fill="currentColor"/>
@@ -73,7 +77,7 @@ let iconInfoOpened = false
             "
             on:click="{() => switchIconType(type)}"
           >
-            {capitalize(type)}
+            {formatToDisplayName(type)}
           </button>
         {/each}
       </div>

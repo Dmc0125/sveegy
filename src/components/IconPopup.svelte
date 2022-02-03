@@ -8,7 +8,7 @@ import Illustration from './Illustration.svelte'
 import InputWrapper from './Input.svelte'
 import ToggleClassesButton from './ToggleClassesButton.svelte'
 
-import capitalize from '$lib/utils/capitalize'
+import formatToDisplayName from '$lib/utils/formatToDisplayName'
 import createDownloadUrl from '$lib/utils/createDownloadUrl'
 import { searchParams } from '$lib/store/searchParams'
 import { getIcon } from '$lib/utils/icons'
@@ -46,7 +46,7 @@ $: downloadUrl = icon && browser ? createDownloadUrl(icon.paths, $searchParams['
       on:click|stopPropagation
     >
       <header class="flex items-center justify-between col-span-full">
-        <h1 class="text-3xl font-semibold">{icon ? capitalize(icon.id) : capitalize(`${$searchParams.icon} icon`)}</h1>
+        <h1 class="text-3xl font-semibold">{icon ? formatToDisplayName(icon.id) : formatToDisplayName(`${$searchParams.icon} icon`)}</h1>
 
         <button
           class="w-10 h-10 rounded-md ring-effect default-hover-bg flex-shrink-0"

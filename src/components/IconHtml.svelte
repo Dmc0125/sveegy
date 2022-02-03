@@ -17,9 +17,7 @@ export { className as class}
 </script>
 
 <div class="{className} secondary-bg rounded-md relative">
-  <Buttons copyIcon={$searchParams.icon} bind:lang={mode} icon="trade" class="w-52 h-8" isSwitch="{true}">
-    <IconWrapper slot="icon" icon="copy" class="w-6 h-6 mx-auto" />
-  </Buttons>
+  <Buttons icon={$searchParams.icon} bind:lang={mode} class="w-52 h-8" />
 
   <div class="w-full h-fit pt-8 overflow-x-auto">
     <pre class="w-fit h-fit px-4 pb-4">
@@ -27,4 +25,3 @@ export { className as class}
     </pre>
   </div>
 </div>
-

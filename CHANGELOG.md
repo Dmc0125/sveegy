@@ -2,6 +2,11 @@
 
 All notable changes to Sveegy will be documented in this file.
 
+## [0.15.1] - 2022-02-03
+
+- Added `close-circle` icon
+- Code refactoring
+
 ## [0.15.0] - 2022-02-01
 
 - Added filled icons

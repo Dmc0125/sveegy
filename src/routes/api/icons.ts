@@ -26,8 +26,7 @@ const errorResponse = (name: string, message: string, status = 500): EndpointOut
 
 /* eslint-disable max-len */
 const wrapPaths = (paths: string[], type: IconType) => `
-  <svg width="24px" height="24px" fill="${type === 'outline' ? 'currentColor' : 'none'}" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg width="24px" height="24px" fill="${type === 'outline' ? 'currentColor' : 'none'}" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     ${createPaths(paths, false, type)}
   </svg>
 `

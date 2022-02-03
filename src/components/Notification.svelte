@@ -31,14 +31,14 @@ const updateSize = (e: Event) => {
     out:fly={{ y: size > 768 ? 0 : -100, x: size > 768 ? 200 : 0 }}
   >
     <div class="
-      w-14 h-14 p-2 rounded-full border
+      w-16 h-16 rounded-full
       {
         $notification.error
-          ? 'text-red-400 border-red-400'
-          : 'text-green-600 border-green-600 dark:text-green-400 dark:border-green-400'
+          ? 'text-red-400'
+          : 'text-green-600 dark:text-green-400'
       }"
     >
-      <IconWrapper icon="{$notification.error ? 'close' : 'tick'}" />
+      <IconWrapper icon="{$notification.error ? 'close-circle' : 'tick-circle'}" type="stroke" />
     </div>
 
     <h1>{$notification.message}</h1>

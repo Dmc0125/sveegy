@@ -9,6 +9,10 @@ import Illustration from '$lib/components/Illustration.svelte'
 </svelte:head>
 
 <Landing>
-  <Hero slot="text" heading="Sveegy" subHeading="Choose from many free svg icons and use it with just one click" />
+  <Hero
+    slot="text"
+    heading="Sveegy icons"
+    subHeading="Beautiful free svg icons, that come in three types. Choose the ones you want and use them with just one click."
+  />
   <Illustration slot="image" name="browse" />
 </Landing>
