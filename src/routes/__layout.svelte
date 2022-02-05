@@ -17,6 +17,54 @@ import { colorMode } from '$lib/store'
 </div>
 
 <style>
+  @font-face {
+    font-family: 'Red Hat Mono';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(/fonts/RedHatMono.ttf) format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Red Hat Display';
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url(/fonts/RedHatDisplay-Light.ttf) format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Red Hat Display';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(/fonts/RedHatDisplay-Regular.ttf) format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Red Hat Display';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url(/fonts/RedHatDisplay-Medium.ttf) format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Red Hat Display';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url(/fonts/RedHatDisplay-SemiBold.ttf) format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Red Hat Display';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url(/fonts/RedHatDisplay-Bold.ttf) format('woff2');
+  }
+
   :global(*) {
     font-family: 'Red Hat Display', sans-serif;
   }
