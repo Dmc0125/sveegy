@@ -2,6 +2,11 @@
 
 All notable changes to Sveegy will be documented in this file.
 
+## [0.15.3] - 2022-02-06
+
+- Code refactoring
+- RedHatMono font not loading fixed
+
 ## [0.15.2] - 2022-02-05
 
 - New icons

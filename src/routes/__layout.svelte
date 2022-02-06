@@ -22,7 +22,7 @@ import { colorMode } from '$lib/store'
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: url(/fonts/RedHatMono.ttf) format('woff2');
+    src: url(/fonts/RedHatMono-Regular.ttf) format('woff2');
   }
 
   @font-face {

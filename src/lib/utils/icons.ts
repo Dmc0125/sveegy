@@ -1,7 +1,7 @@
-import iconsOutline from '$lib/assets/iconsOutline.json'
-import iconsStroke from '$lib/assets/iconsStroke.json'
-import iconsFill from '$lib/assets/iconsFill.json'
-import variations from '$lib/assets/variations.json'
+import iconsOutline from '../../assets/iconsOutline.json'
+import iconsStroke from '../../assets/iconsStroke.json'
+import iconsFill from '../../assets/iconsFill.json'
+import variations from '../../assets/variations.json'
 
 export type IconType = 'outline' | 'stroke' | 'fill'
 

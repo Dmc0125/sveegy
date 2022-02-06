@@ -1,7 +1,7 @@
 <script lang="ts">
 import IconWrapper from './IconWrapper.svelte'
 
-import githubSvg from '$lib/assets/github.svg?raw'
+import githubSvg from '../../assets/github.svg?raw'
 import { page } from '$app/stores'
 import { isNavOpened } from '../store'
 import links from '$lib/utils/links'

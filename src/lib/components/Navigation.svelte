@@ -2,7 +2,7 @@
 import IconWrapper from './IconWrapper.svelte'
 import ColorModeButton from './ColorModeButton.svelte'
 
-import githubIcon from '$lib/assets/github.svg?raw'
+import githubIcon from '../../assets/github.svg?raw'
 import { page } from '$app/stores'
 import { fade, fly } from 'svelte/transition'
 import { goto } from '$app/navigation'
