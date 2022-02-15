@@ -44,5 +44,6 @@ module.exports = {
     '@typescript-eslint/ban-ts-comment': 0,
 		'import/no-extraneous-dependencies': 0,
 		'no-param-reassign': 0,
+		'prefer-regex-literals': 0,
 	},
 };

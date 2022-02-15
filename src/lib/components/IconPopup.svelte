@@ -3,16 +3,18 @@ import { fade, fly } from 'svelte/transition'
 import { browser } from '$app/env'
 
 import IconWrapper from './IconWrapper.svelte'
-import IconHtml from './IconHtml.svelte'
 import Illustration from './Illustration.svelte'
 import InputWrapper from './Input.svelte'
 import ToggleClassesButton from './ToggleClassesButton.svelte'
+import CodeWrapper from './CodeWrapper.svelte'
 
 import formatToDisplayName from '$lib/utils/formatToDisplayName'
 import createDownloadUrl from '$lib/utils/createDownloadUrl'
+import highlight from '$lib/utils/codeHighlighter'
 import { searchParams } from '$lib/store/searchParams'
 import { getIcon } from '$lib/utils/icons'
 import { svgColor, svgSize, svgClass, usingClasses } from '$lib/store/iconsSettings'
+import { createSvgText, svgTextWrappers } from '$lib/store/svgTextValues'
 
 const closePopup = () => {
   $searchParams.icon = ''
@@ -24,7 +26,10 @@ const closeOnKeydown = (e: KeyboardEvent) => {
   }
 }
 
+let mode: 'html' | 'jsx' = 'html'
+
 $: icon = getIcon($searchParams.icon, $searchParams['icon-type'])
+$: svgText = createSvgText($svgTextWrappers, icon, $searchParams['icon-type'], mode)
 $: downloadUrl = icon && browser ? createDownloadUrl(icon.paths, $searchParams['icon-type']) : ''
 </script>
 
@@ -67,30 +72,75 @@ $: downloadUrl = icon && browser ? createDownloadUrl(icon.paths, $searchParams['
           </div>
         </div>
 
-        <IconHtml class="w-full h-fit col-span-full" />
+        <CodeWrapper lang={mode} class="rounded-md col-span-full">
+          <pre>      
+            {@html highlight(svgText)}
+          </pre>
+        </CodeWrapper>
 
-        <div class="w-full h-fit md:[grid-column:2/3] md:[grid-row:2/3] grid grid-cols-2 gap-4">
-          <a
-            class="h-10 w-fit justify-self-start btn cta-bg px-4 flex items-center text-slate-300"
-            href="{downloadUrl}"
-            download="{`${$searchParams.icon}-icon`}"
-          >
-            Download
-            <span class="w-7 h-7 ml-2">
-              <IconWrapper icon="download" />
-            </span>
-          </a>
+        <section class="w-full h-fit md:h-full md:[grid-column:2/3] md:[grid-row:2/3] flex flex-col justify-between gap-y-4">
+          <div class="grid grid-cols-[auto_60%] sm:grid-cols-[1fr_250px] order-1 md:order-last h-10 gap-x-4">
+            <button
+              class="
+                col-start-1 col-end-2 default-bg default-hover-bg rounded-md flex items-center justify-center
+                sm:justify-self-start sm:px-3 ring-effect
+              "
+            >
+              <IconWrapper icon="copy" type="stroke" class="w-7 h-7 mr-1" />
+              Copy
+            </button>
 
-          <ToggleClassesButton class="h-10 justify-self-end" />
+            <div
+              class="
+                w-full h-full p-[.2rem] flex items-center justify-between gap-x-2
+                secondary-bg rounded-md col-start-2 col-end-3
+              "
+            >
+              <button
+                class="
+                  w-full h-full secondary-hover-bg rounded-md font-medium
+                  ring-effect ring-offset-2 ring-offset-gray-300 dark:ring-offset-slate-700 ring-opacity-5
+                  {mode === 'html' ? 'bg-gray-400 dark:bg-slate-800' : 'secondary-bg'}
+                "
+                on:click="{() => mode = 'html'}"
+              >
+                HTML
+              </button>
+              <button
+                class="
+                  w-full h-full secondary-hover-bg rounded-md font-medium
+                  ring-effect ring-offset-2 ring-offset-gray-300 dark:ring-offset-slate-700 ring-opacity-5
+                  {mode === 'jsx' ? 'bg-gray-400 dark:bg-slate-800' : 'secondary-bg'}
+                "
+                on:click="{() => mode = 'jsx'}"
+              >
+                JSX
+              </button>
+            </div>
+          </div>
 
-          {#if $usingClasses}
-            <InputWrapper label="Svg class" bind:inputValue="{$svgClass}" class="w-full h-10 col-span-full" />
-          {:else}
-            <InputWrapper label="Svg color" bind:inputValue="{$svgColor}" class="w-full h-10 [grid-column:1/2]" />
-            <InputWrapper label="Svg size" bind:inputValue="{$svgSize}" class="w-full h-10 [grid-column:2/3]" />
-          {/if}
-
-        </div>
+          <div class="w-full h-fit grid grid-cols-2 gap-4 order-last md:order-1">
+            <a
+              class="h-10 w-fit justify-self-start btn cta-bg px-4 flex items-center text-slate-300"
+              href="{downloadUrl}"
+              download="{`${$searchParams.icon}-icon`}"
+            >
+              Download
+              <span class="w-7 h-7 ml-2">
+                <IconWrapper icon="download" />
+              </span>
+            </a>
+  
+            <ToggleClassesButton class="h-10 justify-self-end" />
+  
+            {#if $usingClasses}
+              <InputWrapper label="Svg class" bind:inputValue="{$svgClass}" class="w-full h-10 col-span-full" />
+            {:else}
+              <InputWrapper label="Svg color" bind:inputValue="{$svgColor}" class="w-full h-10 [grid-column:1/2]" />
+              <InputWrapper label="Svg size" bind:inputValue="{$svgSize}" class="w-full h-10 [grid-column:2/3]" />
+            {/if}
+          </div>
+        </section>
 
         {#if icon.variations.length}
           <ul class="w-full h-fit col-span-full flex flex-wrap gap-4">

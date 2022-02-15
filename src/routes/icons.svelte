@@ -32,8 +32,10 @@ let iconInfoOpened = false
 <IconPopup />
 
 <main class="w-full pb-4">
-  <section class="w-full h-fit dark:border-slate-700 justify-self-center md:justify-self-auto border-b border-gray-300">
-    <div class="w-full px-[5%] md:px-[15%] py-8 default-bg text-center md:text-left">
+  <section
+    class="w-full h-fit relative dark:border-slate-700 justify-self-center md:justify-self-auto border-b border-gray-300"
+  >
+    <div class="w-full px-[5%] md:pl-[15%] md:pr-0 py-8 default-bg text-center md:text-left">
       <div class="max-w-[500px] mx-auto md:mx-0">
         <h1 class="text-3xl font-bold font-default-clr">More than {iconsCount} beautiful free svg icons</h1>
         <h2
@@ -64,6 +66,72 @@ let iconInfoOpened = false
         </div>
       </div>
     </div>
+
+    <div
+      class="
+        absolute grid lg:grid-cols-11 grid-rows-6 inset-0 opacity-20 items-center justify-items-center
+        md:right-0 md:w-64 md:inset-auto md:top-0 lg:w-[50vw] 2xl:grid-cols-[repeat(18,1fr)]
+      "
+    >
+      <IconWrapper
+        class="h-20 w-20 stroke-[.6px] font-secondary-clr col-start-1 col-end-3 row-start-2 row-end-4"
+        icon="trash-can"
+        type="stroke"
+      />
+      <IconWrapper
+        class="
+          h-20 w-20 stroke-[.6px] col-start-3 col-end-5 row-start-5 row-end-7
+          text-blue-600 dark:text-indigo-500
+        "
+        icon="database"
+        type="stroke"
+      />
+      <IconWrapper
+        class="
+          h-20 w-20 stroke-[.6px] col-start-5 col-end-7 row-start-1 row-end-3 lg:row-start-2 lg:row-end-4
+          text-blue-600 dark:text-indigo-500
+        "
+        icon="bell"
+        type="stroke"
+      />
+      <IconWrapper
+        class="
+          h-20 w-20 stroke-[.6px] col-start-7 col-end-9 row-start-5 row-end-7 hidden lg:block
+          font-secondary-clr
+        "
+        icon="shield-check"
+        type="stroke"
+      />
+      <IconWrapper
+        class="h-20 w-20 stroke-[.6px] font-secondary-clr col-start-9 col-end-11 row-start-2 row-end-4 hidden lg:block"
+        icon="stack"
+        type="stroke"
+      />
+      <IconWrapper
+        class="
+          h-20 w-20 stroke-[.6px] col-start-11 col-end-13 row-start-5 row-end-7 hidden 2xl:block
+          text-blue-600 dark:text-indigo-500
+        "
+        icon="calendar"
+        type="stroke"
+      />
+      <IconWrapper
+        class="
+          h-20 w-20 stroke-[.6px] col-start-13 col-end-[15] row-start-2 row-end-4 hidden 2xl:block
+          text-blue-600 dark:text-indigo-500
+        "
+        icon="sun"
+        type="stroke"
+      />
+      <IconWrapper
+        class="
+          h-20 w-20 stroke-[.6px] col-start-[15] col-end-[17] row-start-5 row-end-7 hidden 2xl:block
+          font-secondary-clr
+        "
+        icon="microphone"
+        type="stroke"
+      />
+    </div>
   </section>
 
   <section class="pt-4 px-[5%] md:px-[15%] flex flex-col gap-y-4">
@@ -87,7 +155,7 @@ let iconInfoOpened = false
       >
         <p
           class="
-            font-medium text-sm dark:text-slate-400 text-slate-400 overflow-hidden transition-all
+            font-medium text-sm text-slate-400 overflow-hidden transition-all
             {iconInfoOpened ? 'max-h-20' : 'max-h-5'} sm:max-h-fit
           ">
           {iconInformation[$searchParams['icon-type']]}

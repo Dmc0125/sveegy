@@ -2,6 +2,12 @@
 
 All notable changes to Sveegy will be documented in this file.
 
+## [0.16.0] - 2022-02-15
+
+- Added `docs` page for sveegy-icons package
+- Code highlighting
+- Icon popup ui changes
+
 ## [0.15.3] - 2022-02-06
 
 - Code refactoring

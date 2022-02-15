@@ -69,3 +69,7 @@
 .nav-link-bg {
   @apply focus:bg-blue-600 hover:bg-blue-600 focus:dark:bg-indigo-500 hover:dark:bg-indigo-500;
 }
+
+.code-wrapper-bg {
+  @apply bg-slate-800 dark:bg-gray-900;
+}

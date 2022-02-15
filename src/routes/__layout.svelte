@@ -69,7 +69,7 @@ import { colorMode } from '$lib/store'
     font-family: 'Red Hat Display', sans-serif;
   }
 
-  :global(pre) {
+  :global(pre, pre *) {
     font-family: 'Red Hat Mono', monospace;
   }
 
