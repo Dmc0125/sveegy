@@ -38,7 +38,7 @@ const updateSize = (e: Event) => {
           : 'text-green-600 dark:text-green-400'
       }"
     >
-      <IconWrapper icon="{$notification.error ? 'close-circle' : 'tick-circle'}" type="stroke" />
+      <IconWrapper icon="{$notification.error ? 'close-circle' : 'tick-circle'}" />
     </div>
 
     <h1>{$notification.message}</h1>

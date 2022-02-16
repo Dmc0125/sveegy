@@ -10,9 +10,9 @@ import { searchParams, initSearchParams } from '$lib/store/searchParams'
 import formatToDisplayName from '$lib/utils/formatToDisplayName'
 import Icon from '$lib/components/Icon.svelte'
 
-const iconsCount = Math.floor(icons.outline.length / 10) * 10
+const iconsCount = Math.floor(icons.stroke.length / 10) * 10
 
-initSearchParams('icon-type', { defaultValue: 'outline', types: Object.keys(icons) })
+initSearchParams('icon-type', { defaultValue: 'stroke', types: Object.keys(icons) })
 const switchIconType = (type: string) => {
   $searchParams['icon-type'] = type as IconType
 }
@@ -76,7 +76,6 @@ let iconInfoOpened = false
       <IconWrapper
         class="h-20 w-20 stroke-[.6px] font-secondary-clr col-start-1 col-end-3 row-start-2 row-end-4"
         icon="trash-can"
-        type="stroke"
       />
       <IconWrapper
         class="
@@ -84,7 +83,6 @@ let iconInfoOpened = false
           text-blue-600 dark:text-indigo-500
         "
         icon="database"
-        type="stroke"
       />
       <IconWrapper
         class="
@@ -92,7 +90,6 @@ let iconInfoOpened = false
           text-blue-600 dark:text-indigo-500
         "
         icon="bell"
-        type="stroke"
       />
       <IconWrapper
         class="
@@ -100,12 +97,10 @@ let iconInfoOpened = false
           font-secondary-clr
         "
         icon="shield-check"
-        type="stroke"
       />
       <IconWrapper
         class="h-20 w-20 stroke-[.6px] font-secondary-clr col-start-9 col-end-11 row-start-2 row-end-4 hidden lg:block"
         icon="stack"
-        type="stroke"
       />
       <IconWrapper
         class="
@@ -113,7 +108,6 @@ let iconInfoOpened = false
           text-blue-600 dark:text-indigo-500
         "
         icon="calendar"
-        type="stroke"
       />
       <IconWrapper
         class="
@@ -121,7 +115,6 @@ let iconInfoOpened = false
           text-blue-600 dark:text-indigo-500
         "
         icon="sun"
-        type="stroke"
       />
       <IconWrapper
         class="
@@ -129,7 +122,6 @@ let iconInfoOpened = false
           font-secondary-clr
         "
         icon="microphone"
-        type="stroke"
       />
     </div>
   </section>
@@ -137,7 +129,7 @@ let iconInfoOpened = false
   <section class="pt-4 px-[5%] md:px-[15%] flex flex-col gap-y-4">
     <header class="w-full h-fit">
       <div class="w-full md:w-1/2 max-w-md mx-auto md:mx-0 flex items-center justify-between gap-x-4">
-        {#each ['outline', 'stroke', 'fill'] as type}
+        {#each ['stroke', 'fill'] as type}
           <button
             class="
               w-full h-fit py-2 font-secondary-clr font-medium default-hover-bg rounded-md ring-effect
@@ -159,12 +151,6 @@ let iconInfoOpened = false
             {iconInfoOpened ? 'max-h-20' : 'max-h-5'} sm:max-h-fit
           ">
           {iconInformation[$searchParams['icon-type']]}
-          <!-- All icons are using 24x24 view box. Stroke size of
-          {
-            $searchParams['icon-type'] === 'outline'
-              ? 'outlined icons is adjusted to size, width and height, of the icon.'
-              : 'stroke icons can be adjusted width stroke-width attribute.'
-          } -->
         </p>
 
         <button

@@ -2,6 +2,12 @@
 
 All notable changes to Sveegy will be documented in this file.
 
+## [0.17.0] - 2022-02-16
+
+- Removed outlined icons
+- Some ui changes
+- Fixed svg copy btn on icon popup
+
 ## [0.16.0] - 2022-02-15
 
 - Added `docs` page for sveegy-icons package

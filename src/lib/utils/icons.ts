@@ -1,9 +1,8 @@
-import iconsOutline from '../../assets/iconsOutline.json'
 import iconsStroke from '../../assets/iconsStroke.json'
 import iconsFill from '../../assets/iconsFill.json'
 import variations from '../../assets/variations.json'
 
-export type IconType = 'outline' | 'stroke' | 'fill'
+export type IconType = 'stroke' | 'fill'
 
 export type Icon = {
   id: string
@@ -19,7 +18,6 @@ const createIconsWithVariations = (_icons: { id: string; paths: string[] }[]) =>
 ))
 
 const iconsWithVariations = {
-  outline: createIconsWithVariations(iconsOutline),
   stroke: createIconsWithVariations(iconsStroke),
   fill: createIconsWithVariations(iconsFill),
 }
@@ -42,7 +40,6 @@ export {
 }
 
 export const iconInformation = {
-  outline: 'All icons are using 24x24 view box. Stroke size of outlined icons is adjusted to size, width and height, of the icon.',
   stroke: 'All icons are using 24x24 view box. Stroke size of stroke icons can be adjusted width stroke-width attribute.',
   fill: 'All icons are using 24x24 view box. Size of filled icons is adjusted to size, width and height of the icon wrapper.',
 }

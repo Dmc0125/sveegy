@@ -15,6 +15,7 @@ import { searchParams } from '$lib/store/searchParams'
 import { getIcon } from '$lib/utils/icons'
 import { svgColor, svgSize, svgClass, usingClasses } from '$lib/store/iconsSettings'
 import { createSvgText, svgTextWrappers } from '$lib/store/svgTextValues'
+import copySvg from '$lib/utils/copySvg'
 
 const closePopup = () => {
   $searchParams.icon = ''
@@ -85,8 +86,9 @@ $: downloadUrl = icon && browser ? createDownloadUrl(icon.paths, $searchParams['
                 col-start-1 col-end-2 default-bg default-hover-bg rounded-md flex items-center justify-center
                 sm:justify-self-start sm:px-3 ring-effect
               "
+              on:click="{() => copySvg(svgText, icon.id)}"
             >
-              <IconWrapper icon="copy" type="stroke" class="w-7 h-7 mr-1" />
+              <IconWrapper icon="copy" class="w-7 h-7 mr-1" />
               Copy
             </button>
 

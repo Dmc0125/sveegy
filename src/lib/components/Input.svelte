@@ -1,8 +1,5 @@
 <script lang="ts">
-import { browser } from '$app/env'
-
 import IconWrapper from '$lib/components/IconWrapper.svelte'
-import { onMount } from 'svelte';
 
 let className = ''
 export let label: string
@@ -13,7 +10,7 @@ export { className as class }
 
 $: isFocused = !!inputValue.length
 
-export let focusOnKey = false
+export let focusOnKey: boolean = false
 
 let inputElement: HTMLInputElement
 const focusInput = (e: KeyboardEvent) => {

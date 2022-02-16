@@ -5,7 +5,7 @@ import { getIcon, type IconType } from '$lib/utils/icons'
 let iconName: string
 export { iconName as icon }
 
-export let type: IconType = 'outline'
+export let type: IconType = 'stroke'
 
 $: icon = getIcon(iconName, type)
 $: {
