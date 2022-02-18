@@ -2,6 +2,12 @@
 
 All notable changes to Sveegy will be documented in this file.
 
+## [0.17.1] - 2022-02-18
+
+- Code refactoring
+- Added no-package docs
+- Docs navigation
+
 ## [0.17.0] - 2022-02-16
 
 - Removed outlined icons

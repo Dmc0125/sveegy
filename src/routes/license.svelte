@@ -11,7 +11,7 @@ import Landing from '$lib/layouts/Landing.svelte'
   <section slot="text" class="font-default-clr w-[min(90%,485px)] flex flex-col gap-y-5">
     <h1 class="text-3xl font-semibold">License</h1>
     <div class="flex flex-col gap-y-4">
-      <h2 class="text-2xl font-medium">Copyright 2020 Dominik Michal</h2>
+      <h2 class="text-2xl font-medium">Copyright 2022 Dominik Michal</h2>
       <p class="font-secondary-clr">
         All images, vectors, and assets published on sveegy are free to use.
         You can use them for commercial and noncommercial purposes. There is no need of

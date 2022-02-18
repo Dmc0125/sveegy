@@ -1,28 +1,29 @@
 <script lang="ts">
+import { fly } from 'svelte/transition'
+import { page } from '$app/stores'
+import { goto } from '$app/navigation'
+
 import IconWrapper from './IconWrapper.svelte'
 import ColorModeButton from './ColorModeButton.svelte'
 
 import githubIcon from '../../assets/github.svg?raw'
-import { page } from '$app/stores'
-import { fade, fly } from 'svelte/transition'
-import { goto } from '$app/navigation'
 import { isNavOpened } from '../store'
 import links from '$lib/utils/links'
+import Overlay from '$lib/layouts/Overlay.svelte'
 
 const closeNavigation = () => {
   $isNavOpened = !$isNavOpened
 }
 </script>
 
-{#if $isNavOpened}
-  <div
-    class="fixed inset-0 dimmed-bg bg-opacity-10 sm:hidden"
-    transition:fade
-    on:click="{closeNavigation}"
-  >
-    {#key $isNavOpened}
+<Overlay
+  show="{$isNavOpened}"
+  class="sm:hidden"
+  on:close="{closeNavigation}"
+>
+  {#key $isNavOpened}
     <div
-      class="w-4/5 max-w-[300px] absolute right-0 px-[5%] py-8 h-full default-bg font-default-clr grid [grid-template-rows:auto_auto_1fr_auto]"
+      class="ml-auto grid [grid-template-rows:auto_auto_1fr_auto] navigation-wrapper font-default-clr"
       transition:fly={{ x: 200 }}
       on:click|stopPropagation
     >
@@ -65,6 +66,5 @@ const closeNavigation = () => {
         <ColorModeButton />
       </section>
     </div>
-    {/key}
-  </div>
-{/if}
+  {/key}
+</Overlay>

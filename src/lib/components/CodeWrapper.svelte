@@ -7,25 +7,12 @@ export { className as class }
 
 <section
   class="
-    relative h-fit code-wrapper-bg font-inverse-clr {className}
+    relative h-fit code-wrapper-bg font-inverse-clr {className} md:rounded-md max-w-[100vw]
   "
 >
   <span class="absolute right-[.5rem] top-[.2rem] font-semibold text-slate-500 text-sm">{lang}</span>
 
-  <div class="w-full overflow-x-auto px-[5%] py-4 text-[.9rem] sm:text-base">
+  <div class="w-full overflow-x-auto px-[5%] md:px-[1.5rem] py-4 text-[.9rem] sm:text-base">
     <slot />
   </div>
 </section>
-
-<style>
-@media (min-width: 650px) {
-  section {
-    border-radius: 0.375rem;
-  }
-
-  div {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-}
-</style>

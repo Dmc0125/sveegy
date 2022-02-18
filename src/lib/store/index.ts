@@ -1,10 +1,12 @@
 import { writable } from 'svelte/store'
 
 const isNavOpened = writable(false)
+const isDocsNavOpened = writable(false)
 const colorMode = writable('light')
 
 export {
   isNavOpened,
+  isDocsNavOpened,
   colorMode,
 }
 

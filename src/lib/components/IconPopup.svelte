@@ -16,6 +16,7 @@ import { getIcon } from '$lib/utils/icons'
 import { svgColor, svgSize, svgClass, usingClasses } from '$lib/store/iconsSettings'
 import { createSvgText, svgTextWrappers } from '$lib/store/svgTextValues'
 import copySvg from '$lib/utils/copySvg'
+import SwitchButton from './SwitchButton.svelte'
 
 const closePopup = () => {
   $searchParams.icon = ''
@@ -27,10 +28,10 @@ const closeOnKeydown = (e: KeyboardEvent) => {
   }
 }
 
-let mode: 'html' | 'jsx' = 'html'
+let mode: 'HTML' | 'JSX' = 'HTML'
 
 $: icon = getIcon($searchParams.icon, $searchParams['icon-type'])
-$: svgText = createSvgText($svgTextWrappers, icon, $searchParams['icon-type'], mode)
+$: svgText = createSvgText($svgTextWrappers, icon, $searchParams['icon-type'], mode.toLowerCase() as 'html' | 'jsx')
 $: downloadUrl = icon && browser ? createDownloadUrl(icon.paths, $searchParams['icon-type']) : ''
 </script>
 
@@ -92,33 +93,12 @@ $: downloadUrl = icon && browser ? createDownloadUrl(icon.paths, $searchParams['
               Copy
             </button>
 
-            <div
-              class="
-                w-full h-full p-[.2rem] flex items-center justify-between gap-x-2
-                secondary-bg rounded-md col-start-2 col-end-3
-              "
-            >
-              <button
-                class="
-                  w-full h-full secondary-hover-bg rounded-md font-medium
-                  ring-effect ring-offset-2 ring-offset-gray-300 dark:ring-offset-slate-700 ring-opacity-5
-                  {mode === 'html' ? 'bg-gray-400 dark:bg-slate-800' : 'secondary-bg'}
-                "
-                on:click="{() => mode = 'html'}"
-              >
-                HTML
-              </button>
-              <button
-                class="
-                  w-full h-full secondary-hover-bg rounded-md font-medium
-                  ring-effect ring-offset-2 ring-offset-gray-300 dark:ring-offset-slate-700 ring-opacity-5
-                  {mode === 'jsx' ? 'bg-gray-400 dark:bg-slate-800' : 'secondary-bg'}
-                "
-                on:click="{() => mode = 'jsx'}"
-              >
-                JSX
-              </button>
-            </div>
+            <SwitchButton
+              class="w-full h-full"
+              options="{['HTML', 'JSX']}"
+              defaultIndex="{0}"
+              bind:activeOption="{mode}"
+            />
           </div>
 
           <div class="w-full h-fit grid grid-cols-2 gap-4 order-last md:order-1">

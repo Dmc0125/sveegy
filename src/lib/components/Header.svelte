@@ -1,11 +1,12 @@
 <script lang="ts">
+import { page } from '$app/stores'
+
 import IconWrapper from './IconWrapper.svelte'
+import ColorModeButton from './ColorModeButton.svelte'
 
 import githubSvg from '../../assets/github.svg?raw'
-import { page } from '$app/stores'
 import { isNavOpened } from '../store'
 import links from '$lib/utils/links'
-import ColorModeButton from './ColorModeButton.svelte'
 </script>
 
 <header class="w-full h-20 px-[5%] flex items-center justify-between">
@@ -18,12 +19,12 @@ import ColorModeButton from './ColorModeButton.svelte'
   <div class="h-10 sm:h-fit">
     <section class="hidden sm:flex items-center w-fit h-fit gap-x-4">
       <nav class="flex gap-x-4 font-default-clr">
-        {#each links as { path, name }}
+        {#each links as { path, name, matcher }}
           <a
             sveltekit:prefetch
             href="{path}"
             title="{name}"
-            class="{$page.url.pathname === path ? 'link-active-clr' : ''} font-default-clr font-medium focus:text-opacity-50"
+            class="{$page.url.pathname.match(matcher) ? 'link-active-clr' : 'font-default-clr'} font-medium focus:text-opacity-50"
           >
             {name}
           </a>

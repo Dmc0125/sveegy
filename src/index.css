@@ -2,60 +2,97 @@
 @tailwind components;
 @tailwind utilities;
 
-.default-bg {
-  @apply bg-gray-200 dark:bg-slate-800;
+@layer components {
+  .navigation-wrapper {
+    @apply w-4/5 max-w-[300px] h-full default-bg px-6 py-8;
+  }
+
+  .btn {
+    @apply rounded-md ring-effect;
+  }
+
+  .docs-wrapper {
+    @apply md:max-w-[700px];
+  }
+
+  .docs-padding-wrapper {
+    @apply px-[5%] md:px-0;
+  }
+
+  .code-highlight {
+    font-family: 'Red Hat Mono';
+    @apply bg-gray-300 px-[.4rem] rounded text-[.925rem] dark:bg-gray-700;
+  }
+
+  .docs-heading {
+    @apply text-base font-semibold text-blue-600 dark:text-indigo-500;
+  }
+
+  .docs-section-heading {
+    @apply font-secondary-clr text-2xl font-bold;
+  }
+
+  .docs-section-subheading {
+    @apply font-semibold text-lg font-secondary-clr;
+  }
 }
 
-.default-hover-bg {
-  @apply hover:bg-gray-300 dark:hover:bg-slate-700
-}
+@layer utilities {
+  .default-bg {
+    @apply bg-gray-200 dark:bg-slate-800;
+  }
+  
+  .default-hover-bg {
+    @apply hover:bg-gray-300 dark:hover:bg-slate-700
+  }
+  
+  .secondary-bg {
+    @apply bg-gray-300 dark:bg-slate-700;
+  }
+  
+  .secondary-hover-bg {
+    @apply hover:bg-gray-400 dark:hover:bg-slate-800;
+  }
+  
+  .secondary-focus-bg {
+    @apply focus:bg-gray-400 dark:focus:bg-slate-800;
+  }
+  
+  .cta-bg {
+    @apply bg-blue-600 dark:bg-indigo-500;
+  }
+  
+  .cta-fill {
+    @apply fill-blue-600 dark:fill-indigo-500;
+  }
+  
+  .dimmed-bg {
+    @apply bg-black bg-opacity-10 dark:bg-white dark:bg-opacity-5
+  }
+  
+  .font-default-clr {
+    @apply text-gray-800 dark:text-gray-200;
+  }
+  
+  .font-secondary-clr {
+    @apply text-gray-700 dark:text-slate-300;
+  }
+  
+  .font-inverse-clr {
+    @apply text-slate-300 dark:text-gray-700;
+  }
 
-.secondary-bg {
-  @apply bg-gray-300 dark:bg-slate-700;
-}
+  .code-wrapper-bg {
+    @apply bg-slate-800 dark:bg-gray-900;
+  }
 
-.secondary-hover-bg {
-  @apply hover:bg-gray-400 dark:hover:bg-slate-800;
-}
-
-.secondary-focus-bg {
-  @apply focus:bg-gray-400 dark:focus:bg-slate-800;
-}
-
-.cta-bg {
-  @apply bg-blue-600 dark:bg-indigo-500;
-}
-
-.cta-fill {
-  @apply fill-blue-600 dark:fill-indigo-500;
-}
-
-.dimmed-bg {
-  @apply bg-black bg-opacity-10 dark:bg-white dark:bg-opacity-5
-}
-
-.font-default-clr {
-  @apply text-gray-800 dark:text-gray-200;
-}
-
-.font-secondary-clr {
-  @apply text-gray-700 dark:text-slate-300;
-}
-
-.font-inverse-clr {
-  @apply text-slate-300 dark:text-gray-700;
-}
-
-.link-active-clr {
-  @apply text-blue-600 dark:text-indigo-500 focus:text-opacity-50 !important;
+  .link-active-clr {
+    @apply text-blue-600 dark:text-indigo-500 focus:text-opacity-50 !important;
+  }
 }
 
 .ring-effect:focus, .ring-effect:focus-visible, .ring-effect:focus-within {
   @apply ring ring-blue-400;
-}
-
-.btn {
-  @apply rounded-md ring-effect;
 }
 
 .opacity-effect:focus, .opacity-effect:focus-visible, .opacity-effect:hover {
@@ -68,8 +105,4 @@
 
 .nav-link-bg {
   @apply focus:bg-blue-600 hover:bg-blue-600 focus:dark:bg-indigo-500 hover:dark:bg-indigo-500;
-}
-
-.code-wrapper-bg {
-  @apply bg-slate-800 dark:bg-gray-900;
 }
