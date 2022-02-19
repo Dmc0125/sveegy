@@ -2,6 +2,10 @@
 
 All notable changes to Sveegy will be documented in this file.
 
+## [0.17.3] - 2022-02-19
+
+- Fixed the bug where the `/docs` page and its children were not loading and redirecting to error page
+
 ## [0.17.2] - 2022-02-19
 
 - Without package docs changed to `/docs`

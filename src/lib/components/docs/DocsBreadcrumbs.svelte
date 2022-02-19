@@ -8,7 +8,7 @@ export { className as class }
 
 <header class="w-full {className}">
   {#each paths as path, i}
-    <span class="text-sm font-secondary-clr {path === paths.at(-1) ? 'font-bold' : ''}">{path}</span>
+    <span class="text-sm font-secondary-clr {path === paths[paths.length - 1] ? 'font-bold' : ''}">{path}</span>
     {#if i !== paths.length - 1}
       <span class="mx-1 font-secondary-clr text-sm">/</span>
     {/if}

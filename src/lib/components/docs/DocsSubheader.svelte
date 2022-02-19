@@ -6,7 +6,6 @@ import { isDocsNavOpened } from '$lib/store'
 
 const toggleDocsNav = () => {
   $isDocsNavOpened = !$isDocsNavOpened
-  console.log($isDocsNavOpened)
 }
 
 let className = ''
