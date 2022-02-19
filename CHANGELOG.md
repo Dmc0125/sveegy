@@ -2,6 +2,10 @@
 
 All notable changes to Sveegy will be documented in this file.
 
+## [0.17.2] - 2022-02-19
+
+- Without package docs changed to `/docs`
+
 ## [0.17.1] - 2022-02-18
 
 - Code refactoring

@@ -12,8 +12,8 @@ export default [
     icon: 'assets',
   },
   {
-    path: '/docs/no-package',
-    matcher: /(\/docs\/)(([a-z]|-)+)$/,
+    path: '/docs',
+    matcher: /(\/docs)/,
     name: 'Docs',
     icon: 'book',
   },

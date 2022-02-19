@@ -6,7 +6,7 @@ import capitalize from '$lib/utils/capitalize'
 const docsLinks = [
   {
     name: 'Without package',
-    path: '/docs/no-package',
+    path: '/docs',
     sections: [
       'usage',
       'without classes',
