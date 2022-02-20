@@ -50,10 +50,13 @@ import { SvHeartFill } from \'sveegy-icons\'
     All included icons are corresponding with icons displayed on
     <a class="text-blue-600 font-medium hover:text-blue-500 dark:hover:text-indigo-400" href="/icons">icons.</a>
     To use them, they have to be prefixed with
-    <span class="code-highlight font-secondary-clr">Sv</span> and suffixed with icon type, which can be
-    <span class="code-highlight font-secondary-clr">Outline</span>,
-    <span class="code-highlight font-secondary-clr">Fill</span> and
-    <span class="code-highlight font-secondary-clr">Stroke</span>.
+    <span class="code-highlight">Sv</span> and suffixed with icon type, which can be
+    <span class="code-highlight">Outline</span>,
+    <span class="code-highlight">Fill</span> and
+    <span class="code-highlight">Stroke</span>.
+    Names of icons are in PascalCase. For example, name of the
+    <span class="code-highlight">Align center</span> stroke icon will be
+    <span class="code-highlight">SvAlignCenterStroke</span>.
   </p>
 </section>
 
@@ -78,9 +81,10 @@ import { SvHeartFill } from \'sveegy-icons\'
   <h2 class="docs-section-heading" id="props">Props</h2>
 
   <p class="mt-4 text-base font-default-clr">
-    All 3 types share two props, size and color. Stroke type icons have an additional strokeWidth prop.
+    Both types have three props, size, color and class. If class prop is used, size prop will not be used and value of color prop will be currentColor.
+    Stroke type icons have an additional strokeWidth prop.
   </p>
-  <p class="mt-2 text-base font-default-clr">
+  <p class="mt-2 text-base font-default-clr font-medium">
     None of the props are required.
   </p>
 </section>
@@ -93,16 +97,21 @@ import { SvHeartFill } from \'sveegy-icons\'
   <div class="w-screen overflow-x-auto md:w-full">
     <div
       class="
-        h-fit grid grid-rows-[2.2rem_auto_2.2rem_2.2rem] grid-cols-[1fr_1fr_1fr_100px] items-center justify-items-start
+        h-fit grid grid-rows-[2.2rem_auto_auto_2.2rem_2.2rem] grid-cols-[1fr_1fr_1fr_100px] items-center justify-items-start
         mt-2 pb-2 gap-x-6 docs-padding-wrapper font-default-clr
       "
     >
-      <h4 class="font-bold font-secondary-clr">Prop</h4>
-      <h4 class="font-bold font-secondary-clr">Type</h4>
-      <h4 class="font-bold font-secondary-clr">Default</h4>
-      <h4 class="font-bold font-secondary-clr">Description</h4>
+      <h4 class="font-bold font-secondary-clr text-[.95rem]">Prop</h4>
+      <h4 class="font-bold font-secondary-clr text-[.95rem]">Type</h4>
+      <h4 class="font-bold font-secondary-clr text-[.95rem]">Default</h4>
+      <h4 class="font-bold font-secondary-clr text-[.95rem]">Description</h4>
 
       <div class="w-full h-[1px] col-start-1 col-end-5 bg-gray-300 dark:bg-slate-700"></div>
+
+      <p>class</p>
+      <p class="code-highlight">string</p>
+      <p>none</p>
+      <p>Svg element class</p>
 
       <p>size</p>
       <p class="code-highlight">string</p>
@@ -125,16 +134,21 @@ import { SvHeartFill } from \'sveegy-icons\'
   <div class="w-screen overflow-x-auto md:w-full">
     <div
       class="
-        h-fit grid grid-rows-[2.2rem_auto_2.2rem_2.2rem_auto] grid-cols-[1fr_1fr_1fr_100px] items-center justify-items-start
+        h-fit grid grid-rows-[2.2rem_auto_auto_2.2rem_2.2rem_auto] grid-cols-[1fr_1fr_1fr_100px] items-center justify-items-start
         mt-2 pb-2 gap-x-6 docs-padding-wrapper font-default-clr
       "
     >
-      <h4 class="font-bold font-secondary-clr">Prop</h4>
-      <h4 class="font-bold font-secondary-clr">Type</h4>
-      <h4 class="font-bold font-secondary-clr">Default</h4>
-      <h4 class="font-bold font-secondary-clr">Description</h4>
+      <h4 class="font-bold font-secondary-clr text-[.95rem]">Prop</h4>
+      <h4 class="font-bold font-secondary-clr text-[.95rem]">Type</h4>
+      <h4 class="font-bold font-secondary-clr text-[.95rem]">Default</h4>
+      <h4 class="font-bold font-secondary-clr text-[.95rem]">Description</h4>
 
       <div class="w-full h-[1px] col-start-1 col-end-5 bg-gray-300 dark:bg-slate-700"></div>
+
+      <p>class</p>
+      <p class="code-highlight">string</p>
+      <p>none</p>
+      <p>Svg element class</p>
 
       <p>size</p>
       <p class="code-highlight">string</p>

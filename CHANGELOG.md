@@ -2,6 +2,15 @@
 
 All notable changes to Sveegy will be documented in this file.
 
+## [0.17.4] - 2022-02-20
+
+- Updated Svelte package docs
+
+### Added
+
+- Stroke icons: clipboard, image-3d, popup, profile-separated
+- Filled icons: clipboard, folder-alt, image-3d, image-alt, popup, profile-separated 
+
 ## [0.17.3] - 2022-02-19
 
 - Fixed the bug where the `/docs` page and its children were not loading and redirecting to error page
