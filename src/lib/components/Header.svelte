@@ -33,7 +33,7 @@ import links from '$lib/utils/links'
 
       <a
         class="w-10 h-10 opacity-effect font-default-clr"
-        href="https://github.com/Dmc0125/sveegy"
+        href="https://github.com/Sveegy"
         title="Sveegy github repository"
         rel="external"
         target="_blank"
@@ -48,7 +48,7 @@ import links from '$lib/utils/links'
       class="w-10 h-10 font-default-clr btn sm:hidden default-hover-bg"
       on:click="{() => $isNavOpened = !$isNavOpened}"
     >
-      <IconWrapper icon="hamburger" />
+      <IconWrapper icon="hamburger-cut" />
     </button>
   </div>
 </header>

@@ -7,6 +7,7 @@ import Illustration from './Illustration.svelte'
 import InputWrapper from './Input.svelte'
 import ToggleClassesButton from './ToggleClassesButton.svelte'
 import CodeWrapper from './CodeWrapper.svelte'
+import SwitchButton from './SwitchButton.svelte'
 
 import formatToDisplayName from '$lib/utils/formatToDisplayName'
 import createDownloadUrl from '$lib/utils/createDownloadUrl'
@@ -16,7 +17,6 @@ import { getIcon } from '$lib/utils/icons'
 import { svgColor, svgSize, svgClass, usingClasses } from '$lib/store/iconsSettings'
 import { createSvgText, svgTextWrappers } from '$lib/store/svgTextValues'
 import copySvg from '$lib/utils/copySvg'
-import SwitchButton from './SwitchButton.svelte'
 
 const closePopup = () => {
   $searchParams.icon = ''
@@ -103,7 +103,7 @@ $: downloadUrl = icon && browser ? createDownloadUrl(icon.paths, $searchParams['
 
           <div class="w-full h-fit grid grid-cols-2 gap-4 order-last md:order-1">
             <a
-              class="h-10 w-fit justify-self-start btn cta-bg px-4 flex items-center text-slate-300"
+              class="h-10 w-fit justify-self-start btn cta-bg px-4 flex items-center text-slate-300 opacity-effect"
               href="{downloadUrl}"
               download="{`${$searchParams.icon}-icon`}"
             >

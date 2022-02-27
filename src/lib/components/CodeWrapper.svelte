@@ -7,7 +7,8 @@ export { className as class }
 
 <section
   class="
-    relative h-fit code-wrapper-bg font-inverse-clr {className} md:rounded-md max-w-[100vw]
+    relative h-fit code-wrapper-bg font-inverse-clr md:rounded-md max-w-[100vw] ring-effect
+    {className}
   "
 >
   <span class="absolute right-[.5rem] top-[.2rem] font-semibold text-slate-500 text-sm">{lang}</span>

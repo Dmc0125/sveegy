@@ -33,7 +33,7 @@ import Landing from '$lib/layouts/Landing.svelte'
       <p class="font-secondary-clr">
         All illustrations used in Sveegy are from
         <a
-          class="text-blue-600 dark:text-indigo-500 font-medium hover:text-blue-500 dark:hover:text-indigo-400"
+          class="font-medium link-active-clr link-hover"
           href="https://undraw.co/"
           rel="external"
           target="_blank"

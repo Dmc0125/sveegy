@@ -2,6 +2,7 @@
 import DocsLinksSection from '$lib/components/docs/DocsLinksSection.svelte'
 import DocsNav from '$lib/components/docs/DocsNav.svelte'
 import DocsSubheader from '$lib/components/docs/DocsSubheader.svelte'
+import DocsWrapper from '$lib/components/docs/DocsWrapper.svelte'
 </script>
 
 <main class="w-fit h-full md:pt-4 pb-8 mx-auto lg:grid lg:grid-cols-[200px_auto] gap-x-8">
@@ -10,8 +11,10 @@ import DocsSubheader from '$lib/components/docs/DocsSubheader.svelte'
     <DocsLinksSection />
   </nav>
 
-  <div class="w-full h-fit flex flex-col gap-y-6 docs-wrapper mx-auto lg:col-start-2 lg:col-end-3">
-    <DocsSubheader class="docs-padding-wrapper" />
+  <div class="w-full md:max-w-[700px] h-fit flex flex-col gap-y-6 mx-auto lg:col-start-2 lg:col-end-3">
+    <DocsWrapper>
+      <DocsSubheader />
+    </DocsWrapper>
     <slot />
   </div>
 </main>

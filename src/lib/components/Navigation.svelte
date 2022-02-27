@@ -12,7 +12,7 @@ import links from '$lib/utils/links'
 import Overlay from '$lib/layouts/Overlay.svelte'
 
 const closeNavigation = () => {
-  $isNavOpened = !$isNavOpened
+  $isNavOpened = false
 }
 </script>
 
@@ -39,11 +39,11 @@ const closeNavigation = () => {
       </header>
 
       <nav class="w-full h-fit mt-8 flex flex-col gap-y-1">
-        {#each links as { name, path, icon }}
+        {#each links as { name, path, icon, matcher }}
           <button
             on:click="{() => goto(path)}"
             title="{name}"
-            class="w-full flex py-1 items-center justify-end rounded-md transition-all pr-0 {$page.url.pathname.endsWith(path) ? 'cta-bg text-gray-200 pr-4' : ''}
+            class="w-full flex py-1 items-center justify-end rounded-md transition-all pr-0 {$page.url.pathname.match(matcher) ? 'cta-bg text-gray-200 pr-4' : ''}
               hover:pr-4 hover:text-gray-200 focus:pr-4 focus:text-gray-200 nav-link-bg"
           >
             <span class="mr-4">{name}</span>
@@ -55,7 +55,7 @@ const closeNavigation = () => {
       <section class="row-start-4 flex justify-end items-center gap-x-4">
         <a
           class="w-8 h-8 opacity-effect"
-          href="https://github.com/Dmc0125/sveegy"
+          href="https://github.com/Sveegy"
           title="Sveegy github repository"
           rel="external"
           target="_blank"

@@ -26,7 +26,7 @@ export const createPaths = (paths: string[], jsx: boolean, type: IconType) => (
 )
 
 const setNonClassAttrs = (jsx: boolean, { size, color }: StyleOptions) => (
-  `style=${jsx ? `"{{ color: ${color} }}"` : `"color: ${color}"`} width="${size}" height="${size}"`
+  `style=${jsx ? `{{ color: '${color}' }}` : `"color: ${color}"`} width="${size}" height="${size}"`
 )
 const setClassAttr = (jsx: boolean, className: string) => `class${jsx ? 'Name' : ''}="${className}"`
 

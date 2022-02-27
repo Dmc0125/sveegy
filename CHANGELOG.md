@@ -2,6 +2,11 @@
 
 All notable changes to Sveegy will be documented in this file.
 
+## [0.18.0] - 2022-02-27
+
+- Added Vue docs, fixed Svelte docs
+- Fixed icons html for jsx
+
 ## [0.17.4] - 2022-02-20
 
 - Updated Svelte package docs

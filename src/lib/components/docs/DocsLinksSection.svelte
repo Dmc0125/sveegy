@@ -1,4 +1,5 @@
 <script lang="ts">
+import { goto } from '$app/navigation'
 import { page } from '$app/stores'
 
 import capitalize from '$lib/utils/capitalize'
@@ -23,7 +24,20 @@ const docsLinks = [
       'example',
       'output',
       'props',
-      'fill outline',
+      'fill',
+      'stroke',
+    ],
+  },
+  {
+    name: 'Vue',
+    path: '/docs/vue',
+    sections: [
+      'installation',
+      'usage',
+      'example',
+      'output',
+      'props',
+      'fill',
       'stroke',
     ],
   },
@@ -45,12 +59,15 @@ $: {
 
 {#each docsLinks as { name, path, sections }}
   <div class="flex flex-col">
-    <a
-      href="{path}"
-      class="text-lg font-semibold opacity-effect {urlPath === path ? 'link-active-clr' : 'font-secondary-clr'}"
+    <button
+      on:click="{() => goto(path)}"
+      class="
+        text-lg font-semibold opacity-effect text-left
+        {urlPath === path ? 'link-active-clr' : 'font-secondary-clr'}
+      "
     >
       {name}
-    </a>
+    </button>
     {#each sections as sectionName}
       <a
         href="{path}#{sectionName}"

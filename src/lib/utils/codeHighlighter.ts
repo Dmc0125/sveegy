@@ -107,7 +107,7 @@ const highlight = (code: string, highlightJs = false) => {
 
     // Check for closing html or comment tag
     if (char === '>') {
-      if (segment.match(openScriptTag) && highlightJs) {
+      if ((segment.match(openScriptTag) || segment.match('setup')) && highlightJs) {
         isJs = true
       }
 
@@ -138,8 +138,12 @@ const highlight = (code: string, highlightJs = false) => {
       continue
     }
 
-    if (state === 'propValue' && segment.length && char === '"') {
-      highlightedCode += wrapSegment(`${segment}"`, state)
+    if (
+      state === 'propValue'
+      && segment.length
+      && (char === '"' || (char === '}' && segment[segment.length - 1] === '}'))
+    ) {
+      highlightedCode += wrapSegment(`${segment}${char}`, state)
       segment = ''
       state = 'htmlTag'
       continue

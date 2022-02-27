@@ -1,12 +1,10 @@
 <script lang="ts">
 import { page } from '$app/stores'
 
-const paths = $page.url.pathname.split('/').splice(1)
-let className = ''
-export { className as class }
+$: paths = $page.url.pathname.split('/').splice(1)
 </script>
 
-<header class="w-full {className}">
+<header class="w-full">
   {#each paths as path, i}
     <span class="text-sm font-secondary-clr {path === paths[paths.length - 1] ? 'font-bold' : ''}">{path}</span>
     {#if i !== paths.length - 1}
