@@ -2,6 +2,10 @@
 
 All notable changes to Sveegy will be documented in this file.
 
+## [0.18.1] - 2022-02-28
+
+- Added 3 new icons with both types: cloud, cloud-download, cloud-upload
+
 ## [0.18.0] - 2022-02-27
 
 - Added Vue docs, fixed Svelte docs
