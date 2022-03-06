@@ -6,8 +6,8 @@ import { createPaths, createSvg } from '$lib/utils/createSvgHtml'
 import highlight from '$lib/utils/codeHighlighter'
 
 import CodeWrapper from '$lib/components/CodeWrapper.svelte'
-import IconWrapper from '$lib/components/IconWrapper.svelte'
-import SwitchButton from '$lib/components/SwitchButton.svelte'
+import IconWrapper from '$lib/components/utils/IconWrapper.svelte'
+import SwitchButton from '$lib/components/utils/SwitchButton.svelte'
 import DocsWrapper from '$lib/components/docs/DocsWrapper.svelte'
 import DocsHeading from '$lib/components/docs/DocsHeading.svelte'
 

@@ -4,7 +4,7 @@ import Disclaimer from '$lib/components/Disclaimer.svelte'
 import DocsHeading from '$lib/components/docs/DocsHeading.svelte'
 import DocsTable from '$lib/components/docs/DocsTable.svelte'
 import DocsWrapper from '$lib/components/docs/DocsWrapper.svelte'
-import IconWrapper from '$lib/components/IconWrapper.svelte'
+import IconWrapper from '$lib/components/utils/IconWrapper.svelte'
 
 import highlight from '$lib/utils/codeHighlighter'
 
@@ -40,7 +40,6 @@ const strokeTableColumns = [
 </svelte:head>
 
 <Disclaimer />
-
 
 <DocsWrapper>
   <DocsHeading type="heading" title="Svelte" />

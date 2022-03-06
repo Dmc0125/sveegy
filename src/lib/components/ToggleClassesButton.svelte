@@ -1,5 +1,5 @@
 <script lang="ts">
-import IconWrapper from './IconWrapper.svelte'
+import IconWrapper from './utils/IconWrapper.svelte'
 
 import { usingClasses } from '$lib/store/iconsSettings'
 

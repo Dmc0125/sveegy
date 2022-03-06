@@ -1,11 +1,11 @@
 <script lang="ts">
 import { page } from '$app/stores'
 
-import IconWrapper from './IconWrapper.svelte'
+import IconWrapper from '../utils/IconWrapper.svelte'
 import ColorModeButton from './ColorModeButton.svelte'
 
-import githubSvg from '../../assets/github.svg?raw'
-import { isNavOpened } from '../store'
+import githubSvg from '../../../assets/github.svg?raw'
+import { isNavOpened } from '$lib/store'
 import links from '$lib/utils/links'
 </script>
 

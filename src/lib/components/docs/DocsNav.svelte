@@ -4,7 +4,7 @@ import { fly } from 'svelte/transition'
 import { isDocsNavOpened } from '../../store'
 
 import Overlay from '$lib/layouts/Overlay.svelte'
-import IconWrapper from '../IconWrapper.svelte'
+import IconWrapper from '../utils/IconWrapper.svelte'
 import DocsLinksSection from './DocsLinksSection.svelte'
 </script>
 

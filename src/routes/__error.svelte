@@ -1,6 +1,6 @@
 <script lang="ts">
 import Illustration from '$lib/components/Illustration.svelte'
-import Hero from '$lib/components/Hero.svelte'
+import Hero from '$lib/components/utils/Hero.svelte'
 import Landing from '$lib/layouts/Landing.svelte'
 
 import { page } from '$app/stores'

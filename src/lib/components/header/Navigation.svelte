@@ -3,11 +3,11 @@ import { fly } from 'svelte/transition'
 import { page } from '$app/stores'
 import { goto } from '$app/navigation'
 
-import IconWrapper from './IconWrapper.svelte'
+import IconWrapper from '../utils/IconWrapper.svelte'
 import ColorModeButton from './ColorModeButton.svelte'
 
-import githubIcon from '../../assets/github.svg?raw'
-import { isNavOpened } from '../store'
+import githubIcon from '../../../assets/github.svg?raw'
+import { isNavOpened } from '$lib/store'
 import links from '$lib/utils/links'
 import Overlay from '$lib/layouts/Overlay.svelte'
 

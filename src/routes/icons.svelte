@@ -1,14 +1,15 @@
 <script lang="ts">
-import IconWrapper from '$lib/components/IconWrapper.svelte'
-import InputCustom from '$lib/components/Input.svelte'
+import IconWrapper from '$lib/components/utils/IconWrapper.svelte'
+import InputCustom from '$lib/components/utils/Input.svelte'
 import IconPopup from '$lib/components/IconPopup.svelte'
-import IconSettings from '$lib/components/IconSettings.svelte'
+import IconSettings from '$lib/components/icons/IconSettings.svelte'
 import Notification from '$lib/components/Notification.svelte'
 
 import { icons, IconType, filterIcons, iconInformation } from '$lib/utils/icons'
 import { searchParams, initSearchParams } from '$lib/store/searchParams'
 import formatToDisplayName from '$lib/utils/formatToDisplayName'
-import Icon from '$lib/components/Icon.svelte'
+import Icon from '$lib/components/icons/Icon.svelte'
+import bgSm from '../assets/iconsBg/sm.svg'
 
 const iconsCount = Math.floor(icons.stroke.length / 10) * 10
 
@@ -18,11 +19,10 @@ const switchIconType = (type: string) => {
 }
 
 initSearchParams('icon')
-
 let searchTerm = ''
 $: searchedIcons = filterIcons(searchTerm, $searchParams['icon-type'])
 
-let iconInfoOpened = false
+let typeInfoOpened = false
 </script>
 
 <svelte:head>
@@ -33,9 +33,13 @@ let iconInfoOpened = false
 
 <main class="w-full pb-4">
   <section
-    class="w-full h-fit relative dark:border-slate-700 justify-self-center md:justify-self-auto border-b border-gray-300"
+    class="
+      w-full h-fit relative dark:border-slate-700 justify-self-center md:justify-self-auto border-b border-gray-300
+    "
   >
-    <div class="w-full px-[5%] md:pl-[15%] md:pr-0 py-8 default-bg text-center md:text-left">
+    <div
+      class="w-full px-[5%] md:pl-[15%] md:pr-0 py-8 default-bg text-center md:text-left"
+    >
       <div class="max-w-[500px] mx-auto md:mx-0">
         <h1 class="text-3xl font-bold font-default-clr">More than {iconsCount} beautiful free svg icons</h1>
         <h2
@@ -63,11 +67,25 @@ let iconInfoOpened = false
             </svg>
             <span class="font-bold text-sm ml-2 font-secondary-clr">JSX</span>
           </div>
+
+          <a
+            class="
+              cta-bg h-10 px-4 ml-4 rounded-md text-gray-200 flex items-center justify-center gap-x-2
+              ring-effect
+            "
+            href="/sprites.zip"
+            download="sprites"
+          >
+            <span>
+              Download sprites
+            </span>
+            <IconWrapper icon="download" class="w-6 h-6" />
+          </a>
         </div>
       </div>
     </div>
 
-    <div
+    <!-- <div
       class="
         absolute grid lg:grid-cols-11 grid-rows-6 inset-0 opacity-20 items-center justify-items-center
         md:right-0 md:w-64 md:inset-auto md:top-0 lg:w-[50vw] 2xl:grid-cols-[repeat(18,1fr)]
@@ -123,7 +141,7 @@ let iconInfoOpened = false
         "
         icon="microphone"
       />
-    </div>
+    </div> -->
   </section>
 
   <section class="pt-4 px-[5%] md:px-[15%] flex flex-col gap-y-4">
@@ -148,7 +166,7 @@ let iconInfoOpened = false
         <p
           class="
             font-medium text-sm text-slate-400 overflow-hidden transition-all
-            {iconInfoOpened ? 'max-h-20' : 'max-h-5'} sm:max-h-fit
+            {typeInfoOpened ? 'max-h-20' : 'max-h-5'} sm:max-h-fit
           ">
           {iconInformation[$searchParams['icon-type']]}
         </p>
@@ -156,9 +174,9 @@ let iconInfoOpened = false
         <button
           class="
             w-6 h-6 flex-shrink-0 self-start dark:text-slate-400 text-slate-400 transition-all sm:hidden
-            {iconInfoOpened ? 'transform rotate-180' : ''}
+            {typeInfoOpened ? 'transform rotate-180' : ''}
           "
-          on:click="{() => iconInfoOpened = !iconInfoOpened}"
+          on:click="{() => typeInfoOpened = !typeInfoOpened}"
         >
           <IconWrapper
             icon="chevron-down"

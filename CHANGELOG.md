@@ -2,6 +2,10 @@
 
 All notable changes to Sveegy will be documented in this file.
 
+## [0.19.0] - 2022-03-06
+
+- Added svg sprites as an option to use sveegy-icons
+
 ## [0.18.1] - 2022-02-28
 
 - Added 3 new icons with both types: cloud, cloud-download, cloud-upload

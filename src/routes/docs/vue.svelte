@@ -5,7 +5,7 @@ import Disclaimer from '$lib/components/Disclaimer.svelte'
 import CodeWrapper from '$lib/components/CodeWrapper.svelte'
 import DocsWrapper from '$lib/components/docs/DocsWrapper.svelte'
 import DocsHeading from '$lib/components/docs/DocsHeading.svelte'
-import IconWrapper from '$lib/components/IconWrapper.svelte'
+import IconWrapper from '$lib/components/utils/IconWrapper.svelte'
 import DocsTable from '$lib/components/docs/DocsTable.svelte'
 
 const code = `

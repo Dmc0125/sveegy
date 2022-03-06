@@ -1,5 +1,5 @@
 <script lang="ts">
-import IconWrapper from '../IconWrapper.svelte'
+import IconWrapper from '../utils/IconWrapper.svelte'
 import DocsBreadcrumbs from './DocsBreadcrumbs.svelte'
 
 import { isDocsNavOpened } from '$lib/store'

@@ -7,7 +7,7 @@ import { createSvg, createPaths } from '$lib/utils/createSvgHtml'
 import { svgClass, svgColor, svgSize, usingClasses } from '$lib/store/iconsSettings'
 import formatToDisplayName from '$lib/utils/formatToDisplayName'
 
-import IconWrapper from './IconWrapper.svelte'
+import IconWrapper from '../utils/IconWrapper.svelte'
 import copySvg from '$lib/utils/copySvg';
 
 $: iconType = $searchParams['icon-type']

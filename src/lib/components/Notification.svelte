@@ -1,5 +1,5 @@
 <script lang="ts">
-import IconWrapper from './IconWrapper.svelte'
+import IconWrapper from './utils/IconWrapper.svelte'
 
 import { notification } from '$lib/store'
 import { fly } from 'svelte/transition'

@@ -1,7 +1,7 @@
 <script lang="ts">
-import InputCustom from './Input.svelte'
-import IconWrapper from './IconWrapper.svelte'
-import ToggleClassesButton from './ToggleClassesButton.svelte'
+import InputCustom from '../utils/Input.svelte'
+import IconWrapper from '../utils/IconWrapper.svelte'
+import ToggleClassesButton from '../ToggleClassesButton.svelte'
 
 import { svgClass, svgColor, svgSize, usingClasses } from '$lib/store/iconsSettings'
 import { fade } from 'svelte/transition'

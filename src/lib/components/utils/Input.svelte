@@ -1,5 +1,5 @@
 <script lang="ts">
-import IconWrapper from '$lib/components/IconWrapper.svelte'
+import IconWrapper from '$lib/components/utils/IconWrapper.svelte'
 
 let className = ''
 export let label: string

@@ -2,12 +2,12 @@
 import { fade, fly } from 'svelte/transition'
 import { browser } from '$app/env'
 
-import IconWrapper from './IconWrapper.svelte'
+import IconWrapper from './utils/IconWrapper.svelte'
 import Illustration from './Illustration.svelte'
-import InputWrapper from './Input.svelte'
+import InputWrapper from './utils/Input.svelte'
 import ToggleClassesButton from './ToggleClassesButton.svelte'
 import CodeWrapper from './CodeWrapper.svelte'
-import SwitchButton from './SwitchButton.svelte'
+import SwitchButton from './utils/SwitchButton.svelte'
 
 import formatToDisplayName from '$lib/utils/formatToDisplayName'
 import createDownloadUrl from '$lib/utils/createDownloadUrl'

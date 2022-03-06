@@ -1,5 +1,5 @@
 <script lang="ts">
-import IconWrapper from './IconWrapper.svelte'
+import IconWrapper from './utils/IconWrapper.svelte'
 </script>
 
 <div class="w-full h-fit px-[5%] py-2 bg-red-600 bg-opacity-75 mx-auto flex items-center md:rounded-md">

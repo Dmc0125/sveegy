@@ -16,6 +16,11 @@ const docsLinks = [
     ],
   },
   {
+    name: 'Sprites',
+    path: '/docs/sprites',
+    sections: ['usage'],
+  },
+  {
     name: 'Svelte',
     path: '/docs/svelte',
     sections: [
