@@ -42,8 +42,8 @@ const createSprites = (icons) => {
 }
 
 const _icons = {
-  stroke: strokeIcons,
-  fill: fillIcons,
+  'sveegy-stroke': strokeIcons,
+  'sveegy-fill': fillIcons,
 }
 
 /**

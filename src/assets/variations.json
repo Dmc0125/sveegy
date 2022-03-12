@@ -1,121 +1,446 @@
 {
-  "add-assets": ["plus"],
+  "add-assets": [
+    "plus"
+  ],
   "align-center": [],
   "align-left": [],
   "align-right": [],
-  "archive": ["box"],
-  "arrow-down": ["chevron down"],
-  "arrow-down-circle": ["chevron down", "circle"],
-  "arrow-left": ["chevron left"],
-  "arrow-left-circle": ["chevron left", "circle"],
-  "arrow-right": ["chevron right"],
-  "arrow-right-circle": ["chevron right", "circle"],
-  "arrow-up": ["chevron up"],
-  "arrow-up-circle": ["chevron up", "circle"],
-  "assets": ["grid", "components"],
-  "bar-chart": ["random"],
-  "bar-chart-ascending": ["up"],
-  "bar-chart-descending": ["down"],
-  "bell": ["ring"],
-  "book": ["lists", "pages", "opened"],
-  "bookmark": ["bookmarks", "save", "favorite"],
-  "book-closed": ["lists", "pages", "closed"],
-  "calendar": ["time", "activities"],
-  "camera": ["video"],
-  "chart-trending-down": ["down trend"],
-  "chart-trending-up": ["up trend"],
-  "chat": ["message"],
-  "chevron-down": ["arrow down"],
-  "chevron-down-circle": ["arrow down", "circle"],
-  "chevron-left": ["arrow left"],
-  "chevron-left-circle": ["arrow left", "circle"],
-  "chevron-right": ["arrow right"],
-  "chevron-right-circle": ["arrow right", "circle"],
-  "chevron-up": ["arrow up"],
-  "chevron-up-circle": ["arrow up", "circle"],
-  "clipboard": ["copy"],
-  "clock": ["time", "alarm"],
-  "close": ["exit"],
-  "close-circle": ["exit"],
-  "cloud": ["storage", "weather"],
-  "cloud-download": ["storage", "save", "arrow", "chevron"],
-  "cloud-upload": ["storage", "share", "arrow", "chevron"],
-  "code": ["html", "tag"],
-  "contract-arrows": ["minimize", "close", "exit", "arrows"],
-  "contract-chevrons": ["minimize", "close", "exit", "chevrons"],
-  "copy": ["clipboard"],
-  "cube": ["3d"],
-  "cube-transparent": ["3d"],
-  "database": ["layers", "storage"],
-  "discover": ["magnifying glass", "search"],
-  "double-chevron-down": ["double arrow down"],
-  "double-chevron-down-circle": ["double arrow down", "circle"],
-  "double-chevron-left": ["double arrow left"],
-  "double-chevron-left-circle": ["double arrow left", "circle"],
-  "double-chevron-right": ["double arrow right"],
-  "double-chevron-right-circle": ["double arrow right", "circle"],
-  "double-chevron-up": ["double arrow up"],
-  "double-chevron-up-circle": ["double arrow up", "circle"],
-  "download": ["save"],
-  "download-alt": ["save"],
-  "expand": ["fullscreen", "maximize"],
-  "expand-arrows": ["fullscreen", "maximize", "arrows"],
-  "expand-chevrons": ["fullscreen", "maximize", "chevrons"],
-  "file": ["document"],
-  "filter": ["sort"],
-  "folder": ["brochure", "leaflet"],
-  "folder-alt": ["brochure", "leaflet"],
-  "hamburger": ["menu", "settings", "navigation", "bars"],
-  "hamburger-cut": ["menu", "settings", "navigation", "bars"],
-  "hamburger-triangular": ["menu", "settings", "navigation", "bars"],
-  "heart": ["like", "favorite", "bookmark", "save"],
-  "hide": ["cover", "transform", "eye", "password"],
-  "home": ["house"],
-  "image": ["media", "photograph"],
-  "image-3d": ["media", "photograph"],
-  "image-alt": ["media", "photograph"],
-  "info": ["information", "more"],
-  "info-circle": ["information"],
-  "license": ["list", "paper"],
-  "lock": ["secret"],
-  "lock-unlocked": ["opened", "public"],
-  "menu": ["settings", "more"],
-  "menu-horizontal": ["settings", "more", "horizontal"],
-  "messages": ["email", "chat", "inbox"],
-  "microphone": ["sound"],
-  "microphone-muted": ["sound"],
-  "minus": ["subtract"],
-  "minus-circle": ["subtract"],
-  "moon": ["night", "dark mode"],
-  "news": ["paper"],
-  "pencil": ["draw"],
-  "pie-chart": ["quarter"],
-  "plus": ["add"],
-  "plus-circle": ["add"],
-  "popup": ["blank page", "new page", "open"],
-  "profile": ["account", "settings"],
-  "profile-separated": ["account", "settings"],
-  "scale": ["mit"],
-  "screen": ["monitor", "display"],
-  "search": ["browse", "explore"],
-  "send": ["chat", "plane"],
-  "settings": ["adjustments"],
-  "share": ["social"],
-  "share-arrow": ["chevron"],
-  "share-arrow-alt": ["chevron"],
-  "shield": ["armor"],
-  "shield-check": ["tick", "armor", "check mark"],
-  "shield-star": ["armor", "star"],
-  "shopping-cart": ["checkout", "trolley"],
-  "show": ["eye", "password", "transform"],
-  "speaker": ["sound"],
-  "speaker-off": ["sound"],
-  "star": ["favorite", "bookmark"],
-  "stack": ["rectangles", "layers"],
-  "sun": ["day", "light mode"],
-  "swap": ["trade", "rounded"],
-  "tick": ["check", "done"],
-  "tick-circle": ["check", "done"],
-  "trade": ["swap", "arrows", "chevrons", "switch"],
-  "trash-can": ["bin"]
+  "archive": [
+    "box"
+  ],
+  "arrow-down": [
+    "chevron down"
+  ],
+  "arrow-down-circle": [
+    "chevron down",
+    "circle"
+  ],
+  "arrow-left": [
+    "chevron left"
+  ],
+  "arrow-left-circle": [
+    "chevron left",
+    "circle"
+  ],
+  "arrow-right": [
+    "chevron right"
+  ],
+  "arrow-right-circle": [
+    "chevron right",
+    "circle"
+  ],
+  "arrow-up": [
+    "chevron up"
+  ],
+  "arrow-up-circle": [
+    "chevron up",
+    "circle"
+  ],
+  "assets": [
+    "grid",
+    "components"
+  ],
+  "bar-chart": [
+    "random"
+  ],
+  "bar-chart-ascending": [
+    "up"
+  ],
+  "bar-chart-descending": [
+    "down"
+  ],
+  "bell": [
+    "ring"
+  ],
+  "book": [
+    "lists",
+    "pages",
+    "opened"
+  ],
+  "book-closed": [
+    "lists",
+    "pages",
+    "closed"
+  ],
+  "bookmark": [
+    "bookmarks",
+    "save",
+    "favorite"
+  ],
+  "calendar": [
+    "time",
+    "activities"
+  ],
+  "camera": [
+    "video"
+  ],
+  "chart-trending-down": [
+    "down trend"
+  ],
+  "chart-trending-up": [
+    "up trend"
+  ],
+  "chat": [
+    "message"
+  ],
+  "chevron-down": [
+    "arrow down"
+  ],
+  "chevron-down-circle": [
+    "arrow down",
+    "circle"
+  ],
+  "chevron-left": [
+    "arrow left"
+  ],
+  "chevron-left-circle": [
+    "arrow left",
+    "circle"
+  ],
+  "chevron-right": [
+    "arrow right"
+  ],
+  "chevron-right-circle": [
+    "arrow right",
+    "circle"
+  ],
+  "chevron-up": [
+    "arrow up"
+  ],
+  "chevron-up-circle": [
+    "arrow up",
+    "circle"
+  ],
+  "clipboard": [
+    "copy"
+  ],
+  "clock": [
+    "time",
+    "alarm"
+  ],
+  "close": [
+    "exit"
+  ],
+  "close-circle": [
+    "exit"
+  ],
+  "cloud": [
+    "storage",
+    "weather"
+  ],
+  "cloud-download": [
+    "storage",
+    "save",
+    "arrow",
+    "chevron"
+  ],
+  "cloud-upload": [
+    "storage",
+    "share",
+    "arrow",
+    "chevron"
+  ],
+  "code": [
+    "html",
+    "tag"
+  ],
+  "contract-arrows": [
+    "minimize",
+    "close",
+    "exit",
+    "arrows"
+  ],
+  "contract-chevrons": [
+    "minimize",
+    "close",
+    "exit",
+    "chevrons"
+  ],
+  "copy": [
+    "clipboard"
+  ],
+  "cube": [
+    "3d"
+  ],
+  "cube-transparent": [
+    "3d"
+  ],
+  "database": [
+    "layers",
+    "storage"
+  ],
+  "discover": [
+    "magnifying glass",
+    "search"
+  ],
+  "double-chevron-down": [
+    "double arrow down"
+  ],
+  "double-chevron-down-circle": [
+    "double arrow down",
+    "circle"
+  ],
+  "double-chevron-left": [
+    "double arrow left"
+  ],
+  "double-chevron-left-circle": [
+    "double arrow left",
+    "circle"
+  ],
+  "double-chevron-right": [
+    "double arrow right"
+  ],
+  "double-chevron-right-circle": [
+    "double arrow right",
+    "circle"
+  ],
+  "double-chevron-up": [
+    "double arrow up"
+  ],
+  "double-chevron-up-circle": [
+    "double arrow up",
+    "circle"
+  ],
+  "download": [
+    "save"
+  ],
+  "download-alt": [
+    "save"
+  ],
+  "expand": [
+    "fullscreen",
+    "maximize"
+  ],
+  "expand-arrows": [
+    "fullscreen",
+    "maximize",
+    "arrows"
+  ],
+  "expand-chevrons": [
+    "fullscreen",
+    "maximize",
+    "chevrons"
+  ],
+  "file": [
+    "document"
+  ],
+  "filter": [
+    "sort"
+  ],
+  "folder": [
+    "brochure",
+    "leaflet"
+  ],
+  "folder-alt": [
+    "brochure",
+    "leaflet"
+  ],
+  "hamburger": [
+    "menu",
+    "settings",
+    "navigation",
+    "bars"
+  ],
+  "hamburger-cut": [
+    "menu",
+    "settings",
+    "navigation",
+    "bars"
+  ],
+  "hamburger-triangular": [
+    "menu",
+    "settings",
+    "navigation",
+    "bars"
+  ],
+  "heart": [
+    "like",
+    "favorite",
+    "bookmark",
+    "save"
+  ],
+  "hide": [
+    "cover",
+    "transform",
+    "eye",
+    "password"
+  ],
+  "home": [
+    "house"
+  ],
+  "image": [
+    "media",
+    "photograph"
+  ],
+  "image-3d": [
+    "media",
+    "photograph"
+  ],
+  "image-alt": [
+    "media",
+    "photograph"
+  ],
+  "info": [
+    "information",
+    "more"
+  ],
+  "info-circle": [
+    "information"
+  ],
+  "license": [
+    "list",
+    "paper"
+  ],
+  "lock": [
+    "secret"
+  ],
+  "lock-unlocked": [
+    "opened",
+    "public"
+  ],
+  "menu": [
+    "settings",
+    "more"
+  ],
+  "menu-horizontal": [
+    "settings",
+    "more",
+    "horizontal"
+  ],
+  "messages": [
+    "email",
+    "chat",
+    "inbox"
+  ],
+  "microphone": [
+    "sound"
+  ],
+  "microphone-muted": [
+    "sound"
+  ],
+  "minus": [
+    "subtract"
+  ],
+  "minus-circle": [
+    "subtract"
+  ],
+  "moon": [
+    "night",
+    "dark mode"
+  ],
+  "news": [
+    "paper"
+  ],
+  "pencil": [
+    "draw"
+  ],
+  "pie-chart": [
+    "quarter"
+  ],
+  "plus": [
+    "add"
+  ],
+  "plus-circle": [
+    "add"
+  ],
+  "popup": [
+    "blank page",
+    "new page",
+    "open"
+  ],
+  "profile": [
+    "account",
+    "settings"
+  ],
+  "profile-separated": [
+    "account",
+    "settings"
+  ],
+  "scale": [
+    "mit"
+  ],
+  "screen": [
+    "monitor",
+    "display"
+  ],
+  "search": [
+    "browse",
+    "explore"
+  ],
+  "send": [
+    "chat",
+    "plane"
+  ],
+  "settings": [
+    "adjustments"
+  ],
+  "share": [
+    "social"
+  ],
+  "share-arrow": [
+    "chevron"
+  ],
+  "share-arrow-alt": [
+    "chevron"
+  ],
+  "shield": [
+    "armor"
+  ],
+  "shield-check": [
+    "tick",
+    "armor",
+    "check mark"
+  ],
+  "shield-star": [
+    "armor",
+    "star"
+  ],
+  "shopping-cart": [
+    "checkout",
+    "trolley"
+  ],
+  "show": [
+    "eye",
+    "password",
+    "transform"
+  ],
+  "speaker": [
+    "sound"
+  ],
+  "speaker-off": [
+    "sound"
+  ],
+  "stack": [
+    "rectangles",
+    "layers"
+  ],
+  "star": [
+    "favorite",
+    "bookmark"
+  ],
+  "sun": [
+    "day",
+    "light mode"
+  ],
+  "swap": [
+    "trade",
+    "rounded"
+  ],
+  "tick": [
+    "check",
+    "done"
+  ],
+  "tick-circle": [
+    "check",
+    "done"
+  ],
+  "trade": [
+    "swap",
+    "arrows",
+    "chevrons",
+    "switch"
+  ],
+  "trash-can": [
+    "bin"
+  ]
 }

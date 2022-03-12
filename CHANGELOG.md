@@ -2,6 +2,10 @@
 
 All notable changes to Sveegy will be documented in this file.
 
+## [0.20.0] - 2022-03-12
+
+- Fetching icons from firebase
+
 ## [0.19.0] - 2022-03-06
 
 - Added svg sprites as an option to use sveegy-icons

@@ -5,7 +5,7 @@ Open-source website for free svg icons
 ### API
 
 ```http
-  POST /api/icons
+  GET /api/icons
 ```
 
 #### Request params
