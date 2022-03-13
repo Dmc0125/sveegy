@@ -2,6 +2,11 @@
 
 All notable changes to Sveegy will be documented in this file.
 
+## [0.20.1] - 2022-03-13
+
+- Removed `api/icons` route
+- Removed unnecessary path attributes formatting for jsx
+
 ## [0.20.0] - 2022-03-12
 
 - Fetching icons from firebase

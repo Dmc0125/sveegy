@@ -13,7 +13,7 @@ $: {
     throw `Icon ${iconName} not found... IconWrapper.svelte`
   }
 }
-$: iconPaths = createPaths(icon.paths, false, type)
+$: iconPaths = createPaths(icon.paths, type)
 
 let className = ''
 export { className as class }

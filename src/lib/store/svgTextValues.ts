@@ -25,5 +25,5 @@ export const svgTextWrappers = derived(
 ) as Readable<SvgTextWrappers>
 
 export const createSvgText = (wrappers: SvgTextWrappers, icon: Icon, iconType: IconType, mode: 'jsx' | 'html') => (
-  prettify(wrappers[mode].replace('{paths}', icon ? createPaths(icon.paths, mode === 'jsx', iconType) : ''))
+  prettify(wrappers[mode].replace('{paths}', icon ? createPaths(icon.paths, iconType) : ''))
 )

@@ -13,12 +13,12 @@ import copySvg from '$lib/utils/copySvg';
 $: iconType = $searchParams['icon-type']
 export let icon: Icon
 
-$: paths = createPaths(icon.paths, false, iconType)
+$: paths = createPaths(icon.paths, iconType)
 $: svgWrapper = createSvg(true, { className: 'w-20 h-20 text-gray-800 dark:text-slate-300 justify-self-center' }, false)
 $: svgHtml = svgWrapper.replace('{paths}', paths)
 
 const _copySvg = async (mode: 'jsx' | 'html') => {
-  const copyPaths = createPaths(icon.paths, mode === 'jsx', iconType)
+  const copyPaths = createPaths(icon.paths, iconType)
   const options = $usingClasses ? { className: $svgClass } : { size: $svgSize, color: $svgColor }
   const copySvgWrapper = createSvg($usingClasses, options, mode === 'jsx')
   const copySvgText = prettify(copySvgWrapper.replace('{paths}', copyPaths))

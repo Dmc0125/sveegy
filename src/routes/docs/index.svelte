@@ -21,7 +21,7 @@ const exampleHtml = `
 
 let mode: 'JSX' | 'HTML' = 'HTML'
 
-$: paths = createPaths(icon.paths, mode === 'JSX', 'stroke')
+$: paths = createPaths(icon.paths, 'stroke')
 
 $: iconWrapperWithoutClasses = createSvg(false, { size: '50px', color: 'red' }, mode === 'JSX')
 $: iconHtmlWithoutClasses = iconWrapperWithoutClasses.replace('{paths}', paths)

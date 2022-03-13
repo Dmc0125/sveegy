@@ -5,24 +5,24 @@ type StyleOptions = {
   color: string
 }
 
-const createStrokePaths = (paths: string[], jsx: boolean) => (
+const createStrokePaths = (paths: string[]) => (
   paths.reduce((content, path) => `
     ${content}
-    <path d="${path}" stroke="currentColor" stroke${jsx ? 'L' : '-l'}inecap="round" stroke${jsx ? 'L' : '-l'}inejoin="round" />
+    <path d="${path}" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
   `, '')
 )
 
-const createFillPaths = (paths: string[], jsx: boolean) => (
+const createFillPaths = (paths: string[]) => (
   paths.reduce((content, path) => `
     ${content}
-    <path fill${jsx ? 'R' : '-r'}ule="evenodd" d="${path}" fill="currentColor" />
+    <path fill-rule="evenodd" d="${path}" fill="currentColor" />
   `, '')
 )
 
-export const createPaths = (paths: string[], jsx: boolean, type: IconType) => (
+export const createPaths = (paths: string[], type: IconType) => (
   type === 'stroke'
-    ? createStrokePaths(paths, jsx)
-    : createFillPaths(paths, jsx)
+    ? createStrokePaths(paths)
+    : createFillPaths(paths)
 )
 
 const setNonClassAttrs = (jsx: boolean, { size, color }: StyleOptions) => (

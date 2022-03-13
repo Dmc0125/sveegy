@@ -2,7 +2,7 @@ import { createPaths } from './createSvgHtml'
 import type { IconType } from './icons'
 
 const createDownloadUrl = (_paths: string[], type: IconType) => {
-  const paths = createPaths(_paths, false, type)
+  const paths = createPaths(_paths, type)
 
   const file = new Blob([`
     <svg width="40px" height="40px" style="color: black" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
