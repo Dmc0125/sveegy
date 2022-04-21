@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import adapter from '@sveltejs/adapter-auto'
 import preprocess from 'svelte-preprocess'
 
@@ -10,12 +9,6 @@ const config = {
 
   kit: {
     adapter: adapter(),
-
-    // hydrate the <div id="svelte"> element in src/app.html
-
-    files: {
-      lib: 'src/lib',
-    },
   },
 }
 

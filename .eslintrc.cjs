@@ -1,49 +1,30 @@
 module.exports = {
-	root: true,
-	parser: '@typescript-eslint/parser',
-	extends: [
-		'eslint:recommended',
-		'airbnb',
-		'plugin:cypress/recommended',
-	],
-	plugins: [
-		'svelte3',
-		'cypress',
-	],
-	ignorePatterns: [
-		'*.cjs',
-	],
-	overrides: [
-		{
-			files: ['*.svelte'],
-			processor: 'svelte3/svelte3',
-		},
-	],
-	settings: {
-		'svelte3/typescript': () => require('typescript'),
-	},
-	parserOptions: {
-		sourceType: 'module',
-		ecmaVersion: 2020,
-	},
-	env: {
-		browser: true,
-		es2017: true,
-		node: true,
-	},
-	rules: {
-		semi: ['error', 'never'],
-    'no-undef': 'warn',
-    'import/extensions': 0,
+  root: true,
+  parser: '@typescript-eslint/parser',
+  extends: ['plugin:@typescript-eslint/recommended', 'prettier', 'airbnb-base'],
+  plugins: ['svelte3', '@typescript-eslint'],
+  overrides: [{ files: ['*.svelte'], processor: 'svelte3/svelte3' }],
+  settings: {
+    // eslint-disable-next-line global-require
+    'svelte3/typescript': () => require('typescript'),
+  },
+  parserOptions: {
+    sourceType: 'module',
+    ecmaVersion: 2020,
+  },
+  env: {
+    browser: true,
+    es2017: true,
+    node: true,
+  },
+  rules: {
+    semi: ['error', 'never'],
     'import/no-unresolved': 0,
-    'import/prefer-default-export': 0,
-    '@typescript-eslint/explicit-module-boundary-types': 0,
+    'import/extensions': 0,
+    'no-unused-vars': 'warn',
+    'function-paren-newline': 0,
+    'import/no-extraneous-dependencies': 0,
     'no-underscore-dangle': 0,
-    'vue/multi-word-component-names': 0,
-    'max-len': ['error', { code: 150 }],
-    '@typescript-eslint/ban-ts-comment': 0,
-		'import/no-extraneous-dependencies': 0,
-		'no-param-reassign': 0,
-		'prefer-regex-literals': 0,
-	},
-};
+    'max-len': ['error', { code: 120 }],
+  },
+}

@@ -2,6 +2,10 @@
 
 All notable changes to Sveegy will be documented in this file.
 
+## [1.0.0] - 2022-4-21
+
+- Changed the design of the page
+
 ## [0.20.1] - 2022-03-13
 
 - Removed `api/icons` route

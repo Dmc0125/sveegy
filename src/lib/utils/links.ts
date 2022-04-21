@@ -1,26 +1,57 @@
 export default [
   {
-    path: '/',
-    matcher: /(\/)$/,
-    name: 'Home',
-    icon: 'home',
+    title: 'Home',
+    href: '/',
+    matcher: /^\/$/,
+    iconId: 'home',
   },
   {
-    path: '/icons',
-    matcher: /(\/icons)$/,
-    name: 'Icons',
-    icon: 'assets',
+    title: 'Icons',
+    href: '/icons',
+    matcher: '/icons',
+    iconId: 'assets',
   },
   {
-    path: '/docs',
-    matcher: /(\/docs)/,
-    name: 'Docs',
-    icon: 'book',
+    title: 'Docs',
+    href: '/docs/sprites',
+    matcher: /\/docs\/(.)*/,
+    iconId: 'license',
   },
   {
-    path: '/license',
-    matcher: /(\/license)$/,
-    name: 'License',
-    icon: 'license',
+    title: 'License',
+    href: '/license',
+    matcher: '/license',
+    iconId: 'scale',
+  },
+]
+
+export const docs = [
+  {
+    title: 'Sprites',
+    href: '/docs/sprites',
+    matcher: /\/docs\/sprites/,
+    children: [
+      'Usage',
+    ],
+  },
+  {
+    title: 'Svelte',
+    href: '/docs/svelte',
+    matcher: /\/docs\/svelte/,
+    children: [
+      'Installation',
+      'Usage',
+      'Props',
+    ],
+  },
+  {
+    title: 'Vue',
+    href: '/docs/vue',
+    matcher: /\/docs\/vue/,
+    children: [
+      'Installation',
+      'Usage',
+      'Props',
+    ],
   },
 ]

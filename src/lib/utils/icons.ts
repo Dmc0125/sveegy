@@ -1,45 +1,52 @@
-import iconsStroke from '../../assets/iconsStroke.json'
-import iconsFill from '../../assets/iconsFill.json'
-import variations from '../../assets/variations.json'
+import type { LoadInput } from '@sveltejs/kit/types/internal'
+
+type CachedIconData = {
+  stroke: Record<string, string[]> | null
+  fill: Record<string, string[]> | null
+  variations: Record<string, string[]> | null
+}
+
+export const cachedIconData: CachedIconData = {
+  stroke: null,
+  fill: null,
+  variations: null,
+}
+
+export const getIconsPaths = (_type: keyof CachedIconData) => cachedIconData[_type]
+export const getIconPaths = (_type: keyof CachedIconData, id: string) => cachedIconData[_type][id]
+export const getIconVariations = (id: string) => cachedIconData.variations[id]
+
+export const fetchIconData = async (path: keyof typeof cachedIconData, _fetch: LoadInput['fetch']) => {
+  const res = await _fetch(`/icons/${path}.json`)
+  const data = await res.json()
+  cachedIconData[path] = data
+}
 
 export type IconType = 'stroke' | 'fill'
 
-export type Icon = {
-  id: string
-  paths: string[]
-  variations: string[]
+type CreateOptions = {
+  clr: string
+  size: string
 }
 
-const createIconsWithVariations = (_icons: { id: string; paths: string[] }[]) => _icons.map((icon) => (
-  {
-    ...icon,
-    variations: variations[icon.id] as string[],
-  }
-))
-
-const iconsWithVariations = {
-  stroke: createIconsWithVariations(iconsStroke),
-  fill: createIconsWithVariations(iconsFill),
+const createAttrs = {
+  stroke: (path: string, clr: string) => (
+    `stroke-linecap="round" stroke-linejoin="round" stroke="${clr}" d="${path}"`
+  ),
+  fill: (path: string, clr: string) => (
+    `d="${path}" fill="${clr}" fill-rule="evenodd"`
+  ),
 }
 
-const getIcon = (name: string, type: IconType) => iconsWithVariations[type].find(({ id }) => id === name) as Icon | undefined
-const filterIcons = (searchTerm: string, type: IconType) => {
-  if (!searchTerm.length) {
-    return iconsWithVariations[type]
-  }
+export const createSvgElement = (paths: string[], type: IconType, options: CreateOptions) => {
+  const { clr, size } = options
 
-  const searchTermRegex = new RegExp(searchTerm)
-  return iconsWithVariations[type]
-    .filter(({ id, variations: iconVariations }) => id.match(searchTermRegex) || iconVariations.some((variation) => variation.match(searchTermRegex)))
+  return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none">
+  ${paths.map((path) => `<path ${createAttrs[type](path, clr)} />`).join('\n  ')}
+</svg>`
 }
 
-export {
-  getIcon,
-  iconsWithVariations as icons,
-  filterIcons,
-}
-
-export const iconInformation = {
-  stroke: 'All icons are using 24x24 view box. Stroke size of stroke icons can be adjusted width stroke-width attribute.',
-  fill: 'All icons are using 24x24 view box. Size of filled icons is adjusted to size, width and height of the icon wrapper.',
+export const createDownloadableSvg = (paths: string[], type: IconType) => {
+  const file = new Blob([createSvgElement(paths, type, { clr: 'black', size: '40px' })], { type: 'image/svg+xml' })
+  return URL.createObjectURL(file)
 }
