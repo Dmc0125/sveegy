@@ -7,7 +7,7 @@
   import UsageIllustration from '$lib/components/illustrations/UsageIllustration.svelte'
   import FrameworksIllustration from '$lib/components/illustrations/FrameworksIllustration.svelte'
   import Button from '$lib/components/utils/Button.svelte'
-import SpritesIllustration from '$lib/components/illustrations/SpritesIllustration.svelte'
+  import SpritesIllustration from '$lib/components/illustrations/SpritesIllustration.svelte'
 </script>
 
 <svelte:head>
@@ -18,7 +18,7 @@ import SpritesIllustration from '$lib/components/illustrations/SpritesIllustrati
 <main class="landing-hero">
   <div class="landing-hero__text">
     <h1 class="landing-hero__heading">Sveegy</h1>
-    <h2 class="landing-hero__subheading">Beautiful open-source icon sets usable with just few clicks, even offline.</h2>
+    <h2 class="landing-hero__subheading">Beautiful open-source icon sets usable with just few clicks.</h2>
 
     <section class="landing-hero__supported-langs">
       <LangGroup lang="html" />
@@ -204,7 +204,7 @@ import SpritesIllustration from '$lib/components/illustrations/SpritesIllustrati
       }
 
       &__scroll-indicator {
-        display: inherit
+        display: inherit;
       }
     }
 
